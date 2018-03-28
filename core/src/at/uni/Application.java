@@ -14,7 +14,7 @@ public class Application extends Game {
 	public static final int VIEWPORT_HEIGHT = 480;
 	public static final int FPS = 60;
 
-	public static final float STEP = 1f / (float) 60;
+	public static final float STEP = 1f / (float) FPS;
 
 	private SpriteBatch spriteBatch;
 
