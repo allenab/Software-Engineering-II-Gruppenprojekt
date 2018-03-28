@@ -11,4 +11,20 @@ public abstract class GameObject {
 
     public abstract Body getBody();
 
+
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public void setPosition(float x, float y) {
+        this.position = new Vector2(x, y);
+    }
+
+    public Rectangle getBounds() {
+        return bounds;
+    }
+
+    public void setBounds(Rectangle bounds) {
+        this.bounds = bounds;
+    }
 }
