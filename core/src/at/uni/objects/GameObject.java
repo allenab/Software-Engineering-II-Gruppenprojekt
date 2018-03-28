@@ -1,23 +1,14 @@
 package at.uni.objects;
 
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+
 public abstract class GameObject {
 
-    protected float x;
-    protected float y;
+    protected Vector2 position;
+    protected Rectangle bounds;
 
-    public float getX() {
-        return x;
-    }
+    public abstract Body getBody();
 
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public void setY(float y) {
-        this.y = y;
-    }
 }
