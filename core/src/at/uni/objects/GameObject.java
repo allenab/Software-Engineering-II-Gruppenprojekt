@@ -1,15 +1,23 @@
 package at.uni.objects;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+
+import at.uni.utils.InputData;
 
 public abstract class GameObject {
 
     protected Vector2 position;
     protected Rectangle bounds;
+    protected Body body;
 
     public abstract void load(World world);
+    public abstract void handleInput(InputData data);
+    public abstract void update();
+    public abstract void render(SpriteBatch sb);
 
     public Vector2 getPosition() {
         return position;
@@ -26,4 +34,6 @@ public abstract class GameObject {
     public void setBounds(Rectangle bounds) {
         this.bounds = bounds;
     }
+
+    public Body getBody() { return body; }
 }

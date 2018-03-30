@@ -1,11 +1,14 @@
 package at.uni;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import at.uni.handlers.GameInputProcessor;
 import at.uni.handlers.GameScreenManager;
 import at.uni.utils.Assets;
+import at.uni.utils.InputData;
 
 public class Application extends Game {
 
@@ -19,6 +22,7 @@ public class Application extends Game {
 	private SpriteBatch spriteBatch;
 
 	private GameScreenManager gameScreenManager;
+	private GameInputProcessor gameInputProcessor;
 	private AssetManager assetManager;
 
 	public SpriteBatch getSpriteBatch(){
@@ -36,6 +40,9 @@ public class Application extends Game {
 		assetManager = new AssetManager();
 		Assets.loadAssets(assetManager);
 
+		gameInputProcessor = new GameInputProcessor();
+		Gdx.input.setInputProcessor(gameInputProcessor);
+
 		gameScreenManager = new GameScreenManager(this);
 		gameScreenManager.setScreen(GameScreenManager.STATE.PLAY);
 	}
@@ -43,6 +50,7 @@ public class Application extends Game {
 	@Override
 	public void render(){
 		super.render();
+		InputData.update();
 	}
 
 	@Override

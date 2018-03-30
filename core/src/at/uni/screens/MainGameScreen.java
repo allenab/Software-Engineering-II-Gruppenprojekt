@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.sun.corba.se.impl.oa.poa.POAPolicyMediatorImpl_R_USM;
 
 import at.uni.Application;
+import at.uni.utils.InputData;
 
 import static at.uni.utils.Box2DVars.PPM;
 
@@ -58,13 +59,18 @@ public class MainGameScreen extends AbstractScreen {
 
     @Override
     public void handleInput() {
-
+        if(InputData.isButtonPressed(InputData.Button.Forward)){
+            System.out.println("UP");
+        }
+        if(InputData.isButtonDown(InputData.Button.Backward)){
+            System.out.println("DOWN");
+        }
     }
 
     @Override
     public void update(float deltatime) {
+        handleInput();
         world.step(Application.STEP, 6,2);
-
     }
 
     @Override
