@@ -5,10 +5,10 @@ import java.util.Map;
 
 public class InputData {
 
-    private static Map<Button, Boolean> states;
-    private static Map<Button, Boolean> oldState;
+    private static Map<Key, Boolean> states;
+    private static Map<Key, Boolean> oldState;
 
-    public enum Button{
+    public enum Key{
         Forward,
         Backward,
         Right,
@@ -16,14 +16,14 @@ public class InputData {
     }
 
     static {
-        states = new HashMap<Button, Boolean>();
-        oldState = new HashMap<Button, Boolean>();
+        states = new HashMap<Key, Boolean>();
+        oldState = new HashMap<Key, Boolean>();
         init();
     }
 
     private static void init(){
 
-        for(Button btn : Button.values()){
+        for(Key btn : Key.values()){
             states.put(btn, false);
             oldState.put(btn, false);
         }
@@ -31,21 +31,21 @@ public class InputData {
     }
 
     public static void update(){
-        for(Button btn : Button.values()){
-            oldState.put(btn, states.get(btn));
+        for(Key k : Key.values()){
+            oldState.put(k, states.get(k));
         }
     }
 
-    public static void setButtonState(Button btn, boolean state){
-        states.put(btn, state);
+    public static void setKeyState(Key k, boolean state){
+        states.put(k, state);
     }
 
-    public static boolean isButtonDown(Button btn){
-        return states.get(btn);
+    public static boolean isKeyDown(Key k){
+        return states.get(k);
     }
 
-    public static boolean isButtonPressed(Button btn){
-        return states.get(btn) && !oldState.get(btn);
+    public static boolean isKeyPressed(Key k){
+        return states.get(k) && !oldState.get(k);
     }
 
 }

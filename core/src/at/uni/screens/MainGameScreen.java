@@ -9,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.sun.corba.se.impl.oa.poa.POAPolicyMediatorImpl_R_USM;
 
 import at.uni.Application;
 import at.uni.utils.InputData;
@@ -59,10 +58,10 @@ public class MainGameScreen extends AbstractScreen {
 
     @Override
     public void handleInput() {
-        if(InputData.isButtonPressed(InputData.Button.Forward)){
+        if(InputData.isKeyPressed(InputData.Button.Forward)){
             System.out.println("UP");
         }
-        if(InputData.isButtonDown(InputData.Button.Backward)){
+        if(InputData.isKeyDown(InputData.Button.Backward)){
             System.out.println("DOWN");
         }
     }

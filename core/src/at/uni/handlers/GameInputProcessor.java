@@ -1,54 +1,55 @@
 package at.uni.handlers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 
 import at.uni.utils.InputData;
-import at.uni.utils.InputData.Button;
+import at.uni.utils.InputData.Key;
 
 public class GameInputProcessor implements InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode){
             case Keys.UP:
-                InputData.setButtonState(Button.Forward, true);
+                InputData.setKeyState(Key.Forward, true);
                 break;
 
             case Keys.DOWN:
-                InputData.setButtonState(Button.Backward, true);
+                InputData.setKeyState(Key.Backward, true);
                 break;
 
             case Keys.LEFT:
-                InputData.setButtonState(Button.Left, true);
+                InputData.setKeyState(Key.Left, true);
                 break;
 
             case Keys.RIGHT:
-                InputData.setButtonState(Button.Right, true);
+                InputData.setKeyState(Key.Right, true);
                 break;
         }
-        return false;
+        return true;
     }
 
     @Override
     public boolean keyUp(int keycode) {
         switch (keycode){
             case Keys.UP:
-                InputData.setButtonState(Button.Forward, false);
+                InputData.setKeyState(Key.Forward, false);
                 break;
 
             case Keys.DOWN:
-                InputData.setButtonState(Button.Backward, false);
+                InputData.setKeyState(Key.Backward, false);
                 break;
 
             case Keys.LEFT:
-                InputData.setButtonState(Button.Left, false);
+                InputData.setKeyState(Key.Left, false);
                 break;
 
             case Keys.RIGHT:
-                InputData.setButtonState(Button.Right, false);
+                InputData.setKeyState(Key.Right, false);
                 break;
         }
-        return false;
+        return true;
     }
 
     @Override
