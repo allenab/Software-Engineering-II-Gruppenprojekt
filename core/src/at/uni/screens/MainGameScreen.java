@@ -58,17 +58,16 @@ public class MainGameScreen extends AbstractScreen {
 
     @Override
     public void handleInput() {
-        if(InputData.isKeyPressed(InputData.Button.Forward)){
+        if(InputData.isKeyPressed(InputData.Key.Forward)){
             System.out.println("UP");
         }
-        if(InputData.isKeyDown(InputData.Button.Backward)){
+        if(InputData.isKeyDown(InputData.Key.Backward)){
             System.out.println("DOWN");
         }
     }
 
     @Override
     public void update(float deltatime) {
-        handleInput();
         world.step(Application.STEP, 6,2);
     }
 

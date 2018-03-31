@@ -19,6 +19,7 @@ public abstract class AbstractScreen implements Screen {
 
     @Override
     public void render(float deltatime){
+        handleInput();
         update(deltatime);
         render(application.getSpriteBatch());
     }
