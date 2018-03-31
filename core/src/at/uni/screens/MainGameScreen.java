@@ -13,7 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import at.uni.Application;
 import at.uni.utils.InputData;
 
-import static at.uni.utils.Box2DVars.PPM;
+import static at.uni.utils.Box2DHelper.PPM;
 
 
 public class MainGameScreen extends AbstractScreen {

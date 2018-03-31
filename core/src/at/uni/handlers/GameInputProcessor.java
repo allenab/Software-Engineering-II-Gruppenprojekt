@@ -59,12 +59,26 @@ public class GameInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
+        if(pointer > 0){
+            InputData.setTouchPoint(pointer, screenX, screenY);
+        } else if(button > 0){
+            InputData.setTouchPoint(button, screenX, screenY);
+        } else {
+            InputData.setTouchPoint(0, screenX, screenY);
+        }
+        return true;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
+        if(pointer > 0){
+            InputData.setReleasePoint(pointer, screenX, screenY);
+        } else if(button > 0){
+            InputData.setReleasePoint(button, screenX, screenY);
+        } else {
+            InputData.setReleasePoint(0, screenX, screenY);
+        }
+        return true;
     }
 
     @Override
