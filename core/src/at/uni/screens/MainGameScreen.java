@@ -1,13 +1,11 @@
 package at.uni.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import at.uni.Application;
@@ -15,7 +13,6 @@ import at.uni.objects.Player;
 import at.uni.utils.InputData;
 
 import static at.uni.utils.Box2DHelper.PPM;
-
 
 public class MainGameScreen extends AbstractScreen {
 
@@ -50,13 +47,15 @@ public class MainGameScreen extends AbstractScreen {
 
     @Override
     public void handleInput() {
+        // Zurzeit beschleunigt der Player ohne maximale Geschwindigkeit
+        // werde das in Kürze fixen
         if(InputData.isKeyDown(InputData.Key.Forward)){
             System.out.println("UP");
-            player.getBody().applyLinearImpulse(new Vector2(0, 2), player.getBody().getWorldCenter(), true);
+            player.getBody().applyLinearImpulse(new Vector2(0, 1), player.getBody().getWorldCenter(), true);
         }
         if(InputData.isKeyDown(InputData.Key.Backward)){
             System.out.println("DOWN");
-            player.getBody().applyLinearImpulse(new Vector2(0, -30), player.getBody().getWorldCenter(), true);
+            player.getBody().applyLinearImpulse(new Vector2(0, -1), player.getBody().getWorldCenter(), true);
         }
         if(InputData.isKeyDown(InputData.Key.Left)){
             System.out.println("LEFT");
@@ -76,6 +75,8 @@ public class MainGameScreen extends AbstractScreen {
 
     @Override
     public void render(SpriteBatch sb) {
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         b2dr.render(world, b2dCamera.combined);
 
         sb.begin();
