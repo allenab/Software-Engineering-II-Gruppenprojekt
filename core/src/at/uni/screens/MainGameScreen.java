@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import at.uni.Application;
+import at.uni.objects.Player;
 import at.uni.utils.InputData;
 
 import static at.uni.utils.Box2DHelper.PPM;
@@ -22,6 +23,8 @@ public class MainGameScreen extends AbstractScreen {
     private OrthographicCamera b2dCamera;
     private World world;
     private Box2DDebugRenderer b2dr;
+
+    private Player player;
 
     public MainGameScreen(Application application) {
         super(application);
@@ -41,18 +44,8 @@ public class MainGameScreen extends AbstractScreen {
     public void show() {
         //application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(100 / PPM,100 / PPM);
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-
-        Body body = world.createBody(bodyDef);
-
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(25 / PPM,25 / PPM);
-
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = shape;
-        body.createFixture(fixtureDef);
+        this.player = new Player();
+        player.load(world);
 
     }
 
@@ -74,7 +67,7 @@ public class MainGameScreen extends AbstractScreen {
     @Override
     public void render(SpriteBatch sb) {
         b2dr.render(world, b2dCamera.combined);
-
+        player.render(sb);
     }
 
     @Override

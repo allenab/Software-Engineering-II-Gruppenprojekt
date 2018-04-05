@@ -44,7 +44,7 @@ public class Application extends Game {
 		Gdx.input.setInputProcessor(gameInputProcessor);
 
 		gameScreenManager = new GameScreenManager(this);
-		gameScreenManager.setScreen(GameScreenManager.STATE.MAIN_MENU);
+		gameScreenManager.setScreen(GameScreenManager.STATE.PLAY);
 	}
 
 	@Override
