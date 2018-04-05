@@ -47,23 +47,23 @@ public class MainGameScreen extends AbstractScreen {
 
     @Override
     public void handleInput() {
-        // Zurzeit beschleunigt der Player ohne maximale Geschwindigkeit
-        // werde das in Kürze fixen
+        player.getBody().setLinearVelocity(0, 0);
+
         if(InputData.isKeyDown(InputData.Key.Forward)){
             System.out.println("UP");
-            player.getBody().applyLinearImpulse(new Vector2(0, 1), player.getBody().getWorldCenter(), true);
+            player.getBody().applyLinearImpulse(new Vector2(0, 2), player.getBody().getWorldCenter(), true);
         }
         if(InputData.isKeyDown(InputData.Key.Backward)){
             System.out.println("DOWN");
-            player.getBody().applyLinearImpulse(new Vector2(0, -1), player.getBody().getWorldCenter(), true);
+            player.getBody().applyLinearImpulse(new Vector2(0, -2), player.getBody().getWorldCenter(), true);
         }
         if(InputData.isKeyDown(InputData.Key.Left)){
             System.out.println("LEFT");
-            player.getBody().applyLinearImpulse(new Vector2(-1, 0), player.getBody().getWorldCenter(), true);
+            player.getBody().applyLinearImpulse(new Vector2(-2, 0), player.getBody().getWorldCenter(), true);
         }
         if(InputData.isKeyDown(InputData.Key.Right)){
             System.out.println("RIGHT");
-            player.getBody().applyLinearImpulse(new Vector2(1, 0), player.getBody().getWorldCenter(), true);
+            player.getBody().applyLinearImpulse(new Vector2(2, 0), player.getBody().getWorldCenter(), true);
         }
     }
 
