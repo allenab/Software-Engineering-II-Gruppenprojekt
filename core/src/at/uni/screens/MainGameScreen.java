@@ -44,30 +44,40 @@ public class MainGameScreen extends AbstractScreen {
     public void show() {
         //application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
-        this.player = new Player();
-        player.load(world);
+        this.player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM);
 
     }
 
     @Override
     public void handleInput() {
-        if(InputData.isKeyPressed(InputData.Key.Forward)){
+        if(InputData.isKeyDown(InputData.Key.Forward)){
             System.out.println("UP");
         }
         if(InputData.isKeyDown(InputData.Key.Backward)){
             System.out.println("DOWN");
         }
+        if(InputData.isKeyDown(InputData.Key.Left)){
+            System.out.println("LEFT");
+            player.getBody().applyLinearImpulse(new Vector2(-1, 0), player.getBody().getWorldCenter(), true);
+        }
+        if(InputData.isKeyDown(InputData.Key.Right)){
+            System.out.println("RIGHT");
+        }
     }
 
     @Override
     public void update(float deltatime) {
+        player.update();
         world.step(Application.STEP, 6,2);
     }
 
     @Override
     public void render(SpriteBatch sb) {
         b2dr.render(world, b2dCamera.combined);
-        player.render(sb);
+
+        sb.begin();
+        sb.draw(player, player.getX() - player.getHeight() / 2, player.getY() - player.getWidth() / 2);
+        sb.end();
     }
 
     @Override
