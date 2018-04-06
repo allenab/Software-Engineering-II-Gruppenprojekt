@@ -99,8 +99,9 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         // hier wird der Spieler 'gezeichnet'
         sb.begin();
         sb.draw(player, player.getX() - player.getHeight() / 2, player.getY() - player.getWidth() / 2);
-        sb.draw(player2ForCollisionTesting, player2ForCollisionTesting.getX() - player2ForCollisionTesting.getHeight() / 2,
-                player2ForCollisionTesting.getY() - player2ForCollisionTesting.getWidth() / 2);
+            //Testobjekt - wird beschleunigt weil es ein DynamicType ist.
+            sb.draw(player2ForCollisionTesting, player2ForCollisionTesting.getX() - player2ForCollisionTesting.getHeight() / 2,
+                    player2ForCollisionTesting.getY() - player2ForCollisionTesting.getWidth() / 2);
         sb.end();
     }
 
