@@ -41,14 +41,17 @@ public class MainGameScreen extends AbstractScreen {
     public void show() {
         //application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
+        // erzeugt einen Spieler
         this.player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM);
 
     }
 
     @Override
     public void handleInput() {
+        // da wir keine Beschleunigung wollen, Normalisieren wir die Geschw.
         player.getBody().setLinearVelocity(0, 0);
 
+        // Tastatur-Input Section - Markus
         if(InputData.isKeyDown(InputData.Key.Forward)){
             System.out.println("UP");
             player.getBody().applyLinearImpulse(new Vector2(0, 2), player.getBody().getWorldCenter(), true);
@@ -65,6 +68,7 @@ public class MainGameScreen extends AbstractScreen {
             System.out.println("RIGHT");
             player.getBody().applyLinearImpulse(new Vector2(2, 0), player.getBody().getWorldCenter(), true);
         }
+        // Ende Tastatur-Input
     }
 
     @Override
@@ -79,6 +83,7 @@ public class MainGameScreen extends AbstractScreen {
 
         b2dr.render(world, b2dCamera.combined);
 
+        // hier wird der Spieler 'gezeichnet'
         sb.begin();
         sb.draw(player, player.getX() - player.getHeight() / 2, player.getY() - player.getWidth() / 2);
         sb.end();

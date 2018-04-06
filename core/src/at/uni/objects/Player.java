@@ -10,6 +10,9 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import static at.uni.utils.Box2DHelper.PPM;
 
+// erzeugt von Markus
+// Extended Sprite und NICHT GameObject, bitte daweil so lassen
+
 public class Player extends Sprite {
 
     private World world;
@@ -22,6 +25,7 @@ public class Player extends Sprite {
         createBody();
     }
 
+    //erzeugt den "Körper", auf dem Physics wirken
     private void createBody(){
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(100 / PPM,100 / PPM);
@@ -45,5 +49,9 @@ public class Player extends Sprite {
 
     public Body getBody() {
         return body;
+    }
+
+    public void dispose(){
+
     }
 }
