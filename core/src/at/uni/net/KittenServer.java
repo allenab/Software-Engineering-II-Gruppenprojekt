@@ -20,17 +20,11 @@ public class KittenServer {
             server.bind(PORT);
             server.addListener(new ServerListener());
 
-            registerPackets();
+            KryoHelper.registerPackets(server.getKryo());
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void registerPackets() {
-        Kryo kryo = server.getKryo();
-        kryo.register(MessageRequest.class);
-        kryo.register(MessageResponse.class);
     }
 
 }
