@@ -1,5 +1,6 @@
 package at.uni.objects;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -13,11 +14,13 @@ public abstract class GameObject {
     protected Vector2 position;
     protected Rectangle bounds;
     protected Body body;
+    protected Texture texture;
 
     public abstract void load(World world);
     public abstract void handleInput(InputData data);
     public abstract void update();
     public abstract void render(SpriteBatch sb);
+    public abstract void dispose();
 
     public Vector2 getPosition() {
         return position;
