@@ -59,27 +59,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
 
     @Override
     public void handleInput() {
-        // da wir keine Beschleunigung wollen, Normalisieren wir die Geschw.
-        player.getBody().setLinearVelocity(0, 0);
-
-        // Tastatur-Input Section - Markus
-        if(InputData.isKeyDown(InputData.Key.Forward)){
-            System.out.println("UP");
-            player.getBody().applyLinearImpulse(new Vector2(0, 2), player.getBody().getWorldCenter(), true);
-        }
-        if(InputData.isKeyDown(InputData.Key.Backward)){
-            System.out.println("DOWN");
-            player.getBody().applyLinearImpulse(new Vector2(0, -2), player.getBody().getWorldCenter(), true);
-        }
-        if(InputData.isKeyDown(InputData.Key.Left)){
-            System.out.println("LEFT");
-            player.getBody().applyLinearImpulse(new Vector2(-2, 0), player.getBody().getWorldCenter(), true);
-        }
-        if(InputData.isKeyDown(InputData.Key.Right)){
-            System.out.println("RIGHT");
-            player.getBody().applyLinearImpulse(new Vector2(2, 0), player.getBody().getWorldCenter(), true);
-        }
-        // Ende Tastatur-Input
+        player.handleInput();
     }
 
     @Override

@@ -2,12 +2,15 @@ package at.uni.objects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+
+import at.uni.utils.InputData;
 
 import static at.uni.utils.Box2DHelper.PPM;
 
@@ -47,6 +50,26 @@ public class Player extends Sprite {
 
     public void update(){
         this.setPosition(body.getPosition().x * PPM, body.getPosition().y * PPM);
+    }
+
+    public void handleInput(){
+        // da wir keine Beschleunigung wollen, Normalisieren wir die Geschw.
+        body.setLinearVelocity(0, 0);
+
+        // Tastatur-Input Section - Markus
+        if(InputData.isKeyDown(InputData.Key.Forward)){
+            body.applyLinearImpulse(new Vector2(0, 2), body.getWorldCenter(), true);
+        }
+        if(InputData.isKeyDown(InputData.Key.Backward)){
+            body.applyLinearImpulse(new Vector2(0, -2), body.getWorldCenter(), true);
+        }
+        if(InputData.isKeyDown(InputData.Key.Left)){
+            body.applyLinearImpulse(new Vector2(-2, 0), body.getWorldCenter(), true);
+        }
+        if(InputData.isKeyDown(InputData.Key.Right)){
+            body.applyLinearImpulse(new Vector2(2, 0), body.getWorldCenter(), true);
+        }
+        // Ende Tastatur-Input
     }
 
     public Body getBody() {
