@@ -3,7 +3,7 @@ package at.uni.net;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
-import at.uni.net.packages.response.MessageResponse;
+import at.uni.net.packets.response.MessageResponse;
 
 public class ClientListener extends Listener {
 
