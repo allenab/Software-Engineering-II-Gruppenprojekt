@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
 import at.uni.Application;
+import at.uni.objects.Map;
 import at.uni.objects.Player;
 import at.uni.utils.InputData;
 
@@ -28,6 +29,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
 
     private Player player;
     private Player player2ForCollisionTesting;
+    private Map map;
 
     public MainGameScreen(Application application) {
         super(application);
@@ -44,6 +46,8 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
 
         // ContactListener ist unsere MainGameScreen Klasse
         world.setContactListener(this);
+
+
     }
 
     @Override
@@ -54,6 +58,8 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         this.player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM);
 
         player2ForCollisionTesting = new Player(world, "bomberman.png", 400 / PPM, 400 / PPM);
+        map = new Map();
+        map.load(world);
 
     }
 
@@ -67,6 +73,8 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         player.update();
         player2ForCollisionTesting.update();
 
+        map.update();
+
         world.step(Application.STEP, 6,2);
     }
 
@@ -75,6 +83,8 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         b2dr.render(world, b2dCamera.combined);
+
+        map.render(sb);
 
         // hier wird der Spieler 'gezeichnet'
         sb.begin();
@@ -87,7 +97,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
 
     @Override
     public void dispose() {
-
+        map.dispose();
     }
 
     // METHODEN FUER DIE COLLISION DETECTION
