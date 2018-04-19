@@ -39,7 +39,7 @@ public class ChatScreen extends AbstractScreen {
     }
 
     @Override
-    public void show() {
+    public void load() {
         super.show();
         application.getSpriteBatch().setProjectionMatrix(camera.combined);
 

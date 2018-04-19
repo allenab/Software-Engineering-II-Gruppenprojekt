@@ -15,6 +15,11 @@ public class ChatServerScreen extends AbstractScreen {
     }
 
     @Override
+    public void load() {
+
+    }
+
+    @Override
     public void handleInput() {
 
     }
@@ -26,11 +31,6 @@ public class ChatServerScreen extends AbstractScreen {
 
     @Override
     public void render(SpriteBatch sb) {
-
-    }
-
-    @Override
-    public void show() {
 
     }
 

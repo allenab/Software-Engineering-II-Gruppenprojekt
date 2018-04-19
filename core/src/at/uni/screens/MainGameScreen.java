@@ -51,7 +51,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     }
 
     @Override
-    public void show() {
+    public void load() {
         //application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
         // erzeugt einen Spieler
@@ -60,7 +60,6 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         player2ForCollisionTesting = new Player(world, "bomberman.png", 400 / PPM, 400 / PPM);
         map = new Map();
         map.load(world);
-
     }
 
     @Override

@@ -24,11 +24,8 @@ public class MainMenuScreen extends AbstractScreen {
     }
 
     @Override
-    public void show() {
+    public void load() {
         application.getSpriteBatch().setProjectionMatrix(camera.combined);
-
-
-        super.show();
     }
 
     @Override
