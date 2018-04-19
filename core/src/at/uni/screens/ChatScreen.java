@@ -82,9 +82,7 @@ public class ChatScreen extends AbstractScreen {
     }
 
     @Override
-    public void dispose() {
-        super.dispose();
+    public void unload() {
         font.dispose();
-
     }
 }

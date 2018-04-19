@@ -30,6 +30,7 @@ public abstract class AbstractScreen implements Screen {
     public abstract void update(float deltatime);
     public abstract void render(SpriteBatch sb);
     public abstract void load();
+    public abstract void unload();
 
     @Override
     public void show() {
@@ -71,7 +72,7 @@ public abstract class AbstractScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        unload();
         stage.dispose();
     }
 }

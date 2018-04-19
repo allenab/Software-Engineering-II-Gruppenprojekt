@@ -35,8 +35,7 @@ public class ChatServerScreen extends AbstractScreen {
     }
 
     @Override
-    public void dispose() {
-        super.dispose();
+    public void unload() {
 
     }
 }

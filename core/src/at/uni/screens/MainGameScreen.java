@@ -95,7 +95,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     }
 
     @Override
-    public void dispose() {
+    public void unload() {
         map.dispose();
     }
 

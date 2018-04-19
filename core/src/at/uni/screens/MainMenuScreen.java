@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 import at.uni.Application;
-import at.uni.utils.InputData;
 
 public class MainMenuScreen extends AbstractScreen {
 
@@ -46,7 +45,7 @@ public class MainMenuScreen extends AbstractScreen {
     }
 
     @Override
-    public void dispose() {
+    public void unload() {
         font.dispose();
     }
 }
