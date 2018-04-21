@@ -43,6 +43,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         b2dr = new Box2DDebugRenderer();
 
         world = new World(new Vector2(0f, 0f), true);
+        map = new Map();
 
         // ContactListener ist unsere MainGameScreen Klasse
         world.setContactListener(this);
@@ -58,7 +59,6 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         this.player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM);
 
         player2ForCollisionTesting = new Player(world, "bomberman.png", 400 / PPM, 400 / PPM);
-        map = new Map();
         map.load(world);
     }
 
