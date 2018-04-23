@@ -47,7 +47,6 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         // ContactListener ist unsere MainGameScreen Klasse
         world.setContactListener(this);
 
-
     }
 
     @Override
@@ -57,20 +56,20 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         // erzeugt einen Spieler
         this.player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM);
 
-        player2ForCollisionTesting = new Player(world, "bomberman.png", 400 / PPM, 400 / PPM);
+        //player2ForCollisionTesting = new Player(world, "bomberman.png", Map.GRIDSIZE * (Map.NUM_COLUMS - 1), 100 / PPM);
         map = new Map();
         map.load(world);
     }
 
     @Override
     public void handleInput() {
-        player.handleInput();
+        player.handleInput(new InputData());
     }
 
     @Override
     public void update(float deltatime) {
         player.update();
-        player2ForCollisionTesting.update();
+        //player2ForCollisionTesting.update();
 
         map.update();
 
@@ -85,12 +84,14 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
 
         map.render(sb);
 
+        player.render(sb);
+
         // hier wird der Spieler 'gezeichnet'
         sb.begin();
-        sb.draw(player, player.getX() - player.getHeight() / 2, player.getY() - player.getWidth() / 2);
+        sb.draw(player.getTexture(), player.getPosition().x - player.getBounds().height / 2, player.getPosition().y - player.getBounds().width / 2);
             //Testobjekt - wird beschleunigt weil es ein DynamicType ist.
-            sb.draw(player2ForCollisionTesting, player2ForCollisionTesting.getX() - player2ForCollisionTesting.getHeight() / 2,
-                    player2ForCollisionTesting.getY() - player2ForCollisionTesting.getWidth() / 2);
+            //sb.draw(player2ForCollisionTesting.getTexture(), player2ForCollisionTesting.getBody().getPosition().x - player2ForCollisionTesting.getBounds().height / 2,
+                  //  player2ForCollisionTesting.getPosition().y - player2ForCollisionTesting.getBounds().width / 2);
         sb.end();
     }
 
