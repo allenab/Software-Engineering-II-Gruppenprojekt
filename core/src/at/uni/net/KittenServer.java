@@ -1,30 +1,52 @@
 package at.uni.net;
 
-import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Server;
 
 import java.io.IOException;
 
 import at.uni.net.packets.request.MessageRequest;
-import at.uni.net.packets.response.MessageResponse;
 
 public class KittenServer {
 
-    public static final int PORT = 25565;
-
     private Server server;
 
-    public KittenServer() {
-        try {
-            server = new Server();
-            server.bind(PORT);
-            server.addListener(new ServerListener());
+    private String message;
+    private boolean recivedMessage;
 
-            KryoHelper.registerPackets(server.getKryo());
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public KittenServer() throws IOException {
+
+        recivedMessage = false;
+        message = "";
+
+        server = new Server();
+        server.addListener(new ServerListener(this));
+        server.bind(KryoUtil.TCP_PORT, KryoUtil.UDP_PORT);
+        server.start();
+
+        KryoUtil.registerPackets(server.getKryo());
+    }
+
+    public void setRecivedMessage(boolean recived) {
+        this.recivedMessage = recived;
+    }
+
+    public boolean recivedMessage() {
+        return recivedMessage;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void sendMessage(String message) {
+        MessageRequest mr = new MessageRequest();
+        mr.message = message;
+        server.sendToAllTCP(mr);
     }
 
 }

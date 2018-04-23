@@ -9,9 +9,13 @@ import at.uni.net.packets.response.MessageResponse;
  * Created by Dominik on 17.04.2018.
  */
 
-public class KryoHelper {
+public class KryoUtil {
 
-    private KryoHelper() {}
+    public static final int TCP_PORT = 25565;
+    public static final int UDP_PORT = 25566;
+    public static final int TIMEOUT = 5000;
+
+    private KryoUtil() {}
 
     public static void registerPackets(Kryo kryo) {
         kryo.register(MessageRequest.class);
