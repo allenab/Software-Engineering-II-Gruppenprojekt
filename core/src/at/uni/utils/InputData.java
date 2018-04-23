@@ -17,7 +17,8 @@ public class InputData {
         Forward,
         Backward,
         Right,
-        Left
+        Left,
+        Space
     }
 
     static {

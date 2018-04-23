@@ -57,16 +57,20 @@ public class Player extends GameObject {
 
         // Tastatur-Input Section - Markus
         if(data.isKeyDown(InputData.Key.Forward)){
-            body.applyLinearImpulse(new Vector2(0, 2), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(0, 5), body.getWorldCenter(), true);
         }
         if(data.isKeyDown(InputData.Key.Backward)){
-            body.applyLinearImpulse(new Vector2(0, -2), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(0, -5), body.getWorldCenter(), true);
         }
         if(data.isKeyDown(InputData.Key.Left)){
-            body.applyLinearImpulse(new Vector2(-2, 0), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(-5, 0), body.getWorldCenter(), true);
         }
         if(data.isKeyDown(InputData.Key.Right)){
-            body.applyLinearImpulse(new Vector2(2, 0), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(5, 0), body.getWorldCenter(), true);
+        }
+
+        if(data.isKeyPressed(InputData.Key.Space)){
+            System.out.println("SPACELORD MOTHERFUCKER");
         }
         // Ende Tastatur-Input
     }
