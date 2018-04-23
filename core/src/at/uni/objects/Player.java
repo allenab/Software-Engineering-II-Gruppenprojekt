@@ -114,6 +114,7 @@ public class Player extends GameObject {
                 expired.add(temp);
             }
         }
+        //handle bombs to remove
         bombs.removeAll(expired);
 
         // hier wird der Spieler 'gezeichnet'
