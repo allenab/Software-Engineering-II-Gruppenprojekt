@@ -46,7 +46,9 @@ public class Bomb extends GameObject{
 
     @Override
     public void render(SpriteBatch sb) {
-
+        sb.begin();
+        sb.draw(texture, position.x - bounds.width / 2, position.y - bounds.height / 2, bounds.width,bounds.height);
+        sb.end();
     }
 
     @Override

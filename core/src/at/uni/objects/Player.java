@@ -21,6 +21,8 @@ import static at.uni.utils.Box2DHelper.PPM;
 public class Player extends GameObject {
 
     private World world;
+    private Bomb bomb;
+    private int facingDirection;
 
     public Player(World world, String name, float x, float y){
         this.texture = new Texture(name);
@@ -28,6 +30,8 @@ public class Player extends GameObject {
         this.world = world;
         setPosition(x - bounds.width / 2, y - bounds.height / 2);
         load(world);
+
+        facingDirection = 0;
     }
 
     //erzeugt den "Körper", auf dem Physics wirken
@@ -58,19 +62,25 @@ public class Player extends GameObject {
         // Tastatur-Input Section - Markus
         if(data.isKeyDown(InputData.Key.Forward)){
             body.applyLinearImpulse(new Vector2(0, 5), body.getWorldCenter(), true);
+            facingDirection = 0;
         }
         if(data.isKeyDown(InputData.Key.Backward)){
             body.applyLinearImpulse(new Vector2(0, -5), body.getWorldCenter(), true);
+            facingDirection = 1;
         }
         if(data.isKeyDown(InputData.Key.Left)){
             body.applyLinearImpulse(new Vector2(-5, 0), body.getWorldCenter(), true);
+            facingDirection = 2;
         }
         if(data.isKeyDown(InputData.Key.Right)){
             body.applyLinearImpulse(new Vector2(5, 0), body.getWorldCenter(), true);
+            facingDirection = 3;
         }
 
         if(data.isKeyPressed(InputData.Key.Space)){
-            System.out.println("SPACELORD MOTHERFUCKER");
+            System.out.println("SPACELORD MOTHERFUCKER Direction: " + facingDirection);
+            bomb = new Bomb(position.x, position.y);
+            bomb.load(world);
         }
         // Ende Tastatur-Input
     }
@@ -83,6 +93,11 @@ public class Player extends GameObject {
 
     @Override
     public void render(SpriteBatch sb) {
+        //Bombe zeichnen, falls vorhanden
+        if (bomb != null){
+            bomb.render(sb);
+        }
+
         // hier wird der Spieler 'gezeichnet'
         sb.begin();
         sb.draw(texture, position.x - bounds.height / 2, position.y - bounds.width / 2);

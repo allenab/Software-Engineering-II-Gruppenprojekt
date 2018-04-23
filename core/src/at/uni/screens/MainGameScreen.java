@@ -84,6 +84,8 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
 
         map.render(sb);
 
+        player.render(sb);
+
         // hier wird der Spieler 'gezeichnet'
         sb.begin();
         sb.draw(player.getTexture(), player.getPosition().x - player.getBounds().height / 2, player.getPosition().y - player.getBounds().width / 2);
