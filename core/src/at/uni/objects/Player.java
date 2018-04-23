@@ -12,6 +12,10 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import at.uni.utils.InputData;
 
 import static at.uni.utils.Box2DHelper.PPM;
@@ -21,7 +25,7 @@ import static at.uni.utils.Box2DHelper.PPM;
 public class Player extends GameObject {
 
     private World world;
-    private Bomb bomb;
+    private List<Bomb> bombs;
     private int facingDirection;
 
     public Player(World world, String name, float x, float y){
@@ -32,6 +36,7 @@ public class Player extends GameObject {
         load(world);
 
         facingDirection = 0;
+        bombs = new ArrayList<Bomb>();
     }
 
     //erzeugt den "Körper", auf dem Physics wirken
@@ -78,9 +83,10 @@ public class Player extends GameObject {
         }
 
         if(data.isKeyPressed(InputData.Key.Space)){
-            System.out.println("SPACELORD MOTHERFUCKER Direction: " + facingDirection);
-            bomb = new Bomb(position.x, position.y);
+            System.out.println("Direction: " + facingDirection);
+            Bomb bomb = new Bomb(position.x, position.y);
             bomb.load(world);
+            bombs.add(bomb);
         }
         // Ende Tastatur-Input
     }
@@ -93,9 +99,11 @@ public class Player extends GameObject {
 
     @Override
     public void render(SpriteBatch sb) {
-        //Bombe zeichnen, falls vorhanden
-        if (bomb != null){
-            bomb.render(sb);
+        //Bomben zeichnen, falls vorhanden
+        Iterator iterator = bombs.iterator();
+        while (iterator.hasNext()){
+            Bomb temp = (Bomb) iterator.next();
+            temp.render(sb);
         }
 
         // hier wird der Spieler 'gezeichnet'
