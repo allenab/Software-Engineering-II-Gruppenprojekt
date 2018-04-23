@@ -12,18 +12,18 @@ import static at.uni.objects.Map.GRIDSIZE;
 
 public class Bomb extends GameObject{
 
-    private long countdown;
+    private long creationTime;
 
     public Bomb(float x, float y){
         position = new Vector2(x, y);
         bounds = new Rectangle(x, y, GRIDSIZE / 2, GRIDSIZE / 2);
         texture = new Texture("images/bomb.png");
 
-        this.countdown = System.currentTimeMillis();
+        this.creationTime = System.currentTimeMillis();
     }
 
-    public long getCountdown() {
-        return countdown;
+    public long getCreationTime() {
+        return creationTime;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Bomb extends GameObject{
     @Override
     public void update() {
 //        long currentTime = System.currentTimeMillis();
-//        if (currentTime - countdown > 5){
+//        if (currentTime - creationTime > 5){
 //            dispose();
 //        }
     }

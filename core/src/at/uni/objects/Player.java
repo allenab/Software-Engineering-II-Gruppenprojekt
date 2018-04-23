@@ -27,6 +27,7 @@ public class Player extends GameObject {
     private World world;
     private List<Bomb> bombs;
     private int facingDirection;
+    private int maximumBombs = 3;
 
     public Player(World world, String name, float x, float y){
         this.texture = new Texture(name);
@@ -84,9 +85,11 @@ public class Player extends GameObject {
 
         if(data.isKeyPressed(InputData.Key.Space)){
             System.out.println("Direction: " + facingDirection);
-            Bomb bomb = new Bomb(position.x, position.y);
-            bomb.load(world);
-            bombs.add(bomb);
+            if (bombs.size() < maximumBombs){
+                Bomb bomb = new Bomb(position.x, position.y);
+                bomb.load(world);
+                bombs.add(bomb);
+            }
         }
         // Ende Tastatur-Input
     }
@@ -100,11 +103,18 @@ public class Player extends GameObject {
     @Override
     public void render(SpriteBatch sb) {
         //Bomben zeichnen, falls vorhanden
+        List<Bomb> expired = new ArrayList<Bomb>();
         Iterator iterator = bombs.iterator();
         while (iterator.hasNext()){
             Bomb temp = (Bomb) iterator.next();
-            temp.render(sb);
+            long bombTime = temp.getCreationTime();
+            if (System.currentTimeMillis() - bombTime < 5000){
+                temp.render(sb);
+            } else {
+                expired.add(temp);
+            }
         }
+        bombs.removeAll(expired);
 
         // hier wird der Spieler 'gezeichnet'
         sb.begin();
