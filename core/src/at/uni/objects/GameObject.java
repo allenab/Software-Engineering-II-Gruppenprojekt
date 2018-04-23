@@ -39,4 +39,12 @@ public abstract class GameObject {
     }
 
     public Body getBody() { return body; }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
+    }
+
+    public Texture getTexture() {
+        return texture;
+    }
 }

@@ -43,7 +43,6 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         b2dr = new Box2DDebugRenderer();
 
         world = new World(new Vector2(0f, 0f), true);
-        map = new Map();
 
         // ContactListener ist unsere MainGameScreen Klasse
         world.setContactListener(this);
@@ -57,7 +56,8 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         // erzeugt einen Spieler
         this.player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM);
 
-        player2ForCollisionTesting = new Player(world, "bomberman.png", 400 / PPM, 400 / PPM);
+        //player2ForCollisionTesting = new Player(world, "bomberman.png", Map.GRIDSIZE * (Map.NUM_COLUMS - 1), 100 / PPM);
+        map = new Map();
         map.load(world);
     }
 
@@ -69,7 +69,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     @Override
     public void update(float deltatime) {
         player.update();
-        player2ForCollisionTesting.update();
+        //player2ForCollisionTesting.update();
 
         map.update();
 
@@ -85,12 +85,12 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         map.render(sb);
 
         // hier wird der Spieler 'gezeichnet'
-//        sb.begin();
-//        sb.draw(player, player.getPosition().x - player.getBounds().height / 2, player.getPosition().y - player.getBounds().width / 2);
-//            //Testobjekt - wird beschleunigt weil es ein DynamicType ist.
-//            sb.draw(player2ForCollisionTesting, player2ForCollisionTesting.getBody().getPosition().x - player2ForCollisionTesting.getBounds().height / 2,
-//                    player2ForCollisionTesting.getPosition().y - player2ForCollisionTesting.getBounds().width / 2);
-//        sb.end();
+        sb.begin();
+        sb.draw(player.getTexture(), player.getPosition().x - player.getBounds().height / 2, player.getPosition().y - player.getBounds().width / 2);
+            //Testobjekt - wird beschleunigt weil es ein DynamicType ist.
+            //sb.draw(player2ForCollisionTesting.getTexture(), player2ForCollisionTesting.getBody().getPosition().x - player2ForCollisionTesting.getBounds().height / 2,
+                  //  player2ForCollisionTesting.getPosition().y - player2ForCollisionTesting.getBounds().width / 2);
+        sb.end();
     }
 
     @Override
