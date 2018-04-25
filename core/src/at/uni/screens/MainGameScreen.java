@@ -47,6 +47,9 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         // ContactListener ist unsere MainGameScreen Klasse
         world.setContactListener(this);
 
+        map = new Map();
+
+
     }
 
     @Override
@@ -57,7 +60,6 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         this.player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM);
 
         //player2ForCollisionTesting = new Player(world, "bomberman.png", Map.GRIDSIZE * (Map.NUM_COLUMS - 1), 100 / PPM);
-        map = new Map();
         map.load(world);
     }
 

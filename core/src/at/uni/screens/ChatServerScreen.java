@@ -12,10 +12,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import java.io.IOException;
+import java.net.NetworkInterface;
+import java.util.Enumeration;
+import java.util.List;
 
 import at.uni.Application;
 import at.uni.net.KittenClient;
 import at.uni.net.KittenServer;
+import at.uni.net.KryoUtil;
 
 public class ChatServerScreen extends AbstractScreen {
 
@@ -57,6 +61,16 @@ public class ChatServerScreen extends AbstractScreen {
 
         lblIp = new Label("IP:", skin);
         lblIp.setPosition(100, Application.VIEWPORT_HEIGHT - 50);
+
+        List<String> ipAddresses = KryoUtil.getIPAddresses();
+        if(ipAddresses.size() != 0){
+            String s = "IP: ";
+            for(String ip : ipAddresses){
+                s += ip + " ";
+            }
+            lblIp.setText(s);
+        }
+
         stage.addActor(lblIp);
 
         lblMessage = new Label("Nachricht: ", skin);
@@ -95,8 +109,10 @@ public class ChatServerScreen extends AbstractScreen {
 
     @Override
     public void update(float deltatime) {
-        if(server.recivedMessage()) {
-            message = server.getMessage();
+        if(server != null) {
+            if (server.recivedMessage()) {
+                message = server.getMessage();
+            }
         }
     }
 
