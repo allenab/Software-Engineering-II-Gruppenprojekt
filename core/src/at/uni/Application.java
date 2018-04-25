@@ -42,7 +42,7 @@ public class Application extends Game {
 		Assets.loadAssets(assetManager);
 
 		gameScreenManager = new GameScreenManager(this);
-		gameScreenManager.setScreen(GameScreenManager.STATE.PLAY);
+		gameScreenManager.setScreen(GameScreenManager.STATE.CHATSERVER);
 	}
 
 	@Override
