@@ -28,6 +28,7 @@ public class Player extends GameObject {
     private List<Bomb> bombs;
     private int facingDirection;
     private int maximumBombs = 3;
+    private int health;
 
     public Player(World world, String name, float x, float y){
         this.texture = new Texture(name);
@@ -35,6 +36,7 @@ public class Player extends GameObject {
         this.world = world;
         setPosition(x - bounds.width / 2, y - bounds.height / 2);
         load(world);
+        this.health = 100;
 
         facingDirection = 0;
         bombs = new ArrayList<Bomb>();
@@ -127,4 +129,10 @@ public class Player extends GameObject {
 
     }
 
+    public void damageTaken(){
+        this.health -= 40;
+        if (this.health <= 0){
+            System.out.println("Player died");
+        }
+    }
 }
