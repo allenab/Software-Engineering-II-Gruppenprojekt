@@ -1,11 +1,14 @@
 package at.uni.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
+import at.uni.Application;
 import at.uni.utils.InputData;
 
 import static at.uni.objects.Map.GRIDSIZE;
@@ -38,10 +41,18 @@ public class Bomb extends GameObject{
 
     @Override
     public void update() {
-//        long currentTime = System.currentTimeMillis();
-//        if (currentTime - creationTime > 5){
-//            dispose();
-//        }
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - creationTime > 5){
+            explode();
+        }
+    }
+
+    private void explode(){
+        System.out.println("I EXPLODE NOW");
+//        effect.load(Gdx.files.internal("effects/splash.p"), Gdx.files.internal("effects"));
+//        effect.setPosition(position.x, position.y);
+//        effect.start();
+//        explosion = true;
     }
 
     @Override

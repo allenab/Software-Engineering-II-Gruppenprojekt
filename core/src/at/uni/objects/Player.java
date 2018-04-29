@@ -1,6 +1,8 @@
 package at.uni.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -14,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import at.uni.utils.InputData;
@@ -29,6 +32,7 @@ public class Player extends GameObject {
     private int facingDirection;
     private int maximumBombs = 3;
     private int health;
+    private List<ParticleEffect> explosions;
 
     public Player(World world, String name, float x, float y){
         this.texture = new Texture(name);
@@ -40,6 +44,7 @@ public class Player extends GameObject {
 
         facingDirection = 0;
         bombs = new ArrayList<Bomb>();
+        explosions = new LinkedList<ParticleEffect>();
     }
 
     //erzeugt den "Körper", auf dem Physics wirken
@@ -114,6 +119,12 @@ public class Player extends GameObject {
                 temp.render(sb);
             } else {
                 expired.add(temp);
+                temp.update();
+                ParticleEffect effect = new ParticleEffect();
+                effect.load(Gdx.files.internal("effects/splash.p"), Gdx.files.internal("effects"));
+                effect.setPosition(temp.getPosition().x, temp.getPosition().y);
+                effect.start();
+                this.explosions.add(effect);
             }
         }
         //handle bombs to remove
@@ -122,6 +133,12 @@ public class Player extends GameObject {
         // hier wird der Spieler 'gezeichnet'
         sb.begin();
         sb.draw(texture, position.x - bounds.height / 2, position.y - bounds.width / 2);
+        Iterator iterator1 = explosions.iterator();
+        while (iterator1.hasNext()){
+            ParticleEffect temp = (ParticleEffect) iterator1.next();
+            temp.update(Gdx.graphics.getDeltaTime());
+            temp.draw(sb);
+        }
         sb.end();
     }
 
