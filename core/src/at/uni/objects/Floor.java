@@ -44,12 +44,7 @@ public class Floor extends GameObject {
 
     @Override
     public void dispose() {
-
+        texture.dispose();
     }
 
-
-    /*public void dispose() {
-        CompositeContext texture;
-        texture.dispose();
-    } */
 }

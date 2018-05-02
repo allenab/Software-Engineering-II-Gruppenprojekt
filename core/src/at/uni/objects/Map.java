@@ -34,7 +34,11 @@ public class Map extends GameObject {
                 } else if((x % 2) == 0 && (y % 2) == 0) {
                     o = new Wall(x * GRIDSIZE, y * GRIDSIZE);
                 }else {
-                    o = new at.uni.objects.Floor(x * GRIDSIZE, y * GRIDSIZE);
+                    if( x > (NUM_COLUMS / 2)){
+                        o = new Brick(x * GRIDSIZE, y * GRIDSIZE);
+                    } else {
+                        o = new Floor(x * GRIDSIZE, y * GRIDSIZE);
+                    }
                 }
 
                 row.add(o);
