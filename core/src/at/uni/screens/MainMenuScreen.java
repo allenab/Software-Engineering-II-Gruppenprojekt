@@ -4,9 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import at.uni.Application;
@@ -16,6 +17,9 @@ import at.uni.handlers.GameScreenManager;
 public class MainMenuScreen extends AbstractScreen {
 
     private OrthographicCamera camera;
+    private TextField EnterName;
+    private Label name;
+    private Label title;
 
     public MainMenuScreen(Application application) {
         super(application);
@@ -30,39 +34,11 @@ public class MainMenuScreen extends AbstractScreen {
 
         application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
-
         // creates the pack for the buttons, its skin, the font used on the buttons, and the stage(screen)
 
-
         //creates the play button with the text, its position and the size
+
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
-        TextButton btnname = new TextButton("Play", skin);
-        btnname.setSize(80, 50);
-        btnname.setPosition(100, 100);
-
-       /* btnname.addListener(new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                // process user input
-                if (Gdx.input.isTouched()) {
-                    Name touchPos = new Name();
-                    touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-                    camera.unproject(touchPos);
-                    bucket.x = touchPos.x - 64 / 2;
-                }
-                if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
-                    bucket.x -= 200 * Gdx.graphics.getDeltaTime();
-                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-                    bucket.x += 200 * Gdx.graphics.getDeltaTime();
-
-            }
-        });
-
-        stage.addActor(btnname);
-*/
-
-        //creates the play button with the text, its position and the size
-        skin = new Skin(Gdx.files.internal("data/uiskin.json"));
         TextButton btnPlay = new TextButton("Play", skin);
         btnPlay.setSize(180, 50);
         btnPlay.setPosition(45, 100);
@@ -86,8 +62,8 @@ public class MainMenuScreen extends AbstractScreen {
         btnSettings.addListener(new ClickListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                application.getGameScreenManager().setScreen(GameScreenManager.STATE.PLAY);
                 super.touchUp(event, x, y, pointer, button);
+                System.out.println("Settings!");
             }
         });
 
@@ -110,12 +86,44 @@ public class MainMenuScreen extends AbstractScreen {
 
         stage.addActor(btnExit);
 
+        //creates the exit button with the text, its position and the size
+
+        TextButton btnSaveName = new TextButton("Save Name", skin);
+        btnSaveName.setSize(180,33);
+        btnSaveName.setPosition(350, 330);
+
+        btnSaveName.addListener(new ClickListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchUp(event, x, y, pointer, button);
+                System.out.println("Save Name!!");
+            }
+        });
+
+        stage.addActor(btnSaveName);
+
 
         super.show();
     }
 
     @Override
     public void load() {
+
+        application.getSpriteBatch().setProjectionMatrix(camera.combined);
+
+        Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+
+        title = new Label("Game Menu!!", skin);
+        title.setPosition(300, 450);
+        stage.addActor(title);
+
+        name = new Label("Name:", skin);
+        name.setPosition(45, 330);
+        stage.addActor(name);
+
+        EnterName = new TextField("", skin);
+        EnterName.setPosition(145, 330);
+        stage.addActor(EnterName);
     }
 
     @Override
