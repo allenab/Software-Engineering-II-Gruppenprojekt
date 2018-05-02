@@ -37,11 +37,19 @@ public class Bomb extends GameObject{
     }
 
     @Override
-    public void update(float deltatime) {
-//        long currentTime = System.currentTimeMillis();
-//        if (currentTime - creationTime > 5){
-//            dispose();
-//        }
+    public void update() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - creationTime > 5){
+            explode();
+        }
+    }
+
+    private void explode(){
+        System.out.println("I EXPLODE NOW");
+//        effect.load(Gdx.files.internal("effects/splash.p"), Gdx.files.internal("effects"));
+//        effect.setPosition(position.x, position.y);
+//        effect.start();
+//        explosion = true;
     }
 
     @Override
