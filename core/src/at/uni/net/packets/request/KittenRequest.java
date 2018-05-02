@@ -8,7 +8,6 @@ import at.uni.objects.GameObject;
 
 public class KittenRequest {
 
-    public int playerId;
     public GameObject player;
 
 }

@@ -9,5 +9,10 @@ import at.uni.objects.GameObject;
  */
 
 public class KittenResponse {
-    public List<GameObject> players;
+
+    public GameObject playerOne;
+    public GameObject playerTwo;
+    public GameObject playerThree;
+    public GameObject playerFour;
+
 }
