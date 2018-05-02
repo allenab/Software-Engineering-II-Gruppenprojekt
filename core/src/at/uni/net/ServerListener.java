@@ -3,6 +3,7 @@ package at.uni.net;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
+import at.uni.net.packets.request.KittenRequest;
 import at.uni.net.packets.request.MessageRequest;
 import at.uni.net.packets.response.MessageResponse;
 
@@ -27,7 +28,12 @@ public class ServerListener extends Listener {
 
     @Override
     public void received(Connection connection, Object object) {
-        if(object instanceof MessageRequest) {
+        if(object instanceof KittenRequest) {
+            KittenRequest request = (KittenRequest) object;
+
+
+
+        } else if(object instanceof MessageRequest) {
             MessageRequest request = (MessageRequest) object;
 
             server.setRecivedMessage(true);

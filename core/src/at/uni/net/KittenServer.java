@@ -1,5 +1,6 @@
 package at.uni.net;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.esotericsoftware.kryonet.Server;
 
 import java.io.IOException;
@@ -15,14 +16,14 @@ public class KittenServer {
 
     private String message;
     private boolean recivedMessage;
-    private List<GameObject> players;
+    private List<GameObject> gameObjects;
 
     public KittenServer() throws IOException {
 
         recivedMessage = false;
         message = "";
 
-        players = new ArrayList<GameObject>();
+        gameObjects = new ArrayList<GameObject>();
 
         server = new Server();
         server.addListener(new ServerListener(this));
@@ -54,10 +55,12 @@ public class KittenServer {
         server.sendToAllTCP(mr);
     }
 
-    public void update(float dt){
-        for(GameObject p : players){
-            p.update(dt);
-        }
+    public List<GameObject> getGameObjects() {
+        return gameObjects;
+    }
+
+    public void addGameObject(GameObject o) {
+        gameObjects.add(o);
     }
 
 }
