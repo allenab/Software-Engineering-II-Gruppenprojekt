@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import at.uni.Application;
+import at.uni.handlers.GameScreenManager;
 
 
 public class MainMenuScreen extends AbstractScreen {
@@ -69,8 +70,8 @@ public class MainMenuScreen extends AbstractScreen {
         btnPlay.addListener(new ClickListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-
                 super.touchUp(event, x, y, pointer, button);
+                application.getGameScreenManager().setScreen(GameScreenManager.STATE.PLAY);
             }
         });
 
