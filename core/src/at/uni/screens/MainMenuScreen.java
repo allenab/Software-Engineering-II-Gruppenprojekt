@@ -86,7 +86,7 @@ public class MainMenuScreen extends AbstractScreen {
         btnSettings.addListener(new ClickListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("SETTINGS");
+                application.getGameScreenManager().setScreen(GameScreenManager.STATE.PLAY);
                 super.touchUp(event, x, y, pointer, button);
             }
         });
