@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import at.uni.Application;
 
@@ -65,7 +66,7 @@ public class MainMenuScreen extends AbstractScreen {
         btnPlay.setSize(180, 50);
         btnPlay.setPosition(45, 100);
 
-        btnPlay.addListener(new InputListener() {
+        btnPlay.addListener(new ClickListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 
@@ -81,7 +82,7 @@ public class MainMenuScreen extends AbstractScreen {
         btnSettings.setSize(180,50);
         btnSettings.setPosition(270, 100);
 
-        btnSettings.addListener(new InputListener() {
+        btnSettings.addListener(new ClickListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("SETTINGS");
@@ -98,7 +99,7 @@ public class MainMenuScreen extends AbstractScreen {
         btnExit.setSize(180,50);
         btnExit.setPosition(495, 100);
 
-        btnExit.addListener(new InputListener() {
+        btnExit.addListener(new ClickListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
