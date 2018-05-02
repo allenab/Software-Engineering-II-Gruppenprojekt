@@ -22,7 +22,6 @@ public class Application extends Game {
 	private SpriteBatch spriteBatch;
 
 	private GameScreenManager gameScreenManager;
-	private GameInputProcessor gameInputProcessor;
 	private AssetManager assetManager;
 
 	public SpriteBatch getSpriteBatch(){
@@ -33,6 +32,8 @@ public class Application extends Game {
 		return assetManager;
 	}
 
+	public GameScreenManager getGameScreenManager() { return gameScreenManager; }
+
 	@Override
 	public void create() {
 		spriteBatch = new SpriteBatch();
@@ -40,17 +41,8 @@ public class Application extends Game {
 		assetManager = new AssetManager();
 		Assets.loadAssets(assetManager);
 
-		gameInputProcessor = new GameInputProcessor();
-		Gdx.input.setInputProcessor(gameInputProcessor);
-
 		gameScreenManager = new GameScreenManager(this);
-		gameScreenManager.setScreen(GameScreenManager.STATE.PLAY);
-	}
-
-	@Override
-	public void render(){
-		super.render();
-		InputData.update();
+		gameScreenManager.setScreen(GameScreenManager.STATE.MAIN_MENU);
 	}
 
 	@Override

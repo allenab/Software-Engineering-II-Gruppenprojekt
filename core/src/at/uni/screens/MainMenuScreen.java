@@ -2,22 +2,28 @@ package at.uni.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import at.uni.Application;
-import at.uni.utils.InputData;
+import at.uni.handlers.GameScreenManager;
+
 
 public class MainMenuScreen extends AbstractScreen {
 
-    private BitmapFont font;
     private OrthographicCamera camera;
+    private TextField EnterName;
+    private Label name;
+    private Label title;
 
     public MainMenuScreen(Application application) {
         super(application);
 
-        font = new BitmapFont();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
 
@@ -25,17 +31,109 @@ public class MainMenuScreen extends AbstractScreen {
 
     @Override
     public void show() {
+
         application.getSpriteBatch().setProjectionMatrix(camera.combined);
+
+        // creates the pack for the buttons, its skin, the font used on the buttons, and the stage(screen)
+
+        //creates the play button with the text, its position and the size
+
+        Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+        TextButton btnPlay = new TextButton("Play", skin);
+        btnPlay.setSize(180, 50);
+        btnPlay.setPosition(45, 100);
+
+        btnPlay.addListener(new ClickListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchUp(event, x, y, pointer, button);
+                application.getGameScreenManager().setScreen(GameScreenManager.STATE.PLAY);
+            }
+        });
+
+        stage.addActor(btnPlay);
+
+        //creates the setting button with the text, its position and the size
+
+        TextButton btnSettings = new TextButton("Settings", skin);
+        btnSettings.setSize(180,50);
+        btnSettings.setPosition(270, 100);
+
+        btnSettings.addListener(new ClickListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchUp(event, x, y, pointer, button);
+                System.out.println("Settings!");
+            }
+        });
+
+        stage.addActor(btnSettings);
+
+
+        //creates the exit button with the text, its position and the size
+
+        TextButton btnExit = new TextButton("Exit", skin);
+        btnExit.setSize(180,50);
+        btnExit.setPosition(495, 100);
+
+        btnExit.addListener(new ClickListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchUp(event, x, y, pointer, button);
+                Gdx.app.exit();
+            }
+        });
+
+        stage.addActor(btnExit);
+
+        //creates the exit button with the text, its position and the size
+
+        TextButton btnSaveName = new TextButton("Save Name", skin);
+        btnSaveName.setSize(180,33);
+        btnSaveName.setPosition(350, 330);
+
+        btnSaveName.addListener(new ClickListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchUp(event, x, y, pointer, button);
+                System.out.println("Save Name!!");
+            }
+        });
+
+        stage.addActor(btnSaveName);
+
+
+        super.show();
+    }
+
+    @Override
+    public void load() {
+
+        application.getSpriteBatch().setProjectionMatrix(camera.combined);
+
+        Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+
+        title = new Label("Game Menu!!", skin);
+        title.setPosition(300, 450);
+        stage.addActor(title);
+
+        name = new Label("Name:", skin);
+        name.setPosition(45, 330);
+        stage.addActor(name);
+
+        EnterName = new TextField("", skin);
+        EnterName.setPosition(145, 330);
+        stage.addActor(EnterName);
+    }
+
+    @Override
+    public void unload() {
+
     }
 
     @Override
     public void handleInput() {
-        if(InputData.isTouched(0, new Rectangle(100, Application.VIEWPORT_HEIGHT - 100, 50 , 20))){
-            System.out.println("PLAY");
-        }
-        if(InputData.isPressed(1, new Rectangle(100,Application.VIEWPORT_HEIGHT - 100,50,20))){
-            System.out.println("STOP");
-        }
+
     }
 
     @Override
@@ -45,13 +143,11 @@ public class MainMenuScreen extends AbstractScreen {
 
     @Override
     public void render(SpriteBatch sb) {
-        sb.begin();
-        font.draw(sb, "MENU", 100, 100);
-        sb.end();
+
     }
 
     @Override
     public void dispose() {
-        font.dispose();
+
     }
 }

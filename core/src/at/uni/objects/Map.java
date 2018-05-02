@@ -61,7 +61,7 @@ public class Map extends GameObject {
 
     }
 
-    public void update() {
+    public void update(float deltatime) {
 
     }
 

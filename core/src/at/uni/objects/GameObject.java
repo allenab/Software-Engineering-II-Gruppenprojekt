@@ -19,7 +19,7 @@ public abstract class GameObject {
 
     public abstract void load(World world);
     public abstract void handleInput(InputData data);
-    public abstract void update();
+    public abstract void update(float deltatime);
     public abstract void render(SpriteBatch sb);
     public abstract void dispose();
 
@@ -60,4 +60,5 @@ public abstract class GameObject {
     public float getHP() {
         return healthPoints;
     }
+
 }
