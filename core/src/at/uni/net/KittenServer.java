@@ -3,8 +3,11 @@ package at.uni.net;
 import com.esotericsoftware.kryonet.Server;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import at.uni.net.packets.request.MessageRequest;
+import at.uni.objects.GameObject;
 
 public class KittenServer {
 
@@ -12,12 +15,14 @@ public class KittenServer {
 
     private String message;
     private boolean recivedMessage;
-
+    private List<GameObject> players;
 
     public KittenServer() throws IOException {
 
         recivedMessage = false;
         message = "";
+
+        players = new ArrayList<GameObject>();
 
         server = new Server();
         server.addListener(new ServerListener(this));
@@ -47,6 +52,12 @@ public class KittenServer {
         MessageRequest mr = new MessageRequest();
         mr.message = message;
         server.sendToAllTCP(mr);
+    }
+
+    public void update(float dt){
+        for(GameObject p : players){
+            p.update(dt);
+        }
     }
 
 }

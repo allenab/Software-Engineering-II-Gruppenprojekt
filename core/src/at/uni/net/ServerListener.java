@@ -37,7 +37,7 @@ public class ServerListener extends Listener {
             response.success = true;
             connection.sendTCP(response);
         } else if(object instanceof MessageResponse) {
-            System.out.println("[Client] Message successfully send!");
+            System.out.println("[Server] Message successfully send!");
         }
     }
 }
