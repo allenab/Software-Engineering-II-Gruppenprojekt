@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -19,6 +18,8 @@ public class Brick extends GameObject {
         position = new Vector2(x, y);
         bounds = new Rectangle(x, y, GRIDSIZE, GRIDSIZE);
         texture = new Texture("images/brick.png");
+
+        this.healthPoints = 100;
     }
 
     @Override
