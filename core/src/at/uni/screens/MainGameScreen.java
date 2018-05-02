@@ -70,10 +70,10 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
 
     @Override
     public void update(float deltatime) {
-        player.update();
+        player.update(deltatime);
         //player2ForCollisionTesting.update();
 
-        map.update();
+        map.update(deltatime);
 
         world.step(Application.STEP, 6,2);
     }

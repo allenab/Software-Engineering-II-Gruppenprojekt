@@ -32,6 +32,8 @@ public class Application extends Game {
 		return assetManager;
 	}
 
+	public GameScreenManager getGameScreenManager() { return gameScreenManager; }
+
 	@Override
 	public void create() {
 		spriteBatch = new SpriteBatch();
