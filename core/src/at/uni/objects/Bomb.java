@@ -37,7 +37,7 @@ public class Bomb extends GameObject{
     }
 
     @Override
-    public void update() {
+    public void update(float deltatime) {
         long currentTime = System.currentTimeMillis();
         if (currentTime - creationTime > 5){
             explode();
