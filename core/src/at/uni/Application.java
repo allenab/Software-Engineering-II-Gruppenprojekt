@@ -32,6 +32,8 @@ public class Application extends Game {
 		return assetManager;
 	}
 
+	public GameScreenManager getGameScreenManager() { return gameScreenManager; }
+
 	@Override
 	public void create() {
 		spriteBatch = new SpriteBatch();
@@ -40,13 +42,7 @@ public class Application extends Game {
 		Assets.loadAssets(assetManager);
 
 		gameScreenManager = new GameScreenManager(this);
-		gameScreenManager.setScreen(GameScreenManager.STATE.CHAT);
-	}
-
-	@Override
-	public void render(){
-		super.render();
-		InputData.update();
+		gameScreenManager.setScreen(GameScreenManager.STATE.CHATSERVER);
 	}
 
 	@Override

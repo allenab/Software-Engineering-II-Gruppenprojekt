@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import at.uni.Application;
 import at.uni.handlers.GameInputProcessor;
+import at.uni.utils.InputData;
 
 public abstract class AbstractScreen implements Screen {
 
@@ -29,9 +30,12 @@ public abstract class AbstractScreen implements Screen {
     public abstract void handleInput();
     public abstract void update(float deltatime);
     public abstract void render(SpriteBatch sb);
+    public abstract void load();
+    public abstract void unload();
 
     @Override
     public void show() {
+        load();
         Gdx.input.setInputProcessor(multiplexer);
     }
 
@@ -39,6 +43,8 @@ public abstract class AbstractScreen implements Screen {
     public void render(float deltatime){
         Gdx.gl.glClearColor(0,0,0,0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        InputData.update();
 
         handleInput();
         stage.act(deltatime);
@@ -69,6 +75,7 @@ public abstract class AbstractScreen implements Screen {
 
     @Override
     public void dispose() {
+        unload();
         stage.dispose();
     }
 }
