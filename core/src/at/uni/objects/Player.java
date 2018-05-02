@@ -40,6 +40,9 @@ public class Player extends GameObject {
         this.world = world;
         setPosition(x - bounds.width / 2, y - bounds.height / 2);
         load(world);
+        facingDirection = 0;
+        bombs = new ArrayList<Bomb>();
+
         this.health = 100;
 
         facingDirection = 0;

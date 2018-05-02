@@ -15,6 +15,7 @@ public abstract class GameObject {
     protected Rectangle bounds;
     protected Body body;
     protected Texture texture;
+    protected float healthPoints;
 
     public abstract void load(World world);
     public abstract void handleInput(InputData data);
@@ -47,4 +48,17 @@ public abstract class GameObject {
     public Texture getTexture() {
         return texture;
     }
+
+    public void damage(float d) {
+        if(healthPoints < d) {
+            healthPoints = 0;
+        } else {
+            healthPoints -= d;
+        }
+    }
+
+    public float getHP() {
+        return healthPoints;
+    }
+
 }
