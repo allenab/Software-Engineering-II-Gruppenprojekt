@@ -32,7 +32,7 @@ public class Floor extends GameObject {
 
     }
 
-    public void update() {
+    public void update(float deltatime) {
 
     }
 

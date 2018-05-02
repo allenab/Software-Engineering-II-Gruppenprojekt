@@ -95,7 +95,7 @@ public class Player extends GameObject {
     }
 
     @Override
-    public void update(){
+    public void update(float deltatime){
         this.setPosition(body.getPosition().x * PPM, body.getPosition().y * PPM);
         this.setBounds(new Rectangle(position.x, position.y, texture.getWidth(), texture.getHeight()));
     }
