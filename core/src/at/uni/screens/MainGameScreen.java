@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -13,8 +14,12 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.util.ArrayList;
+
 import at.uni.Application;
 import at.uni.objects.Bombs;
+import at.uni.objects.Brick;
+import at.uni.objects.GameObject;
 import at.uni.objects.Map;
 import at.uni.objects.Player;
 import at.uni.utils.InputData;
@@ -50,7 +55,8 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         world.setContactListener(this);
 
         map = new Map();
-        bombs = new Bombs();
+        bombs = new Bombs(map);
+
     }
 
     @Override

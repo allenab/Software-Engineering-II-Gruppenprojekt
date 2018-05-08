@@ -19,10 +19,12 @@ public class Bombs extends GameObject {
     private List<Bomb> bombs;
     private List<ParticleEffect> explosions;
     private World world;
+    private Map map;
 
-    public Bombs(){
+    public Bombs(Map map){
         bombs = new ArrayList<Bomb>();
         explosions = new ArrayList<ParticleEffect>();
+        this.map = map;
     }
 
     public void addBomb(float x, float y){
@@ -68,6 +70,7 @@ public class Bombs extends GameObject {
         }
         //remove bombs
         //explosionParticle(expired);
+        handleExplosiveBombs(expired);
         bombs.removeAll(expired);
 
         sb.begin();
@@ -80,24 +83,30 @@ public class Bombs extends GameObject {
         sb.end();
     }
 
-    private void explosionParticle(List<Bomb> expired){
+    private void handleExplosiveBombs(List<Bomb> expired){
         for (Bomb bomb: expired) {
-            float x = bomb.position.x;
-            float y = bomb.position.y;
-            Body north = Box2DHelper.createBox(world, x, y, 5, 5, BodyDef.BodyType.DynamicBody, false, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL);
-            north.setUserData("Damage");
-            Body south = Box2DHelper.createBox(world, x, y, 5, 5, BodyDef.BodyType.DynamicBody, false, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL);
-            south.setUserData("Damage");
-            Body east = Box2DHelper.createBox(world, x, y, 5, 5, BodyDef.BodyType.DynamicBody, false, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL);
-            east.setUserData("Damage");
-            Body west = Box2DHelper.createBox(world, x, y, 5, 5, BodyDef.BodyType.DynamicBody, false, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL);
-            west.setUserData("Damage");
-            north.applyLinearImpulse(new Vector2(0, 30), bomb.position, true);
-            south.applyLinearImpulse(new Vector2(0, -30), bomb.position, true);
-            east.applyLinearImpulse(new Vector2(30, 0), bomb.position, true);
-            west.applyLinearImpulse(new Vector2(-30, 0), bomb.position, true);
+            map.explosionCheck(bomb.position);
         }
     }
+
+//    private void explosionParticle(List<Bomb> expired){
+//        for (Bomb bomb: expired) {
+//            float x = bomb.position.x;
+//            float y = bomb.position.y;
+//            Body north = Box2DHelper.createBox(world, x, y, 5, 5, BodyDef.BodyType.DynamicBody, false, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL);
+//            north.setUserData("Particle");
+//            Body south = Box2DHelper.createBox(world, x, y, 5, 5, BodyDef.BodyType.DynamicBody, false, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL);
+//            south.setUserData("Particle");
+//            Body east = Box2DHelper.createBox(world, x, y, 5, 5, BodyDef.BodyType.DynamicBody, false, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL);
+//            east.setUserData("Particle");
+//            Body west = Box2DHelper.createBox(world, x, y, 5, 5, BodyDef.BodyType.DynamicBody, false, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL);
+//            west.setUserData("Particle");
+//            north.applyLinearImpulse(new Vector2(0, 50), bomb.position, true);
+//            south.applyLinearImpulse(new Vector2(0, -50), bomb.position, true);
+//            east.applyLinearImpulse(new Vector2(50, 0), bomb.position, true);
+//            west.applyLinearImpulse(new Vector2(-50, 0), bomb.position, true);
+//        }
+//    }
 
     @Override
     public void dispose() {
