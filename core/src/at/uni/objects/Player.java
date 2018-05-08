@@ -26,24 +26,22 @@ import static at.uni.utils.Box2DHelper.PPM;
 public class Player extends GameObject {
 
     private World world;
-    private List<Bomb> bombs;
     private int facingDirection;
     private int maximumBombs = 3;
     private int health;
-    private List<ParticleEffect> explosions;
+    private Bombs bombs;
 
-    public Player(World world, String name, float x, float y){
+    public Player(World world, String name, float x, float y, Bombs bombs){
         this.texture = new Texture(name);
         this.bounds = new Rectangle(x, y, texture.getWidth(), texture.getHeight());
         this.world = world;
+        this.bombs = bombs;
         setPosition(x - bounds.width / 2, y - bounds.height / 2);
         load(world);
 
         this.health = 100;
 
         facingDirection = 0;
-        bombs = new ArrayList<Bomb>();
-        explosions = new LinkedList<ParticleEffect>();
     }
 
     //erzeugt den "Körper", auf dem Physics wirken
@@ -91,10 +89,8 @@ public class Player extends GameObject {
 
         if(data.isKeyPressed(InputData.Key.Space)){
             System.out.println("Direction: " + facingDirection);
-            if (bombs.size() < maximumBombs){
-                Bomb bomb = new Bomb(position.x, position.y);
-                bomb.load(world);
-                bombs.add(bomb);
+            if (bombs.getBombs().size() < maximumBombs){
+                bombs.addBomb(position.x, position.y);
             }
         }
         // Ende Tastatur-Input
@@ -108,36 +104,9 @@ public class Player extends GameObject {
 
     @Override
     public void render(SpriteBatch sb) {
-        //Bomben zeichnen, falls vorhanden
-        List<Bomb> expired = new ArrayList<Bomb>();
-        Iterator iterator = bombs.iterator();
-        while (iterator.hasNext()){
-            Bomb temp = (Bomb) iterator.next();
-            long bombTime = temp.getCreationTime();
-            if (System.currentTimeMillis() - bombTime < 5000){
-                temp.render(sb);
-            } else {
-                expired.add(temp);
-                temp.update(0);
-                ParticleEffect effect = new ParticleEffect();
-                effect.load(Gdx.files.internal("effects/splash.p"), Gdx.files.internal("effects"));
-                effect.setPosition(temp.getPosition().x, temp.getPosition().y);
-                effect.start();
-                this.explosions.add(effect);
-            }
-        }
-        //remove bombs
-        bombs.removeAll(expired);
-
         // hier wird der Spieler 'gezeichnet'
         sb.begin();
         sb.draw(texture, position.x - bounds.height / 2, position.y - bounds.width / 2);
-        Iterator iterator1 = explosions.iterator();
-        while (iterator1.hasNext()){
-            ParticleEffect temp = (ParticleEffect) iterator1.next();
-            temp.update(Gdx.graphics.getDeltaTime());
-            temp.draw(sb);
-        }
         sb.end();
     }
 
@@ -146,7 +115,7 @@ public class Player extends GameObject {
     }
 
     public void damageTaken(){
-        this.health -= 40;
+        this.health -= 10;
         if (this.health <= 0){
             System.out.println("Player died");
         }
