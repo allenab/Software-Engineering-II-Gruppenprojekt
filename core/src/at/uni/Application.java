@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import at.uni.handlers.GameInputProcessor;
 import at.uni.handlers.GameScreenManager;
+import at.uni.net.KittenClient;
+import at.uni.net.KittenServer;
 import at.uni.utils.Assets;
 import at.uni.utils.InputData;
 
@@ -23,6 +25,9 @@ public class Application extends Game {
 
 	private GameScreenManager gameScreenManager;
 	private AssetManager assetManager;
+
+	private KittenClient client;
+	private KittenServer server;
 
 	public SpriteBatch getSpriteBatch(){
 		return spriteBatch;
@@ -53,4 +58,19 @@ public class Application extends Game {
 		gameScreenManager.dispose();
 	}
 
+	public KittenClient getClient() {
+		return client;
+	}
+
+	public void setClient(KittenClient client) {
+		this.client = client;
+	}
+
+	public KittenServer getServer() {
+		return server;
+	}
+
+	public void setServer(KittenServer server) {
+		this.server = server;
+	}
 }

@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
 import at.uni.Application;
+import at.uni.net.KittenClient;
 import at.uni.objects.Map;
 import at.uni.objects.Player;
 import at.uni.utils.InputData;
@@ -28,11 +29,15 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     private Box2DDebugRenderer b2dr;
 
     private Player player;
-    private Player player2ForCollisionTesting;
+    private Player remotePlayer;
     private Map map;
+
+    private KittenClient client;
 
     public MainGameScreen(Application application) {
         super(application);
+
+        client = application.getClient();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
@@ -57,21 +62,22 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         //application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
         // erzeugt einen Spieler
-        this.player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM);
+        player = new Player(world, "bomberman.png", client.getLocalPlayer().getPosition().x / PPM, client.getLocalPlayer().getPosition().y / PPM);
 
-        //player2ForCollisionTesting = new Player(world, "bomberman.png", Map.GRIDSIZE * (Map.NUM_COLUMS - 1), 100 / PPM);
+        remotePlayer = new Player(world, "bomberman.png", client.getRemotePlayer().getPosition().x / PPM, client.getRemotePlayer().getPosition().y / PPM);
         map.load(world);
     }
 
     @Override
     public void handleInput() {
         player.handleInput(new InputData());
+        remotePlayer.setPosition(client.getRemotePlayer().getPosition().x / PPM, client.getRemotePlayer().getPosition().y / PPM);
     }
 
     @Override
     public void update(float deltatime) {
         player.update(deltatime);
-        //player2ForCollisionTesting.update();
+        remotePlayer.update(deltatime);
 
         map.update(deltatime);
 
@@ -87,6 +93,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         map.render(sb);
 
         player.render(sb);
+        remotePlayer.render(sb);
 
         // hier wird der Spieler 'gezeichnet'
         sb.begin();
