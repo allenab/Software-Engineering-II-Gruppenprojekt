@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import at.uni.Application;
 import at.uni.net.KittenClient;
+import at.uni.objects.Bombs;
 import at.uni.objects.Map;
 import at.uni.objects.Player;
 import at.uni.utils.InputData;
@@ -33,6 +34,8 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     private Map map;
 
     private KittenClient client;
+
+    private Bombs bombs = new Bombs(map);
 
     public MainGameScreen(Application application) {
         super(application);
@@ -78,7 +81,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     @Override
     public void update(float deltatime) {
         if(client != null && client.isConnected() && remotePlayer == null)
-            remotePlayer = new Player(world, "bomberman.png", 100 / PPM, 150 / PPM);
+            remotePlayer = new Player(world, "bomberman.png", 100 / PPM, 150 / PPM, new Bombs(map));
         player.update(deltatime);
         if(client != null && client.isConnected() && remotePlayer != null) {
             remotePlayer.update(deltatime);
