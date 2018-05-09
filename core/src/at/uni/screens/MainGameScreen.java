@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -13,7 +14,12 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.util.ArrayList;
+
 import at.uni.Application;
+import at.uni.objects.Bombs;
+import at.uni.objects.Brick;
+import at.uni.objects.GameObject;
 import at.uni.objects.Map;
 import at.uni.objects.Player;
 import at.uni.utils.InputData;
@@ -30,6 +36,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     private Player player;
     private Player player2ForCollisionTesting;
     private Map map;
+    private Bombs bombs;
 
     public MainGameScreen(Application application) {
         super(application);
@@ -48,7 +55,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         world.setContactListener(this);
 
         map = new Map();
-
+        bombs = new Bombs(map);
 
     }
 
@@ -57,10 +64,11 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         //application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
         // erzeugt einen Spieler
-        this.player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM);
+        this.player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM, bombs);
 
         //player2ForCollisionTesting = new Player(world, "bomberman.png", Map.GRIDSIZE * (Map.NUM_COLUMS - 1), 100 / PPM);
         map.load(world);
+        bombs.load(world);
     }
 
     @Override
@@ -85,6 +93,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         b2dr.render(world, b2dCamera.combined);
 
         map.render(sb);
+        bombs.render(sb);
 
         player.render(sb);
 
