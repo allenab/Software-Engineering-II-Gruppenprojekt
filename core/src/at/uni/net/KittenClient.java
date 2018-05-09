@@ -49,7 +49,7 @@ public class KittenClient {
         return connected;
     }
 
-    public void connected(){
+    public void setConnected(){
         this.connected = true;
     }
 

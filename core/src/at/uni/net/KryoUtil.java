@@ -24,8 +24,8 @@ import at.uni.net.packets.response.MessageResponse;
 
 public class KryoUtil {
 
-    public static final int TCP_PORT = 25565;
-    public static final int UDP_PORT = 25566;
+    public static final int TCP_PORT = 65420;
+    public static final int UDP_PORT = 65421;
     public static final int TIMEOUT = 5000;
 
     private KryoUtil() {}

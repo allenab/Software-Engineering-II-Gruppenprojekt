@@ -13,6 +13,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.io.IOException;
+
 import at.uni.Application;
 import at.uni.net.KittenClient;
 import at.uni.net.KittenServer;
@@ -38,8 +40,6 @@ public class MainGameServerScreen extends AbstractScreen implements ContactListe
     public MainGameServerScreen(Application application) {
         super(application);
 
-        server = application.getServer();
-
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
 
@@ -62,23 +62,36 @@ public class MainGameServerScreen extends AbstractScreen implements ContactListe
     public void load() {
         //application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
-        // erzeugt einen Spieler
-        player = new Player(world, "bomberman.png", server.getPlayer(0).getPosition().x / PPM, server.getPlayer(0).getPosition().y / PPM);
+        try {
+            server = new KittenServer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        remotePlayer = new Player(world, "bomberman.png", server.getPlayer(1).getPosition().x / PPM, server.getPlayer(1).getPosition().y / PPM);
+        // erzeugt einen Spieler
+        player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM);
+        server.addGameObject(0, player);
+
         map.load(world);
     }
 
     @Override
     public void handleInput() {
         player.handleInput(new InputData());
+        if(remotePlayer != null)
         remotePlayer.setPosition(server.getPlayer(1).getPosition().x / PPM, server.getPlayer(1).getPosition().y / PPM);
     }
 
     @Override
     public void update(float deltatime) {
+        if(server.getPlayer(1) != null && remotePlayer == null){
+            remotePlayer = new Player(world, "bomberman.png", server.getPlayer(1).getPosition().x / PPM, server.getPlayer(1).getPosition().y / PPM);
+        }
+
+
         player.update(deltatime);
-        remotePlayer.update(deltatime);
+        if(remotePlayer != null)
+            remotePlayer.update(deltatime);
 
         server.updatePlayer(0, player.getPosition());
 
@@ -96,7 +109,8 @@ public class MainGameServerScreen extends AbstractScreen implements ContactListe
         map.render(sb);
 
         player.render(sb);
-        remotePlayer.render(sb);
+        if(remotePlayer != null)
+            remotePlayer.render(sb);
     }
 
     @Override

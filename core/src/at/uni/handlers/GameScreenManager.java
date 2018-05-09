@@ -8,6 +8,7 @@ import at.uni.screens.AbstractScreen;
 import at.uni.screens.ChatScreen;
 import at.uni.screens.ChatServerScreen;
 import at.uni.screens.MainGameScreen;
+import at.uni.screens.MainGameServerScreen;
 import at.uni.screens.MainMenuScreen;
 
 
@@ -27,7 +28,8 @@ public class GameScreenManager {
         MAIN_MENU,
         PLAY,
         CHAT,
-        CHATSERVER
+        CHATSERVER,
+        GAMESERVER
     }
 
     private void initGameManager(){
@@ -36,6 +38,7 @@ public class GameScreenManager {
         screens.put(STATE.PLAY, new MainGameScreen(application));
         screens.put(STATE.CHAT, new ChatScreen(application));
         screens.put(STATE.CHATSERVER, new ChatServerScreen(application));
+        screens.put(STATE.GAMESERVER, new MainGameServerScreen(application));
     }
 
     public Application getApplication(){

@@ -37,8 +37,6 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     public MainGameScreen(Application application) {
         super(application);
 
-        client = application.getClient();
-
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
 
@@ -61,25 +59,31 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     public void load() {
         //application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
-        // erzeugt einen Spieler
-        player = new Player(world, "bomberman.png", client.getLocalPlayer().getPosition().x / PPM, client.getLocalPlayer().getPosition().y / PPM);
+        client = application.getClient();
 
-        remotePlayer = new Player(world, "bomberman.png", client.getRemotePlayer().getPosition().x / PPM, client.getRemotePlayer().getPosition().y / PPM);
+        // erzeugt einen Spieler
+        player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM);
+
         map.load(world);
     }
 
     @Override
     public void handleInput() {
         player.handleInput(new InputData());
-        remotePlayer.setPosition(client.getRemotePlayer().getPosition().x / PPM, client.getRemotePlayer().getPosition().y / PPM);
+        if(client != null && client.isConnected() && remotePlayer != null)
+            remotePlayer.setPosition(client.getRemotePlayer().getPosition().x / PPM, client.getRemotePlayer().getPosition().y / PPM);
     }
 
     @Override
     public void update(float deltatime) {
+        if(client != null && client.isConnected() && remotePlayer == null)
+            remotePlayer = new Player(world, "bomberman.png", client.getRemotePlayer().getPosition().x / PPM, client.getRemotePlayer().getPosition().y / PPM);
         player.update(deltatime);
-        remotePlayer.update(deltatime);
+        if(client != null && client.isConnected() && remotePlayer != null) {
+            remotePlayer.update(deltatime);
 
-        client.updatePlayers(player);
+            client.updatePlayers(player);
+        }
 
         map.update(deltatime);
 
@@ -95,7 +99,8 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         map.render(sb);
 
         player.render(sb);
-        remotePlayer.render(sb);
+        if(client != null && client.isConnected() && remotePlayer != null)
+            remotePlayer.render(sb);
     }
 
     @Override

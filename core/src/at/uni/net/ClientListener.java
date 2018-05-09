@@ -32,7 +32,7 @@ public class ClientListener extends Listener {
             JoinResponse response = (JoinResponse) object;
             if (response.joined) {
                 client.setPlayerId(response.id);
-                client.connected();
+                client.setConnected();
             }
 
         } else if(object instanceof KittenResponse) {

@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import java.io.IOException;
 
 import at.uni.Application;
+import at.uni.handlers.GameScreenManager;
 import at.uni.net.KittenClient;
 
 public class ChatScreen extends AbstractScreen {
@@ -69,6 +70,8 @@ public class ChatScreen extends AbstractScreen {
                     try {
                         client = new KittenClient(ip);
                         message = "Verbunden";
+                        application.setClient(client);
+                        application.getGameScreenManager().setScreen(GameScreenManager.STATE.PLAY);
                     } catch (IOException e) {
                         message = e.getMessage();
                         //message = "Fehler beim Verbinden";
@@ -81,35 +84,6 @@ public class ChatScreen extends AbstractScreen {
             }
         });
         stage.addActor(btnConnect);
-
-        lblMessage = new Label("Nachricht: ", skin);
-        lblMessage.setPosition(100,Application.VIEWPORT_HEIGHT - 100);
-        stage.addActor(lblMessage);
-
-        txtMessage = new TextField("", skin);
-        txtMessage.setPosition(180, Application.VIEWPORT_HEIGHT - 100);
-        txtMessage.setSize(400, 30);
-        stage.addActor(txtMessage);
-
-        btnSend = new TextButton("Senden", skin);
-        btnSend.setPosition(100, Application.VIEWPORT_HEIGHT - 160);
-        btnSend.setSize(480, 50);
-        btnSend.addListener(new ClickListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-
-                String txt = txtMessage.getText();
-                if(!txt.isEmpty()) {
-                    client.sendMessage(txt);
-                } else {
-                    message = "Sie müssen was eingeben";
-                }
-
-                super.touchUp(event, x, y, pointer, button);
-            }
-        });
-        stage.addActor(btnSend);
-
     }
 
     @Override

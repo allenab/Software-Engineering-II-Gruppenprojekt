@@ -47,7 +47,7 @@ public class Application extends Game {
 		Assets.loadAssets(assetManager);
 
 		gameScreenManager = new GameScreenManager(this);
-		gameScreenManager.setScreen(GameScreenManager.STATE.MAIN_MENU);
+		gameScreenManager.setScreen(GameScreenManager.STATE.GAMESERVER);
 	}
 
 	@Override
