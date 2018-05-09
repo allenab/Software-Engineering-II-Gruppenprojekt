@@ -15,13 +15,14 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import at.uni.Application;
 import at.uni.net.KittenClient;
+import at.uni.net.KittenServer;
 import at.uni.objects.Map;
 import at.uni.objects.Player;
 import at.uni.utils.InputData;
 
 import static at.uni.utils.Box2DHelper.PPM;
 
-public class MainGameScreen extends AbstractScreen implements ContactListener {
+public class MainGameServerScreen extends AbstractScreen implements ContactListener {
 
     private OrthographicCamera camera;
     private OrthographicCamera b2dCamera;
@@ -32,12 +33,12 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     private Player remotePlayer;
     private Map map;
 
-    private KittenClient client;
+    private KittenServer server;
 
-    public MainGameScreen(Application application) {
+    public MainGameServerScreen(Application application) {
         super(application);
 
-        client = application.getClient();
+        server = application.getServer();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
@@ -62,16 +63,16 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         //application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
         // erzeugt einen Spieler
-        player = new Player(world, "bomberman.png", client.getLocalPlayer().getPosition().x / PPM, client.getLocalPlayer().getPosition().y / PPM);
+        player = new Player(world, "bomberman.png", server.getPlayer(0).getPosition().x / PPM, server.getPlayer(0).getPosition().y / PPM);
 
-        remotePlayer = new Player(world, "bomberman.png", client.getRemotePlayer().getPosition().x / PPM, client.getRemotePlayer().getPosition().y / PPM);
+        remotePlayer = new Player(world, "bomberman.png", server.getPlayer(1).getPosition().x / PPM, server.getPlayer(1).getPosition().y / PPM);
         map.load(world);
     }
 
     @Override
     public void handleInput() {
         player.handleInput(new InputData());
-        remotePlayer.setPosition(client.getRemotePlayer().getPosition().x / PPM, client.getRemotePlayer().getPosition().y / PPM);
+        remotePlayer.setPosition(server.getPlayer(1).getPosition().x / PPM, server.getPlayer(1).getPosition().y / PPM);
     }
 
     @Override
@@ -79,7 +80,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         player.update(deltatime);
         remotePlayer.update(deltatime);
 
-        client.updatePlayers(player);
+        server.updatePlayer(0, player.getPosition());
 
         map.update(deltatime);
 
