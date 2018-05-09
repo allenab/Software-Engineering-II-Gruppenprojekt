@@ -70,6 +70,7 @@ public class ChatScreen extends AbstractScreen {
                     try {
                         client = new KittenClient(ip);
                         message = "Verbunden";
+                        client.join();
                         application.setClient(client);
                         application.getGameScreenManager().setScreen(GameScreenManager.STATE.PLAY);
                     } catch (IOException e) {

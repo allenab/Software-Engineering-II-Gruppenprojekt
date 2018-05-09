@@ -79,7 +79,7 @@ public class MainGameServerScreen extends AbstractScreen implements ContactListe
     public void handleInput() {
         player.handleInput(new InputData());
         if(remotePlayer != null)
-        remotePlayer.setPosition(server.getPlayer(1).getPosition().x / PPM, server.getPlayer(1).getPosition().y / PPM);
+            remotePlayer.setPosition(server.getPlayer(1).getPosition().x / PPM, server.getPlayer(1).getPosition().y / PPM);
     }
 
     @Override

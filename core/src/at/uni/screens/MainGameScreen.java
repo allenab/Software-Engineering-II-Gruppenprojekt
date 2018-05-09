@@ -77,7 +77,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     @Override
     public void update(float deltatime) {
         if(client != null && client.isConnected() && remotePlayer == null)
-            remotePlayer = new Player(world, "bomberman.png", client.getRemotePlayer().getPosition().x / PPM, client.getRemotePlayer().getPosition().y / PPM);
+            remotePlayer = new Player(world, "bomberman.png", 100 / PPM, 150 / PPM);
         player.update(deltatime);
         if(client != null && client.isConnected() && remotePlayer != null) {
             remotePlayer.update(deltatime);

@@ -4,6 +4,7 @@ import com.esotericsoftware.kryonet.Client;
 
 import java.io.IOException;
 
+import at.uni.net.packets.request.JoinRequest;
 import at.uni.net.packets.request.KittenRequest;
 import at.uni.net.packets.request.MessageRequest;
 import at.uni.objects.GameObject;
@@ -74,6 +75,14 @@ public class KittenClient {
         request.id = playerId;
         request.player = localPlayer;
         client.sendUDP(request);
+    }
+
+    public void join(){
+        JoinRequest request = new JoinRequest();
+        request.playerName = "Player  2";
+        client.sendTCP(request);
+
+        updatePlayers(localPlayer);
     }
 
     public void setRecivedMessage(boolean recived) {
