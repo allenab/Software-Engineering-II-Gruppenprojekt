@@ -17,6 +17,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import at.uni.Application;
 import at.uni.utils.InputData;
 
 import static at.uni.utils.Box2DHelper.PPM;
@@ -70,24 +71,25 @@ public class Player extends GameObject {
         body.setLinearVelocity(0, 0);
 
         // Tastatur-Input Section - Markus
-        if(data.isKeyDown(InputData.Key.Forward)){
+        if(data.isKeyDown(InputData.Key.Forward) || data.isPressed(0,new Rectangle(Application.VIEWPORT_WIDTH/2,0, 360, 240))){
             body.applyLinearImpulse(new Vector2(0, 5), body.getWorldCenter(), true);
             facingDirection = 0;
         }
-        if(data.isKeyDown(InputData.Key.Backward)){
+        if(data.isKeyDown(InputData.Key.Backward) || data.isPressed(0, new Rectangle(Application.VIEWPORT_WIDTH/2, Application.VIEWPORT_HEIGHT/2, 360, 240))){
             body.applyLinearImpulse(new Vector2(0, -5), body.getWorldCenter(), true);
             facingDirection = 1;
         }
-        if(data.isKeyDown(InputData.Key.Left)){
+        if(data.isKeyDown(InputData.Key.Left) || data.isPressed(0, new Rectangle(0, Application.VIEWPORT_HEIGHT/2, 180, 240))){
             body.applyLinearImpulse(new Vector2(-5, 0), body.getWorldCenter(), true);
             facingDirection = 2;
         }
-        if(data.isKeyDown(InputData.Key.Right)){
+        if(data.isKeyDown(InputData.Key.Right) || data.isPressed(0, new Rectangle(180, Application.VIEWPORT_HEIGHT/2, 180,240))){
             body.applyLinearImpulse(new Vector2(5, 0), body.getWorldCenter(), true);
             facingDirection = 3;
         }
 
-        if(data.isKeyPressed(InputData.Key.Space)){
+
+        if(data.isKeyPressed(InputData.Key.Space)|| data.isPressed(0,new Rectangle(0,0, 360, 240))){
             System.out.println("Direction: " + facingDirection);
             if (bombs.getBombs().size() < maximumBombs){
                 bombs.addBomb(position.x, position.y);
