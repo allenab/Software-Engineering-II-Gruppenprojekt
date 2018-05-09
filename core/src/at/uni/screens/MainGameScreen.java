@@ -67,7 +67,6 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         // erzeugt einen Spieler
         this.player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM, bombs);
 
-        //player2ForCollisionTesting = new Player(world, "bomberman.png", Map.GRIDSIZE * (Map.NUM_COLUMS - 1), 100 / PPM);
         map.load(world);
     }
 
@@ -85,9 +84,10 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         player.update(deltatime);
         if(client != null && client.isConnected() && remotePlayer != null) {
             remotePlayer.update(deltatime);
-
-            client.updatePlayers(player);
         }
+
+        if(client != null && client.isConnected())
+            client.updatePlayers(player);
 
         map.update(deltatime);
 

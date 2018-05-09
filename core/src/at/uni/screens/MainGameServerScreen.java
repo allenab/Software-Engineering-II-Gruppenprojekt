@@ -18,6 +18,7 @@ import java.io.IOException;
 import at.uni.Application;
 import at.uni.net.KittenClient;
 import at.uni.net.KittenServer;
+import at.uni.objects.Bombs;
 import at.uni.objects.Map;
 import at.uni.objects.Player;
 import at.uni.utils.InputData;
@@ -36,6 +37,8 @@ public class MainGameServerScreen extends AbstractScreen implements ContactListe
     private Map map;
 
     private KittenServer server;
+
+    private Bombs bombs = new Bombs(map);
 
     public MainGameServerScreen(Application application) {
         super(application);
@@ -69,7 +72,7 @@ public class MainGameServerScreen extends AbstractScreen implements ContactListe
         }
 
         // erzeugt einen Spieler
-        player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM);
+        player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM, bombs);
         server.addGameObject(0, player);
 
         map.load(world);
@@ -85,7 +88,7 @@ public class MainGameServerScreen extends AbstractScreen implements ContactListe
     @Override
     public void update(float deltatime) {
         if(server.getPlayer(1) != null && remotePlayer == null){
-            remotePlayer = new Player(world, "bomberman.png", server.getPlayer(1).getPosition().x / PPM, server.getPlayer(1).getPosition().y / PPM);
+            remotePlayer = new Player(world, "bomberman.png", server.getPlayer(1).getPosition().x / PPM, server.getPlayer(1).getPosition().y / PPM, new Bombs(map));
         }
 
 

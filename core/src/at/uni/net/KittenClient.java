@@ -81,8 +81,6 @@ public class KittenClient {
         JoinRequest request = new JoinRequest();
         request.playerName = "Player  2";
         client.sendTCP(request);
-
-        updatePlayers(localPlayer);
     }
 
     public void setRecivedMessage(boolean recived) {
