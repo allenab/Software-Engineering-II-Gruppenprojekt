@@ -11,8 +11,10 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
+import at.uni.net.packets.request.JoinRequest;
 import at.uni.net.packets.request.KittenRequest;
 import at.uni.net.packets.request.MessageRequest;
+import at.uni.net.packets.response.JoinResponse;
 import at.uni.net.packets.response.KittenResponse;
 import at.uni.net.packets.response.MessageResponse;
 
@@ -31,9 +33,11 @@ public class KryoUtil {
     public static void registerPackets(Kryo kryo) {
         kryo.register(MessageRequest.class);
         kryo.register(KittenRequest.class);
+        kryo.register(JoinRequest.class);
 
         kryo.register(MessageResponse.class);
         kryo.register(KittenResponse.class);
+        kryo.register(JoinResponse.class);
     }
 
     public static List<String> getIPAddresses() {

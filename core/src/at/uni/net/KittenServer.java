@@ -1,14 +1,19 @@
 package at.uni.net;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.esotericsoftware.kryonet.Server;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import at.uni.net.packets.request.MessageRequest;
 import at.uni.objects.GameObject;
+import at.uni.objects.Player;
 
 public class KittenServer {
 
@@ -16,14 +21,14 @@ public class KittenServer {
 
     private String message;
     private boolean recivedMessage;
-    private List<GameObject> gameObjects;
+    private Map<Integer, GameObject> gameObjects;
 
     public KittenServer() throws IOException {
 
         recivedMessage = false;
         message = "";
 
-        gameObjects = new ArrayList<GameObject>();
+        gameObjects = new HashMap<Integer, GameObject>();
 
         server = new Server();
         server.addListener(new ServerListener(this));
@@ -55,12 +60,28 @@ public class KittenServer {
         server.sendToAllTCP(mr);
     }
 
-    public List<GameObject> getGameObjects() {
-        return gameObjects;
+    public int getNumberOfPlayers() {
+        int count = 0;
+        for(GameObject o : gameObjects.values()){
+            if(o instanceof Player){
+                count ++;
+            }
+        }
+        return count;
     }
 
-    public void addGameObject(GameObject o) {
-        gameObjects.add(o);
+    public void addGameObject(Integer i, GameObject o) {
+        gameObjects.put(i, o);
+    }
+
+    public void updatePlayer(Integer i, Vector2 pos){
+        GameObject o = gameObjects.get(i);
+        o.setPosition(pos.x, pos.y);
+        gameObjects.put(i, o);
+    }
+
+    public GameObject getPlayer(Integer i) {
+        return gameObjects.get(i);
     }
 
 }
