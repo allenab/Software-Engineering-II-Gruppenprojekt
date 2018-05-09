@@ -86,7 +86,7 @@ public class Player extends GameObject {
         }
 
 
-        if(data.isKeyPressed(InputData.Key.Space)){
+        if(data.isKeyPressed(InputData.Key.Space)|| data.isPressed(0,new Rectangle(0,0, 360, 240))){
             System.out.println("Direction: " + facingDirection);
             if (bombs.size() < maximumBombs){
                 Bomb bomb = new Bomb(position.x, position.y);
