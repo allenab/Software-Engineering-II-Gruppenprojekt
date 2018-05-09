@@ -50,7 +50,13 @@ public class Application extends Game {
 		gameScreenManager.setScreen(GameScreenManager.STATE.CHAT);
 	}
 
-	@Override
+    @Override
+    public void render() {
+        super.render();
+        InputData.update();
+    }
+
+    @Override
 	public void dispose(){
 		super.dispose();
 		spriteBatch.dispose();

@@ -52,6 +52,7 @@ public class GameInputProcessor implements InputProcessor {
             case Keys.RIGHT:
                 InputData.setKeyState(Key.Right, false);
                 break;
+
             case Keys.SPACE:
                 InputData.setKeyState(Key.Space, false);
                 break;

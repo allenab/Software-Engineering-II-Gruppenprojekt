@@ -62,8 +62,9 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         client = application.getClient();
 
         // erzeugt einen Spieler
-        player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM);
+        this.player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM, bombs);
 
+        //player2ForCollisionTesting = new Player(world, "bomberman.png", Map.GRIDSIZE * (Map.NUM_COLUMS - 1), 100 / PPM);
         map.load(world);
     }
 
