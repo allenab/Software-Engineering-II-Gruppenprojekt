@@ -16,7 +16,6 @@ plugins {
 }
 
 allprojects {
-
     apply plugin: "eclipse"
     apply plugin: "idea"
 
@@ -54,12 +53,6 @@ project(":desktop") {
 
 project(":android") {
     apply plugin: "android"
-
-    android {
-        lintOptions {
-            abortOnError false
-        }
-    }
 
     configurations { natives }
 
