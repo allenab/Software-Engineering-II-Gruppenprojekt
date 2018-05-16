@@ -15,9 +15,6 @@ cache:
 before_install:
 - chmod +x gradlew
 
-script:
-  ./gradlew clean check build
-
 # Deployment to GitHub-releases
 before_deploy:
   # Generate a packaged jar for the desktop-project and rename it to include the tag

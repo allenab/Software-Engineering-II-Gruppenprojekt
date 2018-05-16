@@ -56,12 +56,6 @@ project(":android") {
 
     configurations { natives }
 
-    android{
-        lintOptions {
-            abortOnError false
-        }
-    }
-
     dependencies {
         compile project(":core")
         compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
