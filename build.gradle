@@ -1,5 +1,4 @@
 buildscript {
-    
 
     repositories {
         mavenLocal()
@@ -89,6 +88,10 @@ project(":core") {
 
 tasks.eclipse.doLast {
     delete ".project"
+}
+
+plugins {
+  id "org.sonarqube" version "2.6"
 }
 
 android {
