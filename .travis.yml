@@ -15,3 +15,6 @@ cache:
 before_install:
 - yes | sdkmanager "platforms;android-27"
 - chmod +x gradlew
+
+before_deploy:
+- ./gradlew assemble
