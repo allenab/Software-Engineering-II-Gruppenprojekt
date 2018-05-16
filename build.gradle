@@ -90,9 +90,3 @@ project(":core") {
 tasks.eclipse.doLast {
     delete ".project"
 }
-
-android {
-    lintOptions {
-        abortOnError false
-    }
-}
