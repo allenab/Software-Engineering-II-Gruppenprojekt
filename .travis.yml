@@ -2,6 +2,12 @@ language: android
 sudo: required
 jdk: oraclejdk8
 
+addons:
+  sonarcloud:
+    organization: "fareroo7-github" # the key of the org you chose at step #3
+    token:
+      secure: "1/E7I5K7Npoa4bRql9uleCgRxQtfAm6MWsPbXXViufMhrqnZ1KDsZeS6ZJnXMJy+gGVQDCQCbGiYBINHCKyhDx1EyEUvvRTLqBaY460LyVoUzApo9sGS1ut6YtAyJoy/m9rm2Sdl1H9/vabwzvu+YOVWFFQabJ+bIsbEiEt+vrAYWpiAjylHSJXBQeMK01X8ucdNWM4m1V9QBWkdLnDMfpnIcjTXkZLQx+MeFhBCvGQFOCy9pWVJ46yN3HX4ixk4RgrvQZIFtYoyNczdND+Q/d9vi6B2K2c4nUyiWT2S7usNeQWQ3GBaauPvAEqGomJrCkd405mEwFw5cGkFlTc0lNJ43Oro9D/wRf1jT0rWQW3n/y2AaRZXnntPqXHOe2yClzlnNIGBo8O23qzAy2s4BZhEL9Fmawi85b/+yRLkXbJmbNmmTGee1XPV9TcP2pRd5VQsti9clLicLYBDXbUu1+qU5u4TC/QMwMRBAijgSXqtrfrP2s3a/AoJmz6nrTSw4Rrrnrq/hDo1jyKdjLdrafXqhFUy7qjSqCQzhnLBxt/pdRhlBuKdMkcrbFNPsOMNoTM7GyfmOitYjiyRwg9KgJO80BpPQ7454nLcEWrX8zjslfxUoKQYdrhPIst/ViX9Oo0jOPkuXctKJvjsKTUqwkY5/BHqogGBvmn+pO82s+E=" # encrypted value of your token
+
 before_cache:
   -rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
   -rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -39,3 +45,4 @@ before_install:
 
 script:
   - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
+  - sonar-scanner
