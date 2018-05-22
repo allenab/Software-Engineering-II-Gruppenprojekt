@@ -15,6 +15,7 @@ cache:
   directories:
     -$HOME/.gradle/caches/
     -$HOME/.gradle/wrapper/
+    -$HOME/.sonar/cache/
 
 env:
   global:
