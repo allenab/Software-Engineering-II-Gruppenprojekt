@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import at.uni.Application;
 import at.uni.objects.Bombs;
@@ -37,6 +38,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     private Player player2ForCollisionTesting;
     private Map map;
     private Bombs bombs;
+    public List<Body> toDestroy = new ArrayList<Body>();
 
     public MainGameScreen(Application application) {
         super(application);
@@ -78,6 +80,11 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
 
     @Override
     public void update(float deltatime) {
+        for (Body body: toDestroy) {
+            world.destroyBody(body);
+        }
+        toDestroy.clear();
+
         player.update(deltatime);
         //player2ForCollisionTesting.update();
 
@@ -118,10 +125,16 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         // um herauszufinden welche Objekte miteinander kollidieren
         Fixture fixtureA = contact.getFixtureA(), fixtureB = contact.getFixtureB();
 
-        if (fixtureA.getUserData() == "Player"){
-            System.out.println("Fixture A = Player");
-        } else if (fixtureB.getUserData() == "Player"){
-            System.out.println("Fixture B = Player");
+        if (fixtureA.getUserData() == "Player" && fixtureB.getBody().getUserData() == "Bomb"){
+            player.damageTaken();
+            toDestroy.add(fixtureB.getBody());
+        } else if (fixtureB.getUserData() == "Player" && fixtureA.getBody().getUserData() == "Bomb"){
+            player.damageTaken();
+            toDestroy.add(fixtureA.getBody());
+        } else if (fixtureA.getBody().getUserData() == "Bomb") {
+            toDestroy.add(fixtureA.getBody());
+        } else if (fixtureB.getBody().getUserData() == "Bomb") {
+            toDestroy.add(fixtureB.getBody());
         }
     }
 

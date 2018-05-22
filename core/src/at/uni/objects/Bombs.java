@@ -86,6 +86,8 @@ public class Bombs extends GameObject {
     private void handleExplosiveBombs(List<Bomb> expired){
         for (Bomb bomb: expired) {
             map.explosionCheck(bomb.position);
+            Body b = Box2DHelper.createBox(world, bomb.position.x, bomb.position.y, 120f, 120f, BodyDef.BodyType.StaticBody, false, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL);
+            b.setUserData("Bomb");
         }
     }
 
