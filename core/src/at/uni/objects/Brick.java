@@ -1,6 +1,5 @@
 package at.uni.objects;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -17,9 +16,11 @@ public class Brick extends GameObject {
     public Brick(float x, float y){
         position = new Vector2(x, y);
         bounds = new Rectangle(x, y, GRIDSIZE, GRIDSIZE);
-        texture = new Texture("images/brick.png");
+    }
 
-        this.healthPoints = 100;
+    public Brick(float x, float y, float w, float h){
+        position = new Vector2(x, y);
+        bounds = new Rectangle(x, y, GRIDSIZE, GRIDSIZE);
     }
 
     @Override
@@ -36,14 +37,12 @@ public class Brick extends GameObject {
     }
 
     public void render(SpriteBatch sb) {
-        sb.begin();
-        sb.draw(texture, position.x - bounds.width / 2, position.y - bounds.height / 2, bounds.width,bounds.height);
-        sb.end();
+
     }
 
     @Override
     public void dispose() {
-        texture.dispose();
+
     }
 
 }

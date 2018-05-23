@@ -32,19 +32,19 @@ public class Player extends GameObject {
     private int health;
     private List<ParticleEffect> explosions;
 
-    public Player(World world, String name, float x, float y){
+    public Player(World world, String name, float x, float y, Bombs bombs){
         this.texture = new Texture(name);
         this.bounds = new Rectangle(x, y, texture.getWidth(), texture.getHeight());
         this.world = world;
         setPosition(x - bounds.width / 2, y - bounds.height / 2);
         load(world);
         facingDirection = 0;
-        bombs = new ArrayList<Bomb>();
+        this.bombs = new ArrayList<Bomb>();
 
         this.health = 100;
 
         facingDirection = 0;
-        bombs = new ArrayList<Bomb>();
+        this.bombs = new ArrayList<Bomb>();
         explosions = new LinkedList<ParticleEffect>();
     }
 

@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
 import at.uni.Application;
+import at.uni.objects.Bombs;
 import at.uni.objects.Map;
 import at.uni.objects.Player;
 import at.uni.utils.InputData;
@@ -30,12 +31,14 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     private Player player;
     private Player player2ForCollisionTesting;
     private Map map;
+    private Bombs bombs;
 
     public MainGameScreen(Application application) {
         super(application);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
+
 
         b2dCamera = new OrthographicCamera();
         b2dCamera.setToOrtho(false, Application.VIEWPORT_WIDTH / PPM, Application.VIEWPORT_HEIGHT / PPM);
@@ -47,20 +50,21 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         // ContactListener ist unsere MainGameScreen Klasse
         world.setContactListener(this);
 
-        map = new Map();
-
+        map = new Map(camera);
+        bombs = new Bombs(map);
 
     }
 
     @Override
     public void load() {
-        //application.getSpriteBatch().setProjectionMatrix(camera.combined);
+        application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
         // erzeugt einen Spieler
-        this.player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM);
+        this.player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM, bombs);
 
         //player2ForCollisionTesting = new Player(world, "bomberman.png", Map.GRIDSIZE * (Map.NUM_COLUMS - 1), 100 / PPM);
         map.load(world);
+        bombs.load(world);
     }
 
     @Override
@@ -70,6 +74,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
 
     @Override
     public void update(float deltatime) {
+        camera.update();
         player.update(deltatime);
         //player2ForCollisionTesting.update();
 
@@ -85,6 +90,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         b2dr.render(world, b2dCamera.combined);
 
         map.render(sb);
+        bombs.render(sb);
 
         player.render(sb);
 
