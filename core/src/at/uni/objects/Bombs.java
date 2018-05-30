@@ -22,6 +22,7 @@ public class Bombs extends GameObject {
     private World world;
     private Map map;
     private Sound explosionSound = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.mp3"));
+    private Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bombdrop.mp3"));
 
     public Bombs(Map map){
         bombs = new ArrayList<Bomb>();
@@ -30,6 +31,7 @@ public class Bombs extends GameObject {
     }
 
     public void addBomb(float x, float y){
+        dropSound.play(0.3f);
         Bomb bomb = new Bomb(x, y);
         bomb.load(world);
         bombs.add(bomb);
@@ -125,6 +127,7 @@ public class Bombs extends GameObject {
         }
 
         explosionSound.dispose();
+        dropSound.dispose();
     }
 
     public List<Bomb> getBombs() {
