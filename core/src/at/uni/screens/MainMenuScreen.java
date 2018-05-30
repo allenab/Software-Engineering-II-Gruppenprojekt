@@ -1,6 +1,7 @@
 package at.uni.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -20,6 +21,9 @@ public class MainMenuScreen extends AbstractScreen {
     private TextField EnterName;
     private Label name;
     private Label title;
+
+    private Sound bgLoop = Gdx.audio.newSound(Gdx.files.internal("sounds/yummie_shortBGloop.mp3"));
+    private long soundID;
 
     public MainMenuScreen(Application application) {
         super(application);
@@ -47,6 +51,7 @@ public class MainMenuScreen extends AbstractScreen {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
+                bgLoop.stop(soundID);
                 application.getGameScreenManager().setScreen(GameScreenManager.STATE.PLAY);
             }
         });
@@ -124,6 +129,8 @@ public class MainMenuScreen extends AbstractScreen {
         EnterName = new TextField("", skin);
         EnterName.setPosition(145, 330);
         stage.addActor(EnterName);
+
+        this.soundID = bgLoop.loop();
     }
 
     @Override
@@ -148,6 +155,6 @@ public class MainMenuScreen extends AbstractScreen {
 
     @Override
     public void dispose() {
-
+        bgLoop.dispose();
     }
 }
