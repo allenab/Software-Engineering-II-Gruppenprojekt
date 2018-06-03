@@ -91,7 +91,7 @@ public class Bombs extends GameObject {
         for (Bomb bomb: expired) {
             explosionSound.play();
             map.explosionCheck(bomb.position);
-            Body b = Box2DHelper.createBox(world, bomb.position.x, bomb.position.y, 120f, 120f, BodyDef.BodyType.StaticBody, false, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL);
+            Body b = Box2DHelper.createExplosion(world, bomb.position.x, bomb.position.y, BodyDef.BodyType.DynamicBody, false, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL);
             b.setUserData("Bomb");
         }
     }
