@@ -36,37 +36,36 @@ public final class Box2DHelper {
         return world.createBody(bodyDef).createFixture(fixtureDef).getBody();
     }
 
-    public static Body createExplosion(final World world, float x, float y, BodyDef.BodyType type, boolean canRotate, short cBits, short mBits, short gIndex){
+    public static Body createExplosion(final World world, float x, float y,  float w, float h, BodyDef.BodyType type, boolean canRotate, short cBits, short mBits, short gIndex){
         BodyDef bodyDef = new BodyDef();
         bodyDef.fixedRotation = canRotate;
         bodyDef.type = type;
         bodyDef.position.set(x / PPM, y / PPM);
 
-        Vector2[] vertices = new Vector2[11];
+//        Vector2[] vertices = new Vector2[12];
+//
+//        vertices[0] = new Vector2(-27f  , 0f  );
+//        vertices[1] = new Vector2(0f , -55f  );
+//        vertices[2] = new Vector2(27f , 0f);
+//        vertices[3] = new Vector2(0f , -27f);
+//        vertices[4] = new Vector2(55f , 0f);
+//        vertices[5] = new Vector2(0f , 27f);
+//        vertices[6] = new Vector2(27f  , 0f  );
+//        vertices[7] = new Vector2(0f , 55f  );
+//        vertices[8] = new Vector2(-27f , 0f);
+//        vertices[9] = new Vector2(0f , 27f);
+//        vertices[10] = new Vector2(-55f , 0f);
+//        vertices[11] = new Vector2(0f , -27f);
+        PolygonShape shape1 = new PolygonShape();
+        shape1.setAsBox(w / 2 / PPM / 2, h / PPM / 2);
+        PolygonShape shape2 = new PolygonShape();
+        shape2.setAsBox(w / PPM / 2, h / 2 / PPM / 2);
 
-        vertices[0] = new Vector2(-27f  , 0f  );
-        vertices[1] = new Vector2(0f , -55f  );
-        vertices[2] = new Vector2(27f , 0f);
-        vertices[3] = new Vector2(0f , -27f);
-        vertices[4] = new Vector2(55f , 0f);
-        vertices[5] = new Vector2(0f , 27f);
-        vertices[6] = new Vector2(27f  , 0f  );
-        vertices[7] = new Vector2(0f , 55f  );
-        vertices[8] = new Vector2(-27f , 0f);
-        vertices[9] = new Vector2(0f , 27f);
-        vertices[10] = new Vector2(-55f , 0f);
-        vertices[11] = new Vector2(0f , -27f);
-        PolygonShape shape = new PolygonShape();
-        shape.set(vertices);
+        Body b = world.createBody(bodyDef);
+        b.createFixture(shape1, 1.0f);
+        b.createFixture(shape2, 1.0f);
 
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = shape;
-        fixtureDef.density = 1.0f;
-        fixtureDef.filter.categoryBits = cBits;
-        fixtureDef.filter.maskBits = mBits;
-        fixtureDef.filter.groupIndex = gIndex;
-
-        return world.createBody(bodyDef).createFixture(fixtureDef).getBody();
+        return b;
     }
 
 }
