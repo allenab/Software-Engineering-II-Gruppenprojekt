@@ -115,7 +115,8 @@ public class Player extends GameObject {
     }
 
     public void damageTaken(){
-        this.health -= 10;
+        this.health -= 40;
+        System.out.println("damage taken, new health: "+health);
         if (this.health <= 0){
             System.out.println("Player died");
         }
