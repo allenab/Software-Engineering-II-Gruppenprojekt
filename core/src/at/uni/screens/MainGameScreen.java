@@ -15,7 +15,9 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import at.uni.Application;
 import at.uni.objects.Bombs;
@@ -38,7 +40,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     private Player player2ForCollisionTesting;
     private Map map;
     private Bombs bombs;
-    public List<Body> toDestroy = new ArrayList<Body>();
+    public Set<Body> toDestroy = new HashSet<Body>();
 
     public MainGameScreen(Application application) {
         super(application);
@@ -80,17 +82,23 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
 
     @Override
     public void update(float deltatime) {
+        world.step(Application.STEP, 6,2);
+
+        map.update(deltatime);
+
+        int count = world.getBodyCount();
         for (Body body: toDestroy) {
-            world.destroyBody(body);
+            if (count > 0) {
+                world.destroyBody(body);
+                count--;
+            }
         }
         toDestroy.clear();
 
         player.update(deltatime);
         //player2ForCollisionTesting.update();
 
-        map.update(deltatime);
 
-        world.step(Application.STEP, 6,2);
     }
 
     @Override
