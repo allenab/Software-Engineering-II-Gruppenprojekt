@@ -9,9 +9,10 @@ import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import at.uni.screens.MainGameScreen;
+import java.util.Set;
+import java.util.Random;
+
 import at.uni.utils.InputData;
 
 public class Map extends GameObject {
@@ -26,6 +27,9 @@ public class Map extends GameObject {
 
     public Map(){
         map = new ArrayList<List<GameObject>>();
+        Random random = new Random();
+        int low = 1;
+        int high = 100;
 
         for(int y = 0; y < NUM_ROWS; y++) {
             List<GameObject> row = new ArrayList<GameObject>();
@@ -36,24 +40,59 @@ public class Map extends GameObject {
                     //erste oder letzte row
                     o = new Wall(x * GRIDSIZE, y * GRIDSIZE);
                 } else if (x == 0 || x == NUM_COLUMS - 1) {
-                    //erste oder letzt colum
+                    //erste oder letzte colum
                     o = new Wall(x * GRIDSIZE, y * GRIDSIZE);
                 } else if((x % 2) == 0 && (y % 2) == 0) {
+                    //fixierte Blöcke im Spielbereich
+                    o = new Wall(x* GRIDSIZE, y*GRIDSIZE);
+                } else if (x == 1 && y ==1 || x == 2 && y == 1 || x == 1 && y == 2){
+                    //Spawnpunkte
+                    o = new Floor(x* GRIDSIZE, y*GRIDSIZE);
+                } else if (x == 1 && y == 6 || x == 1 && y == 7 ||  x == 2 && y== 7){
+                    o = new Floor(x * GRIDSIZE, y * GRIDSIZE);
+                } else if (x == 10 && y == 1 || x == 11 && y == 1 ||  x == 11 && y== 2){
+                    o = new Floor(x*GRIDSIZE, y*GRIDSIZE);
+                } else if (x == 11 && y == 6 || x == 11 && y == 7 ||  x == 10 && y== 7){
+                    o = new Floor(x * GRIDSIZE, y*GRIDSIZE);
+                } else if (x == 1 && y == 3 || x == 3 && y == 1 ||  x == 1 && y== 5 || x == 3 && y== 7){
+                    // Sperrt Spawnpunkte
+                o = new Brick(x * GRIDSIZE, y * GRIDSIZE);
+                } else if (x == 9 && y == 7 || x == 11 && y == 5 ||  x == 11 && y== 5 || x == 9 && y== 7){
+                    o = new Brick(x*GRIDSIZE, y*GRIDSIZE);
+                } else {
+                    //random Verteilung
+                    int rand = random.nextInt(high - low) + low;
+                    if (rand <= 70){
+                        o = new Brick(x * GRIDSIZE, y * GRIDSIZE);
+                    } else {
+                        o = new Floor(x * GRIDSIZE, y * GRIDSIZE);
+
+                }
+                }
+
+
+                    row.add(o);
+
+                }
+
+            /*++
                     o = new Wall(x * GRIDSIZE, y * GRIDSIZE);
-                }else {
+                } else{
                     if( x > (NUM_COLUMS / 2)){
                         o = new Brick(x * GRIDSIZE, y * GRIDSIZE);
                     } else {
                         o = new Floor(x * GRIDSIZE, y * GRIDSIZE);
                     }
-                }
+                } */
 
-                row.add(o);
-            }
+
+
             map.add(row);
         }
+        }
 
-    }
+
+
 
     public void explosionCheck(Vector2 pos){
         int row = (int) ((int) (pos.y+10) / GRIDSIZE);
