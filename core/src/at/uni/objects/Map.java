@@ -7,7 +7,10 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+
+import java.util.Set;
 import java.util.Random;
 
 import at.uni.utils.InputData;
@@ -19,7 +22,7 @@ public class Map extends GameObject {
     public static final int NUM_COLUMS = 13;
 
     private List<List<GameObject>> map;
-    public List<Body> toDestroy = new ArrayList<Body>();
+    public Set<Body> toDestroy = new HashSet<Body>();
     private World world;
 
     public Map(){
@@ -141,8 +144,12 @@ public class Map extends GameObject {
     }
 
     public void update(float deltatime) {
+        int count = world.getBodyCount();
         for (Body body: toDestroy) {
-            world.destroyBody(body);
+            if (count > 0) {
+                world.destroyBody(body);
+                count--;
+            }
         }
         toDestroy.clear();
     }

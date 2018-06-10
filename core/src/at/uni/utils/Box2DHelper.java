@@ -1,5 +1,6 @@
 package at.uni.utils;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -33,6 +34,38 @@ public final class Box2DHelper {
         fixtureDef.filter.groupIndex = gIndex;
 
         return world.createBody(bodyDef).createFixture(fixtureDef).getBody();
+    }
+
+    public static Body createExplosion(final World world, float x, float y,  float w, float h, BodyDef.BodyType type, boolean canRotate, short cBits, short mBits, short gIndex){
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.fixedRotation = canRotate;
+        bodyDef.type = type;
+        bodyDef.position.set(x / PPM, y / PPM);
+
+//        Vector2[] vertices = new Vector2[12];
+//
+//        vertices[0] = new Vector2(-27f  , 0f  );
+//        vertices[1] = new Vector2(0f , -55f  );
+//        vertices[2] = new Vector2(27f , 0f);
+//        vertices[3] = new Vector2(0f , -27f);
+//        vertices[4] = new Vector2(55f , 0f);
+//        vertices[5] = new Vector2(0f , 27f);
+//        vertices[6] = new Vector2(27f  , 0f  );
+//        vertices[7] = new Vector2(0f , 55f  );
+//        vertices[8] = new Vector2(-27f , 0f);
+//        vertices[9] = new Vector2(0f , 27f);
+//        vertices[10] = new Vector2(-55f , 0f);
+//        vertices[11] = new Vector2(0f , -27f);
+        PolygonShape shape1 = new PolygonShape();
+        shape1.setAsBox(w / 2 / PPM / 2, h / PPM / 2);
+        PolygonShape shape2 = new PolygonShape();
+        shape2.setAsBox(w / PPM / 2, h / 2 / PPM / 2);
+
+        Body b = world.createBody(bodyDef);
+        b.createFixture(shape1, 1.0f);
+        b.createFixture(shape2, 1.0f);
+
+        return b;
     }
 
 }
