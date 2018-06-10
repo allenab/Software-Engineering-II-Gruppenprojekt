@@ -37,7 +37,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     private Box2DDebugRenderer b2dr;
 
     private Player player;
-    private Player player2ForCollisionTesting;
+    private Player[] players;
     private Map map;
     private Bombs bombs;
     public Set<Body> toDestroy = new HashSet<Body>();
@@ -67,8 +67,12 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     public void load() {
         //application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
+        this.players = new Player[4];
+
         // erzeugt einen Spieler
         this.player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM, bombs);
+
+        players[0] = player;
 
         //player2ForCollisionTesting = new Player(world, "bomberman.png", Map.GRIDSIZE * (Map.NUM_COLUMS - 1), 100 / PPM);
         map.load(world);
@@ -77,7 +81,9 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
 
     @Override
     public void handleInput() {
-        player.handleInput(new InputData());
+        if (players[0] != null){
+            player.handleInput(new InputData());
+        }
     }
 
     @Override
@@ -85,6 +91,12 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         world.step(Application.STEP, 6,2);
 
         map.update(deltatime);
+
+        if(player.getHealth() <= 0){
+            toDestroy.add(player.getBody());
+            player.setTexture(null);
+            players[0] = null;
+        }
 
         int count = world.getBodyCount();
         for (Body body: toDestroy) {
@@ -95,7 +107,12 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         }
         toDestroy.clear();
 
-        player.update(deltatime);
+        for (int i = 0; i < players.length; i++){
+            if (players[i] != null){
+                players[i].update(deltatime);
+            }
+        }
+
         //player2ForCollisionTesting.update();
 
 
@@ -110,11 +127,22 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         map.render(sb);
         bombs.render(sb);
 
-        player.render(sb);
+        for (int i = 0; i < players.length; i++){
+            if (players[i] != null){
+                players[i].render(sb);
+            }
+        }
+        //player.render(sb);
 
         // hier wird der Spieler 'gezeichnet'
         sb.begin();
-        sb.draw(player.getTexture(), player.getPosition().x - player.getBounds().height / 2, player.getPosition().y - player.getBounds().width / 2);
+        for (int i = 0; i < players.length; i++){
+            if (players[i] != null){
+                Player player = players[i];
+                sb.draw(player.getTexture(), player.getPosition().x - player.getBounds().height / 2, player.getPosition().y - player.getBounds().width / 2);
+            }
+        }
+        //sb.draw(player.getTexture(), player.getPosition().x - player.getBounds().height / 2, player.getPosition().y - player.getBounds().width / 2);
             //Testobjekt - wird beschleunigt weil es ein DynamicType ist.
             //sb.draw(player2ForCollisionTesting.getTexture(), player2ForCollisionTesting.getBody().getPosition().x - player2ForCollisionTesting.getBounds().height / 2,
                   //  player2ForCollisionTesting.getPosition().y - player2ForCollisionTesting.getBounds().width / 2);

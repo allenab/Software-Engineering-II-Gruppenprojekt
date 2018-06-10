@@ -56,8 +56,8 @@ public class Map extends GameObject {
                     o = new Floor(x * GRIDSIZE, y*GRIDSIZE);
                 } else if (x == 1 && y == 3 || x == 3 && y == 1 ||  x == 1 && y== 5 || x == 3 && y== 7){
                     // Sperrt Spawnpunkte
-                o = new Brick(x * GRIDSIZE, y * GRIDSIZE);
-                } else if (x == 9 && y == 7 || x == 11 && y == 5 ||  x == 11 && y== 5 || x == 9 && y== 7){
+                    o = new Brick(x * GRIDSIZE, y * GRIDSIZE);
+                } else if (x == 9 && y == 1 || x == 11 && y == 3 ||  x == 11 && y== 5 || x == 9 && y== 7){
                     o = new Brick(x*GRIDSIZE, y*GRIDSIZE);
                 } else {
                     //random Verteilung
@@ -67,13 +67,13 @@ public class Map extends GameObject {
                     } else {
                         o = new Floor(x * GRIDSIZE, y * GRIDSIZE);
 
-                }
+                    }
                 }
 
 
-                    row.add(o);
+                row.add(o);
 
-                }
+            }
 
             /*++
                     o = new Wall(x * GRIDSIZE, y * GRIDSIZE);
@@ -89,7 +89,7 @@ public class Map extends GameObject {
 
             map.add(row);
         }
-        }
+    }
 
 
 

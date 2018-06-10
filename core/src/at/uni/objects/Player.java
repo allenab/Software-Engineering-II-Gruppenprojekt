@@ -121,4 +121,8 @@ public class Player extends GameObject {
             System.out.println("Player died");
         }
     }
+
+    public int getHealth() {
+        return health;
+    }
 }
