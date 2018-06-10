@@ -81,7 +81,9 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
 
     @Override
     public void handleInput() {
-        player.handleInput(new InputData());
+        if (players[0] != null){
+            player.handleInput(new InputData());
+        }
     }
 
     @Override
