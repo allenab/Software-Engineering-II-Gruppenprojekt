@@ -55,7 +55,7 @@ public class Map extends GameObject {
                     // Sperrt Spawnpunkte
                 o = new Brick(x * GRIDSIZE, y * GRIDSIZE);
                 } else if (x == 9 && y == 7 || x == 11 && y == 5 ||  x == 11 && y== 5 || x == 9 && y== 7){
-                    o = new Brick(x+GRIDSIZE, y*GRIDSIZE);
+                    o = new Brick(x*GRIDSIZE, y*GRIDSIZE);
                 } else {
                     //random Verteilung
                     int rand = random.nextInt(high - low) + low;
