@@ -23,6 +23,7 @@ import at.uni.Application;
 import at.uni.objects.Bombs;
 import at.uni.objects.Brick;
 import at.uni.objects.GameObject;
+import at.uni.objects.GameObjectUserData;
 import at.uni.objects.Map;
 import at.uni.objects.Player;
 import at.uni.utils.InputData;
@@ -143,9 +144,9 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
             }
         }
         //sb.draw(player.getTexture(), player.getPosition().x - player.getBounds().height / 2, player.getPosition().y - player.getBounds().width / 2);
-            //Testobjekt - wird beschleunigt weil es ein DynamicType ist.
-            //sb.draw(player2ForCollisionTesting.getTexture(), player2ForCollisionTesting.getBody().getPosition().x - player2ForCollisionTesting.getBounds().height / 2,
-                  //  player2ForCollisionTesting.getPosition().y - player2ForCollisionTesting.getBounds().width / 2);
+        //Testobjekt - wird beschleunigt weil es ein DynamicType ist.
+        //sb.draw(player2ForCollisionTesting.getTexture(), player2ForCollisionTesting.getBody().getPosition().x - player2ForCollisionTesting.getBounds().height / 2,
+        //  player2ForCollisionTesting.getPosition().y - player2ForCollisionTesting.getBounds().width / 2);
         sb.end();
     }
 
@@ -160,6 +161,16 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         System.out.println("Kontakt initiiert");
         // um herauszufinden welche Objekte miteinander kollidieren
         Fixture fixtureA = contact.getFixtureA(), fixtureB = contact.getFixtureB();
+
+        GameObjectUserData dataA = (GameObjectUserData)fixtureA.getUserData();
+        GameObjectUserData dataB = (GameObjectUserData)fixtureB.getUserData();
+        if(dataA.userDataTypetype == GameObjectUserData.EUserDataType.PLAYER && dataB.userDataTypetype == GameObjectUserData.EUserDataType.BOMB)
+        {
+            Player p = (Player)dataA.gameObject;
+            p.damageTaken();
+            toDestroy.add(dataB.gameObject.getBody());
+        }
+
 
         if (fixtureA.getUserData() == "Player" && fixtureB.getBody().getUserData() == "Bomb"){
             player.damageTaken();

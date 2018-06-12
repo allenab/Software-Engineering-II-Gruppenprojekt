@@ -30,6 +30,7 @@ public class Player extends GameObject {
     private int maximumBombs = 3;
     private int health;
     private Bombs bombs;
+    private boolean hasShield = false;
 
     public Player(World world, String name, float x, float y, Bombs bombs){
         this.texture = new Texture(name);
@@ -59,12 +60,11 @@ public class Player extends GameObject {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         Fixture fixture = body.createFixture(fixtureDef);
-        fixture.setUserData("Player");
+        fixture.setUserData(new GameObjectUserData(this, GameObjectUserData.EUserDataType.PLAYER));
 
         shape.dispose();
     }
 
-    @Override
     public void handleInput(InputData data) {
         // da wir keine Beschleunigung wollen, Normalisieren wir die Geschw.
         body.setLinearVelocity(0, 0);
@@ -115,6 +115,12 @@ public class Player extends GameObject {
     }
 
     public void damageTaken(){
+        if(this.isProtectedByShield())
+        {
+            System.out.println("Player took damage but was protected by shield powerup");
+            this.hasShield = false;
+            return;
+        }
         this.health -= 40;
         System.out.println("damage taken, new health: "+health);
         if (this.health <= 0){
@@ -124,5 +130,17 @@ public class Player extends GameObject {
 
     public int getHealth() {
         return health;
+    }
+
+    public boolean isProtectedByShield()
+    {
+
+        return this.hasShield;
+    }
+
+    public void activateShield()
+    {
+        System.out.println("Player is now protected by shield powerup");
+        this.hasShield = true;
     }
 }

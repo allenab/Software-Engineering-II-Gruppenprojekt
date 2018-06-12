@@ -24,12 +24,14 @@ public class Brick extends GameObject {
     @Override
     public void load(World world) {
         body = Box2DHelper.createBox(world, position.x, position.y, bounds.width, bounds.height, BodyDef.BodyType.StaticBody, false, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL);
-        body.setUserData(this);
+        body.setUserData(new GameObjectUserData(this, GameObjectUserData.EUserDataType.BRICK));
     }
 
+    /*
     public void handleInput(InputData data) {
 
     }
+    */
 
     public void update(float deltatime) {
 
@@ -46,4 +48,11 @@ public class Brick extends GameObject {
         texture.dispose();
     }
 
+    public void OnDestroyedByExplosion()
+    {
+        // 1. nimm coordinaten von diesem Brick
+        // 2. rolle random() RNG
+        // 3. if random() > x (irgendeine zahl) -> spawn POwerupSHield object an coordinates von diesem brick
+        // 4. zerstören diesen brick0
+    }
 }
