@@ -139,9 +139,11 @@ public class Map extends GameObject {
         }
     }
 
+    /*
     public void handleInput(InputData data) {
 
     }
+    */
 
     public void update(float deltatime) {
         int count = world.getBodyCount();
