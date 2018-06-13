@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="11" height="7" tilewidth="64" tileheight="64" infinite="0" nextobjectid="42">
+ <tileset firstgid="1" name="map" tilewidth="64" tileheight="64" tilecount="3" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="1">
+   <image width="64" height="64" source="../images/brick.png"/>
+  </tile>
+  <tile id="2">
+   <image width="64" height="64" source="../images/floor.png"/>
+  </tile>
+  <tile id="3">
+   <image width="64" height="64" source="../images/wall.png"/>
+  </tile>
+ </tileset>
+ <layer name="background" width="11" height="7">
+  <data encoding="base64" compression="zlib">
+   eJxjZmBgYB7FJGEAjfgA6A==
+  </data>
+ </layer>
+ <layer name="graphics" width="11" height="7">
+  <data encoding="base64" compression="zlib">
+   eJxjYWBgYCEBwwATFgwDyGpZoHLYaGS1TGjy2PjkmEuKe4nFAIOcANc=
+  </data>
+ </layer>
+ <objectgroup name="walls">
+  <object id="1" x="0" y="0" width="704" height="64"/>
+  <object id="2" x="640" y="64" width="64" height="384"/>
+  <object id="3" x="0" y="384" width="704" height="64"/>
+  <object id="4" x="0" y="64" width="64" height="320"/>
+  <object id="5" x="128" y="128" width="64" height="64"/>
+  <object id="6" x="256" y="128" width="64" height="64"/>
+  <object id="7" x="192" y="192" width="64" height="64"/>
+  <object id="8" x="128" y="256" width="64" height="64"/>
+  <object id="9" x="256" y="256" width="64" height="64"/>
+  <object id="13" x="384" y="128" width="64" height="64"/>
+  <object id="14" x="448" y="192" width="64" height="64"/>
+  <object id="15" x="384" y="256" width="64" height="64"/>
+  <object id="16" x="512" y="256" width="64" height="64"/>
+  <object id="17" x="512" y="128" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup name="bricks">
+  <object id="18" x="192" y="64" width="64" height="64"/>
+  <object id="19" x="192" y="128" width="64" height="64"/>
+  <object id="20" x="64" y="192" width="64" height="64"/>
+  <object id="21" x="128" y="192" width="64" height="64"/>
+  <object id="22" x="192" y="256" width="64" height="64"/>
+  <object id="23" x="192" y="320" width="64" height="64"/>
+  <object id="24" x="256" y="320" width="64" height="64"/>
+  <object id="25" x="256" y="192" width="64" height="64"/>
+  <object id="26" x="320" y="192" width="64" height="64"/>
+  <object id="27" x="256" y="64" width="64" height="64"/>
+  <object id="28" x="320" y="64" width="64" height="64"/>
+  <object id="29" x="320" y="128" width="64" height="64"/>
+  <object id="30" x="384" y="192" width="64" height="64"/>
+  <object id="31" x="320" y="256" width="64" height="64"/>
+  <object id="32" x="320" y="320" width="64" height="64"/>
+  <object id="33" x="384" y="320" width="64" height="64"/>
+  <object id="34" x="448" y="320" width="64" height="64"/>
+  <object id="35" x="448" y="256" width="64" height="64"/>
+  <object id="37" x="384" y="64" width="64" height="64"/>
+  <object id="38" x="448" y="64" width="64" height="64"/>
+  <object id="39" x="448" y="128" width="64" height="64"/>
+  <object id="40" x="512" y="192" width="64" height="64"/>
+  <object id="41" x="576" y="192" width="64" height="64"/>
+ </objectgroup>
+</map>

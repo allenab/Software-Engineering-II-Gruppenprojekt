@@ -18,7 +18,11 @@ public class Wall extends GameObject {
     public Wall(float x, float y){
         position = new Vector2(x, y);
         bounds = new Rectangle(x, y, GRIDSIZE, GRIDSIZE);
-        texture = new Texture ("images/wall.png");
+    }
+
+    public Wall(float x, float y, float w, float h){
+        position = new Vector2(x, y);
+        bounds = new Rectangle(x, y, w, h);
     }
 
     @Override
@@ -38,13 +42,10 @@ public class Wall extends GameObject {
 
     @Override
     public void render(SpriteBatch sb) {
-        sb.begin();
-        sb.draw(texture, position.x - bounds.width / 2, position.y - bounds.height / 2, bounds.width,bounds.height);
-        sb.end();
     }
 
     @Override
     public void dispose() {
-        texture.dispose();
+
     }
 }
