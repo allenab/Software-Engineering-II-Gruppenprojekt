@@ -1,8 +1,10 @@
 package at.uni.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -13,19 +15,30 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import at.uni.Application;
 import at.uni.handlers.GameScreenManager;
 
+import static at.uni.utils.Box2DHelper.PPM;
+
 
 public class MainMenuScreen extends AbstractScreen {
 
     private OrthographicCamera camera;
+    private OrthographicCamera b2dCamera;
     private TextField EnterName;
     private Label name;
     private Label title;
+    private Box2DDebugRenderer b2dr;
+
+    private Sound bgLoop = Gdx.audio.newSound(Gdx.files.internal("sounds/yummie_shortBGloop.mp3"));
+    private long soundID;
 
     public MainMenuScreen(Application application) {
         super(application);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
+        b2dCamera = new OrthographicCamera();
+        b2dCamera.setToOrtho(false, Application.VIEWPORT_WIDTH / PPM, Application.VIEWPORT_HEIGHT / PPM);
+
+        b2dr = new Box2DDebugRenderer();
 
     }
 
@@ -47,6 +60,7 @@ public class MainMenuScreen extends AbstractScreen {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
+                bgLoop.stop(soundID);
                 application.getGameScreenManager().setScreen(GameScreenManager.STATE.PLAY);
             }
         });
@@ -124,6 +138,8 @@ public class MainMenuScreen extends AbstractScreen {
         EnterName = new TextField("", skin);
         EnterName.setPosition(145, 330);
         stage.addActor(EnterName);
+
+        this.soundID = bgLoop.loop();
     }
 
     @Override
@@ -148,6 +164,6 @@ public class MainMenuScreen extends AbstractScreen {
 
     @Override
     public void dispose() {
-
+        bgLoop.dispose();
     }
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -13,11 +14,15 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import at.uni.Application;
-import at.uni.net.KittenClient;
 import at.uni.objects.Bombs;
+import at.uni.objects.GameObjectUserData;
 import at.uni.objects.Map;
 import at.uni.objects.Player;
+import at.uni.objects.Powerup;
 import at.uni.utils.InputData;
 
 import static at.uni.utils.Box2DHelper.PPM;
@@ -30,12 +35,10 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     private Box2DDebugRenderer b2dr;
 
     private Player player;
-    private Player remotePlayer;
+    private Player[] players;
     private Map map;
-
-    private KittenClient client;
-
-    private Bombs bombs = new Bombs(map);
+    private Bombs bombs;
+    public Set<Body> toDestroy = new HashSet<Body>();
 
     public MainGameScreen(Application application) {
         super(application);
@@ -54,7 +57,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         world.setContactListener(this);
 
         map = new Map();
-
+        bombs = new Bombs(map);
 
     }
 
@@ -62,36 +65,55 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     public void load() {
         //application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
-        client = application.getClient();
+        this.players = new Player[4];
 
         // erzeugt einen Spieler
         this.player = new Player(world, "bomberman.png", 100 / PPM, 100 / PPM, bombs);
 
+        players[0] = player;
+
+        //player2ForCollisionTesting = new Player(world, "bomberman.png", Map.GRIDSIZE * (Map.NUM_COLUMS - 1), 100 / PPM);
         map.load(world);
+        bombs.load(world);
     }
 
     @Override
     public void handleInput() {
-        player.handleInput(new InputData());
-        if(client != null && client.isConnected() && remotePlayer != null)
-            remotePlayer.setPosition(client.getRemotePlayer().getPosition().x / PPM, client.getRemotePlayer().getPosition().y / PPM);
+        if (players[0] != null){
+            player.handleInput(new InputData());
+        }
     }
 
     @Override
     public void update(float deltatime) {
-        if(client != null && client.isConnected() && remotePlayer == null)
-            remotePlayer = new Player(world, "bomberman.png", 100 / PPM, 150 / PPM, new Bombs(map));
-        player.update(deltatime);
-        if(client != null && client.isConnected() && remotePlayer != null) {
-            remotePlayer.update(deltatime);
-        }
-
-        if(client != null && client.isConnected())
-            client.updatePlayers(player);
+        world.step(Application.STEP, 6,2);
 
         map.update(deltatime);
 
-        world.step(Application.STEP, 6,2);
+        if(player.getHealth() <= 0){
+            toDestroy.add(player.getBody());
+            player.setTexture(null);
+            players[0] = null;
+        }
+
+        int count = world.getBodyCount();
+        for (Body body: toDestroy) {
+            if (count > 0) {
+                world.destroyBody(body);
+                count--;
+            }
+        }
+        toDestroy.clear();
+
+        for (int i = 0; i < players.length; i++){
+            if (players[i] != null){
+                players[i].update(deltatime);
+            }
+        }
+
+        //player2ForCollisionTesting.update();
+
+
     }
 
     @Override
@@ -101,10 +123,28 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         b2dr.render(world, b2dCamera.combined);
 
         map.render(sb);
+        bombs.render(sb);
 
-        player.render(sb);
-        if(client != null && client.isConnected() && remotePlayer != null)
-            remotePlayer.render(sb);
+        for (int i = 0; i < players.length; i++){
+            if (players[i] != null){
+                players[i].render(sb);
+            }
+        }
+        //player.render(sb);
+
+        // hier wird der Spieler 'gezeichnet'
+        sb.begin();
+        for (int i = 0; i < players.length; i++){
+            if (players[i] != null){
+                Player player = players[i];
+                sb.draw(player.getTexture(), player.getPosition().x - player.getBounds().height / 2, player.getPosition().y - player.getBounds().width / 2);
+            }
+        }
+        //sb.draw(player.getTexture(), player.getPosition().x - player.getBounds().height / 2, player.getPosition().y - player.getBounds().width / 2);
+        //Testobjekt - wird beschleunigt weil es ein DynamicType ist.
+        //sb.draw(player2ForCollisionTesting.getTexture(), player2ForCollisionTesting.getBody().getPosition().x - player2ForCollisionTesting.getBounds().height / 2,
+        //  player2ForCollisionTesting.getPosition().y - player2ForCollisionTesting.getBounds().width / 2);
+        sb.end();
     }
 
     @Override
@@ -119,10 +159,50 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         // um herauszufinden welche Objekte miteinander kollidieren
         Fixture fixtureA = contact.getFixtureA(), fixtureB = contact.getFixtureB();
 
-        if (fixtureA.getUserData() == "Player"){
-            System.out.println("Fixture A = Player");
-        } else if (fixtureB.getUserData() == "Player"){
-            System.out.println("Fixture B = Player");
+        GameObjectUserData dataA = (GameObjectUserData)fixtureA.getUserData();
+        GameObjectUserData dataB = (GameObjectUserData)fixtureB.getUserData();
+        if(dataA != null && dataB != null)
+        {
+            if(dataA.userDataTypetype == GameObjectUserData.EUserDataType.PLAYER && dataB.userDataTypetype == GameObjectUserData.EUserDataType.BOMB)
+            {
+                Player p = (Player)dataA.gameObject;
+                p.damageTaken();
+                toDestroy.add(dataB.gameObject.getBody());
+            }
+            else if(dataA.userDataTypetype == GameObjectUserData.EUserDataType.BOMB && dataB.userDataTypetype == GameObjectUserData.EUserDataType.PLAYER)
+            {
+                Player p = (Player)dataB.gameObject;
+                p.damageTaken();
+                toDestroy.add(dataA.gameObject.getBody());
+            }
+            else if(dataA.userDataTypetype == GameObjectUserData.EUserDataType.POWERUP && dataB.userDataTypetype == GameObjectUserData.EUserDataType.PLAYER)
+            {
+                Player p = (Player)dataB.gameObject;
+                Powerup pw = (Powerup)dataA.gameObject;
+                pw.OnCollectedByPlayer(p);
+                toDestroy.add(dataA.gameObject.getBody());
+            }
+            else if(dataA.userDataTypetype == GameObjectUserData.EUserDataType.PLAYER && dataB.userDataTypetype == GameObjectUserData.EUserDataType.POWERUP)
+            {
+                Player p = (Player)dataA.gameObject;
+                Powerup pw = (Powerup)dataB.gameObject;
+                pw.OnCollectedByPlayer(p);
+                toDestroy.add(dataB.gameObject.getBody());
+            }
+        }
+
+
+
+        if (fixtureA.getUserData() == "Player" && fixtureB.getBody().getUserData() == "Bomb"){
+            player.damageTaken();
+            toDestroy.add(fixtureB.getBody());
+        } else if (fixtureB.getUserData() == "Player" && fixtureA.getBody().getUserData() == "Bomb"){
+            player.damageTaken();
+            toDestroy.add(fixtureA.getBody());
+        } else if (fixtureA.getBody().getUserData() == "Bomb") {
+            toDestroy.add(fixtureA.getBody());
+        } else if (fixtureB.getBody().getUserData() == "Bomb") {
+            toDestroy.add(fixtureB.getBody());
         }
     }
 

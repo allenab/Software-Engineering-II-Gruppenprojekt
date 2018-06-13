@@ -27,9 +27,11 @@ public class Floor extends GameObject {
 
     }
 
+    /*
     public void handleInput(InputData data) {
 
     }
+    */
 
     public void update(float deltatime) {
 
