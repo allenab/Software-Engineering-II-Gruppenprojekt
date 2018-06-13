@@ -14,18 +14,15 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import at.uni.Application;
 import at.uni.objects.Bombs;
-import at.uni.objects.Brick;
-import at.uni.objects.GameObject;
 import at.uni.objects.GameObjectUserData;
 import at.uni.objects.Map;
 import at.uni.objects.Player;
+import at.uni.objects.Powerup;
 import at.uni.utils.InputData;
 
 import static at.uni.utils.Box2DHelper.PPM;
@@ -164,12 +161,36 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
 
         GameObjectUserData dataA = (GameObjectUserData)fixtureA.getUserData();
         GameObjectUserData dataB = (GameObjectUserData)fixtureB.getUserData();
-        if(dataA.userDataTypetype == GameObjectUserData.EUserDataType.PLAYER && dataB.userDataTypetype == GameObjectUserData.EUserDataType.BOMB)
+        if(dataA != null && dataB != null)
         {
-            Player p = (Player)dataA.gameObject;
-            p.damageTaken();
-            toDestroy.add(dataB.gameObject.getBody());
+            if(dataA.userDataTypetype == GameObjectUserData.EUserDataType.PLAYER && dataB.userDataTypetype == GameObjectUserData.EUserDataType.BOMB)
+            {
+                Player p = (Player)dataA.gameObject;
+                p.damageTaken();
+                toDestroy.add(dataB.gameObject.getBody());
+            }
+            else if(dataA.userDataTypetype == GameObjectUserData.EUserDataType.BOMB && dataB.userDataTypetype == GameObjectUserData.EUserDataType.PLAYER)
+            {
+                Player p = (Player)dataB.gameObject;
+                p.damageTaken();
+                toDestroy.add(dataA.gameObject.getBody());
+            }
+            else if(dataA.userDataTypetype == GameObjectUserData.EUserDataType.POWERUP && dataB.userDataTypetype == GameObjectUserData.EUserDataType.PLAYER)
+            {
+                Player p = (Player)dataB.gameObject;
+                Powerup pw = (Powerup)dataA.gameObject;
+                pw.OnCollectedByPlayer(p);
+                toDestroy.add(dataA.gameObject.getBody());
+            }
+            else if(dataA.userDataTypetype == GameObjectUserData.EUserDataType.PLAYER && dataB.userDataTypetype == GameObjectUserData.EUserDataType.POWERUP)
+            {
+                Player p = (Player)dataA.gameObject;
+                Powerup pw = (Powerup)dataB.gameObject;
+                pw.OnCollectedByPlayer(p);
+                toDestroy.add(dataB.gameObject.getBody());
+            }
         }
+
 
 
         if (fixtureA.getUserData() == "Player" && fixtureB.getBody().getUserData() == "Bomb"){
