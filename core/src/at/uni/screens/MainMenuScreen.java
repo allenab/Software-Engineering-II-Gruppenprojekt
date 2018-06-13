@@ -62,7 +62,8 @@ public class MainMenuScreen extends AbstractScreen {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
                 //bgLoop.stop(soundID);
-                application.getGameScreenManager().setScreen(GameScreenManager.STATE.PLAY);
+                //application.getGameScreenManager().setScreen(GameScreenManager.STATE.PLAY);
+                application.getGameScreenManager().setScreen(GameScreenManager.STATE.CONNECTION);
             }
         });
 
