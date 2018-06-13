@@ -8,6 +8,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.util.Random;
+
 import at.uni.utils.Box2DHelper;
 import at.uni.utils.InputData;
 
@@ -48,8 +50,19 @@ public class Brick extends GameObject {
         texture.dispose();
     }
 
-    public void OnDestroyedByExplosion()
+    public void OnDestroyedByExplosion(Map map, World world)
     {
+        if(map.spawnedPowerups.size() > 3)
+        {
+            return;
+        }
+        int rngnumber = (int)(Math.random()*100);
+        if (rngnumber > 50)
+        {
+            PowerupShield shield = new PowerupShield(world, this.position.x, this.position.y);
+            map.spawnedPowerups.add(shield);
+        }
+
         // 1. nimm coordinaten von diesem Brick
         // 2. rolle random() RNG
         // 3. if random() > x (irgendeine zahl) -> spawn POwerupSHield object an coordinates von diesem brick

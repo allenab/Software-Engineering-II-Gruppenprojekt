@@ -23,6 +23,7 @@ public class Map extends GameObject {
 
     private List<List<GameObject>> map;
     public Set<Body> toDestroy = new HashSet<Body>();
+    public Set<Powerup> spawnedPowerups = new HashSet<Powerup>();
     private World world;
 
     public Map(){
@@ -100,21 +101,25 @@ public class Map extends GameObject {
         GameObject top = map.get(row).get(column + 1);
         System.out.println("ExplosionCheck "+row+column);
         if (top instanceof Brick){
+            ((Brick) top).OnDestroyedByExplosion(this, this.world);
             toDestroy.add(top.body);
             map.get(row).set(column+1, new Floor((column+1)*GRIDSIZE, row*GRIDSIZE));
         }
         GameObject right = map.get(row+1).get(column);
         if (right instanceof Brick){
+            ((Brick) right).OnDestroyedByExplosion(this, this.world);
             toDestroy.add(right.body);
             map.get(row+1).set(column, new Floor(column*GRIDSIZE, (row+1)*GRIDSIZE));
         }
         GameObject bottom = map.get(row).get(column-1);
         if (bottom instanceof Brick){
+            ((Brick) bottom).OnDestroyedByExplosion(this, this.world);
             toDestroy.add(bottom.body);
             map.get(row).set(column-1, new Floor((column-1)*GRIDSIZE, row*GRIDSIZE));
         }
         GameObject left = map.get(row-1).get(column);
         if (left instanceof Brick){
+            ((Brick) left).OnDestroyedByExplosion(this, this.world);
             toDestroy.add(left.body);
             map.get(row-1).set(column, new Floor(column*GRIDSIZE, (row-1)*GRIDSIZE));
         }
