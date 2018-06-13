@@ -55,7 +55,6 @@ public class ConnectionScreen extends AbstractScreen {
 
         stage.addActor(btnGamestart);
 
-        //creates the Create Game button with the text, its position and the size
         //creates the exit button with the text, its position and the size
 
         TextButton btnExit = new TextButton("Exit", skin);

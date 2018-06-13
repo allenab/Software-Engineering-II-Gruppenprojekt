@@ -33,7 +33,6 @@ public class SettingsScreen extends AbstractScreen {
     public void show() {
         application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
-
         //creates the Sound where you can start the sound
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
@@ -59,7 +58,7 @@ public class SettingsScreen extends AbstractScreen {
 
             }
         });
-        //creates the Language button where you can chose the Language
+        //creates the Exit button where you can chose the Language
 
         TextButton Exit = new TextButton("Exit", skin);
         Exit.setSize(180,50);

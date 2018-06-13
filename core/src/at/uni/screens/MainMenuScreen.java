@@ -1,5 +1,6 @@
 package at.uni.screens;
 
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -21,11 +22,9 @@ import static at.uni.utils.Box2DHelper.PPM;
 public class MainMenuScreen extends AbstractScreen {
 
     private OrthographicCamera camera;
-    //private OrthographicCamera b2dCamera;
     private TextField EnterName;
     private Label name;
     private Label title;
-    //private Box2DDebugRenderer b2dr;
 
     private long soundID;
 
@@ -35,19 +34,12 @@ public class MainMenuScreen extends AbstractScreen {
         Application.bgLoop = Gdx.audio.newSound(Gdx.files.internal("sounds/yummie_shortBGloop.mp3"));
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
-       // b2dCamera = new OrthographicCamera();
-       // b2dCamera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
-
-       // b2dr = new Box2DDebugRenderer();
-
     }
 
     @Override
     public void show() {
 
         application.getSpriteBatch().setProjectionMatrix(camera.combined);
-
-        // creates the pack for the buttons, its skin, the font used on the buttons, and the stage(screen)
 
         //creates the play button with the text, its position and the size
 
