@@ -167,6 +167,10 @@ public class Map extends GameObject {
                 o.render(sb);
             }
         }
+        for(Powerup p : spawnedPowerups)
+        {
+            p.render(sb);
+        }
     }
 
     @Override

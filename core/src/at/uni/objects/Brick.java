@@ -25,7 +25,7 @@ public class Brick extends GameObject {
 
     @Override
     public void load(World world) {
-        body = Box2DHelper.createBox(world, position.x, position.y, bounds.width, bounds.height, BodyDef.BodyType.StaticBody, false, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL);
+        body = Box2DHelper.createBox(world, position.x, position.y, bounds.width, bounds.height, BodyDef.BodyType.StaticBody, false, Box2DHelper.BIT_WALL, Box2DHelper.BIT_PLAYER, Box2DHelper.BIT_WALL);
         body.setUserData(new GameObjectUserData(this, GameObjectUserData.EUserDataType.BRICK));
     }
 
