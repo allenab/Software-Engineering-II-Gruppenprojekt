@@ -7,8 +7,10 @@ import at.uni.Application;
 import at.uni.screens.AbstractScreen;
 import at.uni.screens.ChatScreen;
 import at.uni.screens.ChatServerScreen;
+import at.uni.screens.ConnectionScreen;
 import at.uni.screens.MainGameScreen;
 import at.uni.screens.MainMenuScreen;
+import at.uni.screens.SettingsScreen;
 
 
 public class GameScreenManager {
@@ -27,7 +29,9 @@ public class GameScreenManager {
         MAIN_MENU,
         PLAY,
         CHAT,
-        CHATSERVER
+        CHATSERVER,
+        SETTINGS,
+        CONNECTION,
     }
 
     private void initGameManager(){
@@ -36,6 +40,8 @@ public class GameScreenManager {
         screens.put(STATE.PLAY, new MainGameScreen(application));
         screens.put(STATE.CHAT, new ChatScreen(application));
         screens.put(STATE.CHATSERVER, new ChatServerScreen(application));
+        screens.put(STATE.SETTINGS, new SettingsScreen(application));
+        screens.put(STATE.CONNECTION, new ConnectionScreen(application));
     }
 
     public Application getApplication(){

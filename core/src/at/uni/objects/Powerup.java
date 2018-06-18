@@ -10,21 +10,26 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import at.uni.objects.GameObject;
+import at.uni.objects.GameObjectUserData;
+import at.uni.objects.Player;
+import at.uni.screens.MainGameScreen;
 import at.uni.utils.Box2DHelper;
 
 import static at.uni.objects.Map.GRIDSIZE;
 import static at.uni.utils.Box2DHelper.PPM;
 
-public abstract class Powerup extends GameObject{
+public abstract class Powerup extends GameObject {
 
-    EPowerUpType type = null;
-
+    at.uni.objects.Powerup.EPowerUpType type = null;
+    World world = null;
     enum EPowerUpType {
         SHIELD
     };
 
     public Powerup(World world, float x, float y)
     {
+        world = world;
         position = new Vector2(x, y);
         bounds = new Rectangle(x, y, GRIDSIZE, GRIDSIZE);
         texture = new Texture("images/powerup_dummy.png");
@@ -46,8 +51,26 @@ public abstract class Powerup extends GameObject{
 
     @Override
     public void load(World world) {
-        body = Box2DHelper.createBox(world, position.x, position.y, bounds.width, bounds.height, BodyDef.BodyType.StaticBody, false, (short)0, (short)0, (short)0);
-        body.setUserData(new GameObjectUserData(this, GameObjectUserData.EUserDataType.POWERUP));
+        //body = Box2DHelper.createBox(world, position.x, position.y, bounds.width, bounds.height, BodyDef.BodyType.StaticBody, false,  (short)4, (short)2, (short)0);
+        //body.setUserData(new GameObjectUserData(this, GameObjectUserData.EUserDataType.POWERUP));
+
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.position.set(this.position.x / PPM,this.position.y / PPM);
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+
+        this.body = world.createBody(bodyDef);
+
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(25 / PPM,25 / PPM);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        fixtureDef.filter.categoryBits = Box2DHelper.BIT_POWERUP;
+        fixtureDef.filter.maskBits = Box2DHelper.BIT_PLAYER;
+        Fixture fixture = body.createFixture(fixtureDef);
+        fixture.setUserData(new GameObjectUserData(this, GameObjectUserData.EUserDataType.POWERUP));
+
+
     }
 
     @Override
@@ -56,7 +79,11 @@ public abstract class Powerup extends GameObject{
         this.texture.dispose();
     }
 
-    abstract public void OnCollectedByPlayer(Player player);
+    public void OnCollectedByPlayer(Player player, MainGameScreen screen){
+        screen.map.toDestroy.add(this.getBody());
+        this.dispose();
+        screen.map.spawnedPowerups.remove(this);
+    }
 
     public void OnHitByBomb()
     {

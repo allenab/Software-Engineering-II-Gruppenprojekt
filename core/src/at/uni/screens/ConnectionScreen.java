@@ -1,10 +1,8 @@
 package at.uni.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -15,30 +13,21 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import at.uni.Application;
 import at.uni.handlers.GameScreenManager;
 
-import static at.uni.utils.Box2DHelper.PPM;
-
-
-public class MainMenuScreen extends AbstractScreen {
+public class ConnectionScreen extends AbstractScreen {
 
     private OrthographicCamera camera;
-    //private OrthographicCamera b2dCamera;
-    private TextField EnterName;
-    private Label name;
+    private TextField EnterConection;
+    private Label Connection;
     private Label title;
-    //private Box2DDebugRenderer b2dr;
 
     private long soundID;
 
-    public MainMenuScreen(Application application) {
+    public ConnectionScreen(Application application) {
         super(application);
 
         Application.bgLoop = Gdx.audio.newSound(Gdx.files.internal("sounds/yummie_shortBGloop.mp3"));
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
-       // b2dCamera = new OrthographicCamera();
-       // b2dCamera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
-
-       // b2dr = new Box2DDebugRenderer();
 
     }
 
@@ -47,45 +36,26 @@ public class MainMenuScreen extends AbstractScreen {
 
         application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
-        // creates the pack for the buttons, its skin, the font used on the buttons, and the stage(screen)
-
-        //creates the play button with the text, its position and the size
+        //creates the game start button with the text, its position and the size
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
-        TextButton btnPlay = new TextButton("Play", skin);
-        btnPlay.setSize(Application.VIEWPORT_WIDTH / 6, Application.VIEWPORT_HEIGHT / 4);
-        btnPlay.setPosition(45, 100);
+        TextButton btnGamestart = new TextButton("Game start", skin);
+        btnGamestart.setSize(Application.VIEWPORT_WIDTH / 6, Application.VIEWPORT_HEIGHT / 4);
+        btnGamestart.setPosition(45, 100);
 
-        btnPlay.addListener(new ClickListener() {
+        btnGamestart.addListener(new ClickListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
                 //bgLoop.stop(soundID);
-                //application.getGameScreenManager().setScreen(GameScreenManager.STATE.PLAY);
-                application.getGameScreenManager().setScreen(GameScreenManager.STATE.CONNECTION);
+                application.getGameScreenManager().setScreen(GameScreenManager.STATE.PLAY);
             }
         });
 
-        stage.addActor(btnPlay);
+        stage.addActor(btnGamestart);
 
-        //creates the setting button with the text, its position and the size
-
-        TextButton btnSettings = new TextButton("Settings", skin);
-        btnSettings.setSize(180,50);
-        btnSettings.setPosition(270, 100);
-
-        btnSettings.addListener(new ClickListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                super.touchUp(event, x, y, pointer, button);
-                application.getGameScreenManager().setScreen(GameScreenManager.STATE.SETTINGS);
-            }
-        });
-
-        stage.addActor(btnSettings);
-
-
+        //creates the Create Game button with the text, its position and the size
         //creates the exit button with the text, its position and the size
 
         TextButton btnExit = new TextButton("Exit", skin);
@@ -96,28 +66,27 @@ public class MainMenuScreen extends AbstractScreen {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
-                Gdx.app.exit();
+                application.getGameScreenManager().setScreen(GameScreenManager.STATE.MAIN_MENU);
             }
         });
 
         stage.addActor(btnExit);
 
-        //creates the exit button with the text, its position and the size
+        //creates the Connection button with the text, its position and the size
 
-        TextButton btnSaveName = new TextButton("Save Name", skin);
-        btnSaveName.setSize(180,33);
-        btnSaveName.setPosition(350, 330);
+        TextButton btnConnection = new TextButton("Connection!", skin);
+        btnConnection.setSize(180,33);
+        btnConnection.setPosition(350, 330);
 
-        btnSaveName.addListener(new ClickListener() {
+        btnConnection.addListener(new ClickListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
-                System.out.println("Save Name!!");
+                System.out.println("Connection!!");
             }
         });
 
-        stage.addActor(btnSaveName);
-
+        stage.addActor(btnConnection);
 
         super.show();
     }
@@ -129,17 +98,17 @@ public class MainMenuScreen extends AbstractScreen {
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
-        title = new Label("Game Menu!!", skin);
+        title = new Label("Connection!!", skin);
         title.setPosition(Application.VIEWPORT_WIDTH / 2 - 100, Application.VIEWPORT_HEIGHT - 10);
         stage.addActor(title);
 
-        name = new Label("Name:", skin);
-        name.setPosition(45, 330);
-        stage.addActor(name);
+        Connection = new Label("Connection:", skin);
+        Connection.setPosition(45, 330);
+        stage.addActor(Connection);
 
-        EnterName = new TextField("", skin);
-        EnterName.setPosition(145, 330);
-        stage.addActor(EnterName);
+        EnterConection = new TextField("", skin);
+        EnterConection.setPosition(145, 330);
+        stage.addActor(EnterConection);
 
         this.soundID = Application.bgLoop.loop();
     }

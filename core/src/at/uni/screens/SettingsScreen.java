@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -18,6 +19,7 @@ import at.uni.handlers.GameScreenManager;
 public class SettingsScreen extends AbstractScreen {
 
     private OrthographicCamera camera;
+    private Label title;
 
     public SettingsScreen(Application application) {
         super(application);
@@ -29,7 +31,6 @@ public class SettingsScreen extends AbstractScreen {
 
     @Override
     public void show() {
-
         application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
 
@@ -46,39 +47,45 @@ public class SettingsScreen extends AbstractScreen {
 
                 System.out.println("SOUND");
                 super.touchUp(event, x, y, pointer, button);
-                final Sound mp3Sound = Gdx.audio.newSound(Gdx.files.internal("data/mp3.mp3"));
+                Application.musicEnabled = !Application.musicEnabled;
+                if(Application.musicEnabled)
+                {
+                    Application.bgLoop.loop();
+                }
+                else
+                {
+                    Application.bgLoop.stop();
+                }
 
-                final long id = mp3Sound.loop();
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        mp3Sound.stop(id);
-                    }
-                }, 5.0f);
-                mp3Sound.dispose();
             }
         });
         //creates the Language button where you can chose the Language
 
-        TextButton Language = new TextButton("Language", skin);
-        Language.setSize(180,50);
-        Language.setPosition(270, 100);
+        TextButton Exit = new TextButton("Exit", skin);
+        Exit.setSize(180,50);
+        Exit.setPosition(270, 100);
 
-        Language.addListener(new ClickListener() {
-
+        Exit.addListener(new ClickListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-
+                super.touchUp(event, x, y, pointer, button);
+                application.getGameScreenManager().setScreen(GameScreenManager.STATE.MAIN_MENU);
             }
         });
 
-        stage.addActor(Language);
+        stage.addActor(Exit);
         stage.addActor(btnSettings);
     }
 
 
     @Override
     public void load() {
+
+        Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+
+        title = new Label("Game Settings!!", skin);
+        title.setPosition(Application.VIEWPORT_WIDTH / 2 - 100, Application.VIEWPORT_HEIGHT - 10);
+        stage.addActor(title);
 
     }
 

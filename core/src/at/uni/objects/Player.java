@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -17,6 +18,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import at.uni.utils.Box2DHelper;
 import at.uni.utils.InputData;
 
 import static at.uni.utils.Box2DHelper.PPM;
@@ -30,7 +32,7 @@ public class Player extends GameObject {
     private int maximumBombs = 3;
     private int health;
     private Bombs bombs;
-    private boolean hasShield = false;
+    private int shieldCount = 0;
 
     public Player(World world, String name, float x, float y, Bombs bombs){
         this.texture = new Texture(name);
@@ -54,11 +56,17 @@ public class Player extends GameObject {
 
         this.body = world.createBody(bodyDef);
 
+        /*
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(25 / PPM,25 / PPM);
+*/
+        CircleShape shape = new CircleShape();
+        shape.setRadius(25 / PPM);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
+        fixtureDef.filter.categoryBits = Box2DHelper.BIT_PLAYER;
+        fixtureDef.filter.maskBits = Box2DHelper.BIT_WALL | Box2DHelper.BIT_POWERUP | Box2DHelper.BIT_EXPLOSION | Box2DHelper.BIT_BRICK;
         Fixture fixture = body.createFixture(fixtureDef);
         fixture.setUserData(new GameObjectUserData(this, GameObjectUserData.EUserDataType.PLAYER));
 
@@ -118,7 +126,7 @@ public class Player extends GameObject {
         if(this.isProtectedByShield())
         {
             System.out.println("Player took damage but was protected by shield powerup");
-            this.hasShield = false;
+            this.shieldCount--;
             return;
         }
         this.health -= 40;
@@ -135,12 +143,12 @@ public class Player extends GameObject {
     public boolean isProtectedByShield()
     {
 
-        return this.hasShield;
+        return this.shieldCount > 0;
     }
 
     public void activateShield()
     {
         System.out.println("Player is now protected by shield powerup");
-        this.hasShield = true;
+        this.shieldCount++;
     }
 }

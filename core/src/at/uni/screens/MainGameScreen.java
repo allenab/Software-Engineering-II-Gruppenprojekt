@@ -36,7 +36,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
 
     private Player player;
     private Player[] players;
-    private Map map;
+    public Map map;
     private Bombs bombs;
     public Set<Body> toDestroy = new HashSet<Body>();
 
@@ -63,7 +63,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
 
     @Override
     public void load() {
-        //application.getSpriteBatch().setProjectionMatrix(camera.combined);
+        application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
         this.players = new Player[4];
 
@@ -120,8 +120,6 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     public void render(SpriteBatch sb) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        b2dr.render(world, b2dCamera.combined);
-
         map.render(sb);
         bombs.render(sb);
 
@@ -145,6 +143,10 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         //sb.draw(player2ForCollisionTesting.getTexture(), player2ForCollisionTesting.getBody().getPosition().x - player2ForCollisionTesting.getBounds().height / 2,
         //  player2ForCollisionTesting.getPosition().y - player2ForCollisionTesting.getBounds().width / 2);
         sb.end();
+
+
+        b2dr.render(world, b2dCamera.combined);
+
     }
 
     @Override
@@ -163,6 +165,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         GameObjectUserData dataB = (GameObjectUserData)fixtureB.getUserData();
         if(dataA != null && dataB != null)
         {
+            System.out.println("Collision check");
             if(dataA.userDataTypetype == GameObjectUserData.EUserDataType.PLAYER && dataB.userDataTypetype == GameObjectUserData.EUserDataType.BOMB)
             {
                 Player p = (Player)dataA.gameObject;
@@ -179,15 +182,33 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
             {
                 Player p = (Player)dataB.gameObject;
                 Powerup pw = (Powerup)dataA.gameObject;
-                pw.OnCollectedByPlayer(p);
-                toDestroy.add(dataA.gameObject.getBody());
+                pw.OnCollectedByPlayer(p, this);
+                System.out.println("Collision with powerup");
             }
             else if(dataA.userDataTypetype == GameObjectUserData.EUserDataType.PLAYER && dataB.userDataTypetype == GameObjectUserData.EUserDataType.POWERUP)
             {
                 Player p = (Player)dataA.gameObject;
                 Powerup pw = (Powerup)dataB.gameObject;
-                pw.OnCollectedByPlayer(p);
-                toDestroy.add(dataB.gameObject.getBody());
+                pw.OnCollectedByPlayer(p, this);
+                System.out.println("Collision with powerup");
+            }
+            else if(dataA.userDataTypetype == GameObjectUserData.EUserDataType.PLAYER && dataB.userDataTypetype == GameObjectUserData.EUserDataType.EXPLOSION)
+            {
+                player.damageTaken();
+                toDestroy.add(fixtureB.getBody());
+            }
+            else if(dataA.userDataTypetype == GameObjectUserData.EUserDataType.EXPLOSION && dataB.userDataTypetype == GameObjectUserData.EUserDataType.PLAYER)
+            {
+                player.damageTaken();
+                toDestroy.add(fixtureA.getBody());
+            }
+            else if(dataA.userDataTypetype == GameObjectUserData.EUserDataType.BRICK && dataB.userDataTypetype == GameObjectUserData.EUserDataType.EXPLOSION)
+            {
+                toDestroy.add(fixtureA.getBody());
+            }
+            else if(dataA.userDataTypetype == GameObjectUserData.EUserDataType.EXPLOSION && dataB.userDataTypetype == GameObjectUserData.EUserDataType.BRICK)
+            {
+                toDestroy.add(fixtureB.getBody());
             }
         }
 
