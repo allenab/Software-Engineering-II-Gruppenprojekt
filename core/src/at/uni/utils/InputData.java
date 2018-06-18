@@ -1,5 +1,7 @@
 package at.uni.utils;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import java.util.HashMap;
@@ -12,6 +14,12 @@ public class InputData {
     private static Map<Integer, Vector2> touchPoints;
     private static Map<Integer, Vector2> releasePoints;
     private static Map<Integer, Boolean> touchStates;
+
+    private static boolean isGyroscopeAvailable;
+    private static final float GYROSCOPE_THRESHOLD = 5.0f; // radian per second
+
+    private static boolean isAccelerometerAvailable;
+
 
     public enum Key{
         Forward,
@@ -27,6 +35,8 @@ public class InputData {
         touchPoints = new HashMap<Integer, Vector2>();
         releasePoints = new HashMap<Integer, Vector2>();
         touchStates = new HashMap<Integer, Boolean>();
+        isGyroscopeAvailable = Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyroscope); // test ob Senor verfügbar
+        isAccelerometerAvailable = Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer);
         init();
     }
 
@@ -94,5 +104,79 @@ public class InputData {
 
         return false;
     }
+    public static boolean isGyroscopeMovedForwards() {
+
+        if (!isGyroscopeAvailable) {
+            return false;
+        }
+
+
+        float gyroY = Gdx.input.getGyroscopeY();
+        if (gyroY >= GYROSCOPE_THRESHOLD) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean isGyroscopeMovedBackwards() {
+
+        if (!isGyroscopeAvailable) {
+            return false;
+        }
+
+
+        float gyroY = Gdx.input.getGyroscopeY();
+        if (gyroY <= -1 * GYROSCOPE_THRESHOLD) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean isGyroscopeMovedLeft() {
+
+        if (!isGyroscopeAvailable) {
+            return false;
+        }
+
+
+        float gyroX = Gdx.input.getGyroscopeX();
+        if (gyroX <= -1 * GYROSCOPE_THRESHOLD) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean isGyroscopeMovedRight() {
+
+        if (!isGyroscopeAvailable) {
+            return false;
+        }
+
+
+        float gyroX = Gdx.input.getGyroscopeX();
+        if (gyroX >= GYROSCOPE_THRESHOLD) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean isAccelerometerMoved() {
+
+        if (!isAccelerometerAvailable) {
+            return false;
+        }
+
+        float accelZ = Gdx.input.getAccelerometerZ();
+        if (accelZ >= GYROSCOPE_THRESHOLD) {
+            return true;
+        }
+
+        return false;
+    }
+
 
 }

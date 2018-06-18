@@ -78,24 +78,24 @@ public class Player extends GameObject {
         body.setLinearVelocity(0, 0);
 
         // Tastatur-Input Section - Markus
-        if(data.isKeyDown(InputData.Key.Forward)){
+        if(data.isKeyDown(InputData.Key.Forward) || data.isGyroscopeMovedForwards()){
             body.applyLinearImpulse(new Vector2(0, 5), body.getWorldCenter(), true);
             facingDirection = 0;
         }
-        if(data.isKeyDown(InputData.Key.Backward)){
+        if(data.isKeyDown(InputData.Key.Backward)|| data.isGyroscopeMovedBackwards()){
             body.applyLinearImpulse(new Vector2(0, -5), body.getWorldCenter(), true);
             facingDirection = 1;
         }
-        if(data.isKeyDown(InputData.Key.Left)){
+        if(data.isKeyDown(InputData.Key.Left)|| data.isGyroscopeMovedLeft()){
             body.applyLinearImpulse(new Vector2(-5, 0), body.getWorldCenter(), true);
             facingDirection = 2;
         }
-        if(data.isKeyDown(InputData.Key.Right)){
+        if(data.isKeyDown(InputData.Key.Right)|| data.isGyroscopeMovedRight()){
             body.applyLinearImpulse(new Vector2(5, 0), body.getWorldCenter(), true);
             facingDirection = 3;
         }
 
-        if(data.isKeyPressed(InputData.Key.Space)){
+        if(data.isKeyPressed(InputData.Key.Space)|| data.isAccelerometerMoved()){
             System.out.println("Direction: " + facingDirection);
             if (bombs.getBombs().size() < maximumBombs){
                 bombs.addBomb(position.x, position.y);
