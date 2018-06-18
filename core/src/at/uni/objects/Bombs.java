@@ -42,10 +42,12 @@ public class Bombs extends GameObject {
         this.world = world;
     }
 
+    /*
     @Override
     public void handleInput(InputData data) {
 
     }
+    */
 
     @Override
     public void update(float deltatime) {
@@ -91,6 +93,8 @@ public class Bombs extends GameObject {
         for (Bomb bomb: expired) {
             explosionSound.play();
             map.explosionCheck(bomb.position);
+            Body b = Box2DHelper.createExplosion(world, bomb.position.x, bomb.position.y, 105, 105, BodyDef.BodyType.DynamicBody, false, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL, Box2DHelper.BIT_WALL);
+            b.setUserData("Bomb");
         }
     }
 
