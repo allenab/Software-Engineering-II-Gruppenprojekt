@@ -63,7 +63,7 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
 
     @Override
     public void load() {
-        //application.getSpriteBatch().setProjectionMatrix(camera.combined);
+        application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
         this.players = new Player[4];
 
