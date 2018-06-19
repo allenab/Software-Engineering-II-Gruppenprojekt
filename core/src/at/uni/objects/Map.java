@@ -144,6 +144,11 @@ public class Map extends GameObject {
         }
     }
 
+    @Override
+    public void handleInput(InputData data) {
+
+    }
+
     /*
     public void handleInput(InputData data) {
 

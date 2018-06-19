@@ -31,12 +31,10 @@ public class Bomb extends GameObject{
 
     }
 
-    /*
     @Override
     public void handleInput(InputData data) {
 
     }
-    */
 
     @Override
     public void update(float deltatime) {

@@ -18,7 +18,7 @@ public abstract class GameObject {
     protected float healthPoints;
 
     public abstract void load(World world);
-    //public abstract void handleInput(InputData data);
+    public abstract void handleInput(InputData data);
     public abstract void update(float deltatime);
     public abstract void render(SpriteBatch sb);
     public abstract void dispose();
