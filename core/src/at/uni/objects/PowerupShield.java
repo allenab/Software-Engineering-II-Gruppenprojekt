@@ -20,4 +20,9 @@ public final class PowerupShield extends Powerup {
         return;
     }
 
+    @Override
+    public void handleInput(InputData data) {
+
+    }
+
 }

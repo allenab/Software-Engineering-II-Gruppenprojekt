@@ -33,11 +33,10 @@ public class Brick extends GameObject {
         body.setUserData(new GameObjectUserData(this, GameObjectUserData.EUserDataType.BRICK));
     }
 
-    /*
+    @Override
     public void handleInput(InputData data) {
 
     }
-    */
 
     public void update(float deltatime) {
 

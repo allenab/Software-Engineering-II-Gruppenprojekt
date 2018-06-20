@@ -31,13 +31,10 @@ public class Wall extends GameObject {
         body.setUserData(new GameObjectUserData(this, GameObjectUserData.EUserDataType.WALL));
     }
 
-    /*
     @Override
     public void handleInput(InputData data) {
 
     }
-    */
-
 
     public void update(float deltatime) {
 

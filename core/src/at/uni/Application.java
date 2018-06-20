@@ -3,6 +3,7 @@ package at.uni;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import at.uni.handlers.GameInputProcessor;
@@ -18,6 +19,9 @@ public class Application extends Game {
 	public static final int VIEWPORT_WIDTH = 720;
 	public static final int VIEWPORT_HEIGHT = 480;
 	public static final int FPS = 60;
+	public static boolean musicEnabled = true;
+
+	public static Sound bgLoop = null;
 
 	public static final float STEP = 1f / (float) FPS;
 
