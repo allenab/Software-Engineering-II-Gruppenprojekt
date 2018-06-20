@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import at.uni.Application;
 import at.uni.handlers.GameInputProcessor;
@@ -24,6 +26,7 @@ import static at.uni.utils.Box2DHelper.PPM;
 
 public class MainMenuScreen extends AbstractScreen {
 
+    private Viewport viewport;
     private OrthographicCamera camera;
     private OrthographicCamera b2dCamera;
     private Label title;
@@ -41,6 +44,7 @@ public class MainMenuScreen extends AbstractScreen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
 
+        viewport = new FitViewport(Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT, camera);
         b2dCamera = new OrthographicCamera();
         b2dCamera.setToOrtho(false, Application.VIEWPORT_WIDTH / PPM, Application.VIEWPORT_HEIGHT / PPM);
 
@@ -60,9 +64,13 @@ public class MainMenuScreen extends AbstractScreen {
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
+        int width = Gdx.graphics.getWidth();
+        int height = Gdx.graphics.getHeight();
+
         TextButton btnPlay = new TextButton("Play", skin);
-        btnPlay.setSize(Application.VIEWPORT_WIDTH / 6, Application.VIEWPORT_HEIGHT / 4);
-        btnPlay.setPosition(Application.VIEWPORT_WIDTH / 9, Application.VIEWPORT_HEIGHT / 4);
+        btnPlay.getLabel().setFontScale(2);
+        btnPlay.setSize(width / 6, height / 4);
+        btnPlay.setPosition(10, height / 4);
 
         btnPlay.addListener(new ClickListener() {
             @Override
@@ -79,8 +87,9 @@ public class MainMenuScreen extends AbstractScreen {
         //creates the setting button with the text, its position and the size
 
         TextButton btnSettings = new TextButton("Settings", skin);
-        btnSettings.setSize(Application.VIEWPORT_WIDTH / 6, Application.VIEWPORT_HEIGHT / 4);
-        btnSettings.setPosition(Application.VIEWPORT_WIDTH / 2-60, Application.VIEWPORT_HEIGHT / 4);
+        btnSettings.getLabel().setFontScale(2);
+        btnSettings.setSize(width / 6, height / 4);
+        btnSettings.setPosition(btnPlay.getX()+btnPlay.getWidth()+10, height / 4);
 
         btnSettings.addListener(new ClickListener() {
             @Override
@@ -96,8 +105,9 @@ public class MainMenuScreen extends AbstractScreen {
         //creates the exit button with the text, its position and the size
 
         TextButton btnExit = new TextButton("Exit", skin);
-        btnExit.setSize(Application.VIEWPORT_WIDTH / 6, Application.VIEWPORT_HEIGHT / 4);
-        btnExit.setPosition(Application.VIEWPORT_WIDTH -180, Application.VIEWPORT_HEIGHT/4);
+        btnExit.getLabel().setFontScale(2);
+        btnExit.setSize(width / 6, height / 4);
+        btnExit.setPosition(btnSettings.getX()+btnSettings.getWidth()+10, height/4);
 
         btnExit.addListener(new ClickListener() {
             @Override
@@ -118,8 +128,12 @@ public class MainMenuScreen extends AbstractScreen {
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
+        int width = Gdx.graphics.getWidth();
+        int height = Gdx.graphics.getHeight();
+
         title = new Label("Game Menu!!", skin);
-        title.setPosition(Application.VIEWPORT_WIDTH / 2 - 100, Application.VIEWPORT_HEIGHT - 30);
+        title.setFontScale(2.f);
+        title.setPosition(width / 2 - 100, height - 150);
         stage.addActor(title);
 
         this.soundID = Application.bgLoop.loop();
@@ -142,6 +156,7 @@ public class MainMenuScreen extends AbstractScreen {
 
     @Override
     public void render(SpriteBatch sb) {
+        sb.setProjectionMatrix(camera.combined);
         sb.begin();
         sb.draw(this.backgroundTexture, 0, 0);
         sb.end();

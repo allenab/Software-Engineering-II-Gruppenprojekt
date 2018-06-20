@@ -3,6 +3,7 @@ package at.uni.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -21,6 +22,7 @@ public class ConnectionScreen extends AbstractScreen {
     private TextField EnterConection;
     private Label Connection;
     private Label title;
+    protected Texture backgroundTexture;
 
     private long soundID;
 
@@ -31,6 +33,7 @@ public class ConnectionScreen extends AbstractScreen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
 
+        backgroundTexture = new Texture ("images/MainMenuScreen.png");
     }
 
     @Override
@@ -38,13 +41,18 @@ public class ConnectionScreen extends AbstractScreen {
 
         application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
+
+        int width = Gdx.graphics.getWidth();
+        int height = Gdx.graphics.getHeight();
+
         //creates the game start button with the text, its position and the size
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
         TextButton btnGamestart = new TextButton("Game start", skin);
-        btnGamestart.setSize(Application.VIEWPORT_WIDTH / 6, Application.VIEWPORT_HEIGHT / 4);
-        btnGamestart.setPosition(Application.VIEWPORT_WIDTH / 9, Application.VIEWPORT_HEIGHT / 4);
+        btnGamestart.getLabel().setFontScale(1);
+        btnGamestart.setSize(width / 6, height / 4);
+        btnGamestart.setPosition(10, height / 4);
 
         btnGamestart.addListener(new ClickListener() {
             @Override
@@ -57,12 +65,31 @@ public class ConnectionScreen extends AbstractScreen {
 
         stage.addActor(btnGamestart);
 
+
+
+        TextButton btnConnection = new TextButton("Connection!", skin);
+        btnConnection.getLabel().setFontScale(1);
+        btnConnection.setSize(width / 6, height / 4);
+        btnConnection.setPosition(btnGamestart.getX()+btnGamestart.getWidth()+10, height/4);
+
+        btnConnection.addListener(new ClickListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchUp(event, x, y, pointer, button);
+                System.out.println("Connection!!");
+            }
+        });
+
+        stage.addActor(btnConnection);
+
+
         //creates the Create Game button with the text, its position and the size
         //creates the exit button with the text, its position and the size
 
         TextButton btnExit2 = new TextButton("Exit", skin);
-        btnExit2.setSize(Application.VIEWPORT_WIDTH / 6, Application.VIEWPORT_HEIGHT / 4);
-        btnExit2.setPosition(Application.VIEWPORT_WIDTH -180, Application.VIEWPORT_HEIGHT/4);
+        btnExit2.getLabel().setFontScale(1);
+        btnExit2.setSize(width / 6, height / 4);
+        btnExit2.setPosition(btnConnection.getX()+btnConnection.getWidth()+10, height/4);
 
         btnExit2.addListener(new ClickListener() {
             @Override
@@ -76,20 +103,6 @@ public class ConnectionScreen extends AbstractScreen {
 
         //creates the Connection button with the text, its position and the size
 
-        TextButton btnConnection = new TextButton("Connection!", skin);
-        btnConnection.setSize(180,33);
-        btnConnection.setPosition(350, 330);
-
-        btnConnection.addListener(new ClickListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                super.touchUp(event, x, y, pointer, button);
-                System.out.println("Connection!!");
-            }
-        });
-
-        stage.addActor(btnConnection);
-
         super.show();
     }
 
@@ -99,17 +112,22 @@ public class ConnectionScreen extends AbstractScreen {
         //application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+        int width = Gdx.graphics.getWidth();
+        int height = Gdx.graphics.getHeight();
 
         title = new Label("Connection!!", skin);
-        title.setPosition(Application.VIEWPORT_WIDTH / 2 - 100, Application.VIEWPORT_HEIGHT - 30);
+        title.setFontScale(2.f);
+        title.setPosition(width / 2 - 100, height - 100);
+
         stage.addActor(title);
 
-        Connection = new Label("Connection:", skin);
-        Connection.setPosition(45, 330);
+        Connection = new Label("Connect0ion:", skin);
+        Connection.setFontScale(2.f);
+        Connection.setPosition(10, height /2 + 50);
         stage.addActor(Connection);
 
         EnterConection = new TextField("", skin);
-        EnterConection.setPosition(145, 330);
+        EnterConection.setPosition(Connection.getX()+Connection.getWidth()*2+ 10, height /2 + 50);
         stage.addActor(EnterConection);
 
         this.soundID = Application.bgLoop.loop();
@@ -132,7 +150,9 @@ public class ConnectionScreen extends AbstractScreen {
 
     @Override
     public void render(SpriteBatch sb) {
-
+        sb.begin();
+        sb.draw(this.backgroundTexture, 0, 0);
+        sb.end();
     }
 
     @Override

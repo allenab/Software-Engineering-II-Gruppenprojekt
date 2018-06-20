@@ -14,8 +14,8 @@ import at.uni.utils.InputData;
 public class Application extends Game {
 
 	public static final String TITLE = "Kitten Splash";
-	public static final int VIEWPORT_WIDTH = 720;
-	public static final int VIEWPORT_HEIGHT = 480;
+	public static int VIEWPORT_WIDTH = 720;
+	public static int VIEWPORT_HEIGHT = 480;
 	public static final int FPS = 60;
 	public static boolean musicEnabled = true;
 
@@ -44,6 +44,9 @@ public class Application extends Game {
 
 		assetManager = new AssetManager();
 		Assets.loadAssets(assetManager);
+
+		//VIEWPORT_WIDTH = Gdx.graphics.getWidth();
+		//VIEWPORT_HEIGHT = Gdx.graphics.getHeight();
 
 		gameScreenManager = new GameScreenManager(this);
 		gameScreenManager.setScreen(GameScreenManager.STATE.MAIN_MENU);

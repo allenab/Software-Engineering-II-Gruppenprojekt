@@ -37,14 +37,17 @@ public class SettingsScreen extends AbstractScreen {
     public void show() {
         application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
+        int width = Gdx.graphics.getWidth();
+        int height = Gdx.graphics.getHeight();
 
         //creates the Sound where you can start the sound
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
         TextButton btnSound = new TextButton("Sound", skin);
-        btnSound.setSize(Application.VIEWPORT_WIDTH / 6, Application.VIEWPORT_HEIGHT / 4);
-        btnSound.setPosition(Application.VIEWPORT_WIDTH / 9, Application.VIEWPORT_HEIGHT / 4);;
+        btnSound.getLabel().setFontScale(2);
+        btnSound.setSize(width / 6, height / 4);
+        btnSound.setPosition(10, height / 4);;
 
         btnSound.addListener(new ClickListener() {
             @Override
@@ -56,7 +59,7 @@ public class SettingsScreen extends AbstractScreen {
                 if(Application.musicEnabled)
                 {
                     Application.bgLoop.resume();
-                   }
+                }
                 else
                 {
                     Application.bgLoop.pause();
@@ -67,8 +70,9 @@ public class SettingsScreen extends AbstractScreen {
         //creates the Language button where you can chose the Language
 
         TextButton btnExit1 = new TextButton("Exit", skin);
-        btnExit1.setSize(Application.VIEWPORT_WIDTH / 6, Application.VIEWPORT_HEIGHT / 4);
-        btnExit1.setPosition(Application.VIEWPORT_WIDTH -180, Application.VIEWPORT_HEIGHT/4);
+        btnExit1.getLabel().setFontScale(2);
+        btnExit1.setSize(width / 6, height / 4);
+        btnExit1.setPosition(btnSound.getX()+btnSound.getWidth()+10, height/4);
 
         btnExit1.addListener(new ClickListener() {
             @Override
@@ -90,8 +94,12 @@ public class SettingsScreen extends AbstractScreen {
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
+        int width = Gdx.graphics.getWidth();
+        int height = Gdx.graphics.getHeight();
+
         title = new Label("Game Settings!!", skin);
-        title.setPosition(Application.VIEWPORT_WIDTH / 2 - 100, Application.VIEWPORT_HEIGHT - 30);
+        title.setFontScale(2.f);
+        title.setPosition(width / 2 - 100, height - 150);
         stage.addActor(title);
 
     }
