@@ -10,9 +10,6 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-import at.uni.objects.GameObject;
-import at.uni.objects.GameObjectUserData;
-import at.uni.objects.Player;
 import at.uni.screens.MainGameScreen;
 import at.uni.utils.Box2DHelper;
 

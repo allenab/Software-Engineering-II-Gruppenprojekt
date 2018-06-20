@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.World;
 
 import at.uni.screens.MainGameScreen;
-import at.uni.utils.InputData;
 
 public final class PowerupShield extends Powerup {
 
@@ -19,7 +18,6 @@ public final class PowerupShield extends Powerup {
     {
         super.OnCollectedByPlayer(player, screen);
         player.activateShield();
-        return;
     }
 
 }

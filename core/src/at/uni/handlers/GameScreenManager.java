@@ -35,6 +35,7 @@ public class GameScreenManager {
     }
 
     private void initGameManager(){
+        /*
         screens = new HashMap<STATE, AbstractScreen>();
         screens.put(STATE.MAIN_MENU, new MainMenuScreen(application));
         screens.put(STATE.PLAY, new MainGameScreen(application));
@@ -42,6 +43,7 @@ public class GameScreenManager {
         screens.put(STATE.CHATSERVER, new ChatServerScreen(application));
         screens.put(STATE.SETTINGS, new SettingsScreen(application));
         screens.put(STATE.CONNECTION, new ConnectionScreen(application));
+        */
     }
 
     public Application getApplication(){
@@ -49,7 +51,27 @@ public class GameScreenManager {
     }
 
     public void setScreen(STATE screen){
-        application.setScreen(screens.get(screen));
+        //application.setScreen(screens.get(screen));
+        if(application.getScreen() != null)
+            application.getScreen().dispose();
+
+        switch(screen)
+        {
+            case MAIN_MENU:
+                application.setScreen(new MainMenuScreen((application)));
+                break;
+            case SETTINGS:
+                application.setScreen(new SettingsScreen((application)));
+                break;
+            case CONNECTION:
+                application.setScreen(new ConnectionScreen((application)));
+                break;
+            case PLAY:
+                application.setScreen(new MainGameScreen((application)));
+                break;
+        }
+
+
     }
 
     public void dispose(){

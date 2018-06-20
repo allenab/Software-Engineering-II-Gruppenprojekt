@@ -3,8 +3,7 @@ package at.uni.objects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
@@ -14,7 +13,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import at.uni.utils.Box2DHelper;
-import at.uni.utils.InputData;
 
 public class Bombs extends GameObject {
     private List<Bomb> bombs;

@@ -9,15 +9,14 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import at.uni.Application;
 import at.uni.handlers.GameInputProcessor;
-import at.uni.utils.InputData;
 
 public abstract class AbstractScreen implements Screen {
 
     protected Application application;
     protected Stage stage;
 
-    private GameInputProcessor gameInputProcessor;
-    private InputMultiplexer multiplexer;
+    protected GameInputProcessor gameInputProcessor;
+    protected InputMultiplexer multiplexer;
 
     public AbstractScreen(Application application){
         this.application = application;

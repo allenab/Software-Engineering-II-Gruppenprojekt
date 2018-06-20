@@ -1,6 +1,7 @@
 package at.uni.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,6 +19,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import at.uni.Application;
+import at.uni.handlers.GameInputProcessor;
 import at.uni.objects.Bombs;
 import at.uni.objects.GameObjectUserData;
 import at.uni.objects.Map;
@@ -240,5 +242,11 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
 
+    }
+
+    @Override
+    public void dispose()
+    {
+        super.dispose();
     }
 }

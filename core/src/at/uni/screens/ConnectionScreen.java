@@ -1,6 +1,7 @@
 package at.uni.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import at.uni.Application;
+import at.uni.handlers.GameInputProcessor;
 import at.uni.handlers.GameScreenManager;
 
 public class ConnectionScreen extends AbstractScreen {
@@ -42,7 +44,7 @@ public class ConnectionScreen extends AbstractScreen {
 
         TextButton btnGamestart = new TextButton("Game start", skin);
         btnGamestart.setSize(Application.VIEWPORT_WIDTH / 6, Application.VIEWPORT_HEIGHT / 4);
-        btnGamestart.setPosition(45, 100);
+        btnGamestart.setPosition(Application.VIEWPORT_WIDTH / 9, Application.VIEWPORT_HEIGHT / 4);
 
         btnGamestart.addListener(new ClickListener() {
             @Override
@@ -58,11 +60,11 @@ public class ConnectionScreen extends AbstractScreen {
         //creates the Create Game button with the text, its position and the size
         //creates the exit button with the text, its position and the size
 
-        TextButton btnExit = new TextButton("Exit", skin);
-        btnExit.setSize(180,50);
-        btnExit.setPosition(495, 100);
+        TextButton btnExit2 = new TextButton("Exit", skin);
+        btnExit2.setSize(Application.VIEWPORT_WIDTH / 6, Application.VIEWPORT_HEIGHT / 4);
+        btnExit2.setPosition(Application.VIEWPORT_WIDTH -180, Application.VIEWPORT_HEIGHT/4);
 
-        btnExit.addListener(new ClickListener() {
+        btnExit2.addListener(new ClickListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
@@ -70,7 +72,7 @@ public class ConnectionScreen extends AbstractScreen {
             }
         });
 
-        stage.addActor(btnExit);
+        stage.addActor(btnExit2);
 
         //creates the Connection button with the text, its position and the size
 
@@ -99,7 +101,7 @@ public class ConnectionScreen extends AbstractScreen {
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
         title = new Label("Connection!!", skin);
-        title.setPosition(Application.VIEWPORT_WIDTH / 2 - 100, Application.VIEWPORT_HEIGHT - 10);
+        title.setPosition(Application.VIEWPORT_WIDTH / 2 - 100, Application.VIEWPORT_HEIGHT - 30);
         stage.addActor(title);
 
         Connection = new Label("Connection:", skin);
@@ -135,6 +137,7 @@ public class ConnectionScreen extends AbstractScreen {
 
     @Override
     public void dispose() {
+        super.dispose();
         Application.bgLoop.dispose();
     }
 }

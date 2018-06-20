@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
-import at.uni.utils.InputData;
 
 import static at.uni.objects.Map.GRIDSIZE;
 

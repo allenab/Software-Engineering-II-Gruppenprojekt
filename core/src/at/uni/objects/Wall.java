@@ -8,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 
 import at.uni.utils.Box2DHelper;
-import at.uni.utils.InputData;
 
 import static at.uni.objects.Map.GRIDSIZE;
 
@@ -27,16 +26,10 @@ public class Wall extends GameObject {
         body.setUserData(new GameObjectUserData(this, GameObjectUserData.EUserDataType.WALL));
     }
 
-    /*
-    @Override
-    public void handleInput(InputData data) {
-
-    }
-    */
-
 
     public void update(float deltatime) {
-
+        //This wall doesn't update anything.
+        //but since its is a game object it must implement the update function.
     }
 
     @Override
