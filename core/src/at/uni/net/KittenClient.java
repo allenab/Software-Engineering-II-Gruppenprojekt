@@ -12,22 +12,13 @@ import at.uni.objects.GameObject;
 public class KittenClient {
 
     private Client client;
-
     private Integer playerId;
-    private GameObject localPlayer;
-    private GameObject remotePlayer;
     private boolean connected;
-
-    private String message;
-    private boolean recivedMessage;
 
     public KittenClient(String host) throws IOException {
 
         playerId = null;
         connected = false;
-
-        recivedMessage = false;
-        message = "";
 
         client = new Client();
         client.addListener(new ClientListener(this));
@@ -54,55 +45,17 @@ public class KittenClient {
         this.connected = true;
     }
 
-    public GameObject getLocalPlayer() {
-        return localPlayer;
-    }
-
-    public void setLocalPlayer(GameObject localPlayer) {
-        this.localPlayer = localPlayer;
-    }
-
-    public GameObject getRemotePlayer() {
-        return remotePlayer;
-    }
-
-    public void setRemotePlayer(GameObject remotePlayer) {
-        this.remotePlayer = remotePlayer;
-    }
-
-    public void updatePlayers(GameObject localPlayer){
+    /*public void updatePlayers(GameObject localPlayer){
         KittenRequest request = new KittenRequest();
         request.id = playerId;
         request.player = localPlayer;
         client.sendUDP(request);
-    }
+    }*/
 
-    public void join(){
+    public void join(String name){
         JoinRequest request = new JoinRequest();
-        request.playerName = "Player  2";
+        request.playerName = name;
         client.sendTCP(request);
-    }
-
-    public void setRecivedMessage(boolean recived) {
-        this.recivedMessage = recived;
-    }
-
-    public boolean recivedMessage() {
-        return recivedMessage;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void sendMessage(String message) {
-        MessageRequest mr = new MessageRequest();
-        mr.message = message;
-        client.sendTCP(mr);
     }
 
 }

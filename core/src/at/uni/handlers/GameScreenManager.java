@@ -5,11 +5,10 @@ import java.util.Map;
 
 import at.uni.Application;
 import at.uni.screens.AbstractScreen;
-import at.uni.screens.ChatScreen;
-import at.uni.screens.ChatServerScreen;
-import at.uni.screens.ConnectionScreen;
+import at.uni.screens.LobbyScreen;
 import at.uni.screens.MainGameScreen;
 import at.uni.screens.MainMenuScreen;
+import at.uni.screens.NewGameScreen;
 import at.uni.screens.SettingsScreen;
 
 
@@ -28,20 +27,18 @@ public class GameScreenManager {
     public enum STATE{
         MAIN_MENU,
         PLAY,
-        CHAT,
-        CHATSERVER,
         SETTINGS,
-        CONNECTION,
+        LOBBY,
+        NEWGAME,
     }
 
     private void initGameManager(){
         screens = new HashMap<STATE, AbstractScreen>();
         screens.put(STATE.MAIN_MENU, new MainMenuScreen(application));
         screens.put(STATE.PLAY, new MainGameScreen(application));
-        screens.put(STATE.CHAT, new ChatScreen(application));
-        screens.put(STATE.CHATSERVER, new ChatServerScreen(application));
         screens.put(STATE.SETTINGS, new SettingsScreen(application));
-        screens.put(STATE.CONNECTION, new ConnectionScreen(application));
+        screens.put(STATE.LOBBY, new LobbyScreen(application));
+        screens.put(STATE.NEWGAME, new NewGameScreen(application));
     }
 
     public Application getApplication(){

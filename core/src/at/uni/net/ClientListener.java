@@ -37,23 +37,23 @@ public class ClientListener extends Listener {
         } else if(object instanceof KittenResponse) {
             KittenResponse response = (KittenResponse) object;
             client.setConnected();
-            if(client.getPlayerId() == 0){
+            /*if(client.getPlayerId() == 0){
                 client.setLocalPlayer(response.playerOne);
                 client.setRemotePlayer(response.playerTwo);
             } else if(client.getPlayerId() == 1){
                 client.setLocalPlayer(response.playerTwo);
                 client.setRemotePlayer(response.playerOne);
-            }
+            }*/
 
         }else if(object instanceof MessageRequest) {
-            MessageRequest request = (MessageRequest) object;
+            /*MessageRequest request = (MessageRequest) object;
 
             client.setRecivedMessage(true);
             client.setMessage(request.message);
 
             MessageResponse response = new MessageResponse();
             response.success = true;
-            connection.sendTCP(response);
+            connection.sendTCP(response);*/
         } else if(object instanceof MessageResponse) {
             System.out.println("[Client] Message successfully send!");
         }

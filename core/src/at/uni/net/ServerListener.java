@@ -51,25 +51,25 @@ public class ServerListener extends Listener {
 
 
         } else if(object instanceof KittenRequest) {
-            KittenRequest request = (KittenRequest) object;
+            /*KittenRequest request = (KittenRequest) object;
 
             server.updatePlayer(request.id, request.player.getPosition());
 
             KittenResponse response = new KittenResponse();
             response.playerOne = server.getPlayer(0);
             response.playerTwo = server.getPlayer(1);
-            connection.sendUDP(response);
+            connection.sendUDP(response);*/
 
 
         } else if(object instanceof MessageRequest) {
-            MessageRequest request = (MessageRequest) object;
+            /*MessageRequest request = (MessageRequest) object;
 
             server.setRecivedMessage(true);
             server.setMessage(request.message);
 
             MessageResponse response = new MessageResponse();
             response.success = true;
-            connection.sendTCP(response);
+            connection.sendTCP(response);*/
         } else if(object instanceof MessageResponse) {
             System.out.println("[Server] Message successfully send!");
         }

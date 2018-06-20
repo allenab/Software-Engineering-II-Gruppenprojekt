@@ -19,14 +19,9 @@ public class KittenServer {
 
     private Server server;
 
-    private String message;
-    private boolean recivedMessage;
     private Map<Integer, GameObject> gameObjects;
 
     public KittenServer() throws IOException {
-
-        recivedMessage = false;
-        message = "";
 
         gameObjects = new HashMap<Integer, GameObject>();
 
@@ -36,28 +31,6 @@ public class KittenServer {
         server.start();
 
         KryoUtil.registerPackets(server.getKryo());
-    }
-
-    public void setRecivedMessage(boolean recived) {
-        this.recivedMessage = recived;
-    }
-
-    public boolean recivedMessage() {
-        return recivedMessage;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void sendMessage(String message) {
-        MessageRequest mr = new MessageRequest();
-        mr.message = message;
-        server.sendToAllTCP(mr);
     }
 
     public int getNumberOfPlayers() {
@@ -70,17 +43,27 @@ public class KittenServer {
         return count;
     }
 
+    public List<GameObject> getPlayers(){
+        List<GameObject> players = new ArrayList<GameObject>();
+        for(GameObject o : gameObjects.values()){
+            if(o instanceof Player){
+                players.add(o);
+            }
+        }
+        return players;
+    }
+
     public void addGameObject(Integer i, GameObject o) {
         gameObjects.put(i, o);
     }
 
-    public void updatePlayer(Integer i, Vector2 pos){
+    public void update(Integer i, Vector2 pos){
         GameObject o = gameObjects.get(i);
         o.setPosition(pos.x, pos.y);
         gameObjects.put(i, o);
     }
 
-    public GameObject getPlayer(Integer i) {
+    public GameObject getGameObject(Integer i) {
         return gameObjects.get(i);
     }
 

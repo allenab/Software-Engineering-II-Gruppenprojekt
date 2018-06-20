@@ -37,13 +37,29 @@ public class MainMenuScreen extends AbstractScreen {
     }
 
     @Override
-    public void show() {
+    public void load() {
 
         application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
-        //creates the play button with the text, its position and the size
+        this.soundID = Application.bgLoop.loop();
+
+        //application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+
+        title = new Label("Game Menu!!", skin);
+        title.setPosition(Application.VIEWPORT_WIDTH / 2 - 100, Application.VIEWPORT_HEIGHT - 10);
+        stage.addActor(title);
+
+        name = new Label("Name:", skin);
+        name.setPosition(45, 330);
+        stage.addActor(name);
+
+        EnterName = new TextField("", skin);
+        EnterName.setPosition(145, 330);
+        stage.addActor(EnterName);
+
+        //creates the play button with the text, its position and the size
 
         TextButton btnPlay = new TextButton("Play", skin);
         btnPlay.setSize(Application.VIEWPORT_WIDTH / 6, Application.VIEWPORT_HEIGHT / 4);
@@ -55,7 +71,7 @@ public class MainMenuScreen extends AbstractScreen {
                 super.touchUp(event, x, y, pointer, button);
                 //bgLoop.stop(soundID);
                 //application.getGameScreenManager().setScreen(GameScreenManager.STATE.PLAY);
-                application.getGameScreenManager().setScreen(GameScreenManager.STATE.CONNECTION);
+                application.getGameScreenManager().setScreen(GameScreenManager.STATE.NEWGAME);
             }
         });
 
@@ -109,36 +125,11 @@ public class MainMenuScreen extends AbstractScreen {
         });
 
         stage.addActor(btnSaveName);
-
-
-        super.show();
-    }
-
-    @Override
-    public void load() {
-
-        //application.getSpriteBatch().setProjectionMatrix(camera.combined);
-
-        Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
-
-        title = new Label("Game Menu!!", skin);
-        title.setPosition(Application.VIEWPORT_WIDTH / 2 - 100, Application.VIEWPORT_HEIGHT - 10);
-        stage.addActor(title);
-
-        name = new Label("Name:", skin);
-        name.setPosition(45, 330);
-        stage.addActor(name);
-
-        EnterName = new TextField("", skin);
-        EnterName.setPosition(145, 330);
-        stage.addActor(EnterName);
-
-        this.soundID = Application.bgLoop.loop();
     }
 
     @Override
     public void unload() {
-
+        Application.bgLoop.dispose();
     }
 
     @Override
@@ -156,8 +147,4 @@ public class MainMenuScreen extends AbstractScreen {
 
     }
 
-    @Override
-    public void dispose() {
-        Application.bgLoop.dispose();
-    }
 }

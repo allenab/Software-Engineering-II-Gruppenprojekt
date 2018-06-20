@@ -30,12 +30,16 @@ public class SettingsScreen extends AbstractScreen {
     }
 
     @Override
-    public void show() {
+    public void load() {
         application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
-        //creates the Sound where you can start the sound
-
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+
+        title = new Label("Game Settings!!", skin);
+        title.setPosition(Application.VIEWPORT_WIDTH / 2 - 100, Application.VIEWPORT_HEIGHT - 10);
+        stage.addActor(title);
+
+        //creates the Sound where you can start the sound
         TextButton btnSettings = new TextButton("Sound", skin);
         btnSettings.setSize(180, 50);
         btnSettings.setPosition(45, 100);
@@ -76,18 +80,6 @@ public class SettingsScreen extends AbstractScreen {
         stage.addActor(btnSettings);
     }
 
-
-    @Override
-    public void load() {
-
-        Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
-
-        title = new Label("Game Settings!!", skin);
-        title.setPosition(Application.VIEWPORT_WIDTH / 2 - 100, Application.VIEWPORT_HEIGHT - 10);
-        stage.addActor(title);
-
-    }
-
     @Override
     public void unload() {
 
@@ -105,11 +97,6 @@ public class SettingsScreen extends AbstractScreen {
 
     @Override
     public void render(SpriteBatch sb) {
-
-    }
-
-    @Override
-    public void dispose() {
 
     }
 }

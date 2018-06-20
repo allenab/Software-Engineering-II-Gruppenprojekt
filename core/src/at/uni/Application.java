@@ -32,6 +32,7 @@ public class Application extends Game {
 
 	private KittenClient client;
 	private KittenServer server;
+	private boolean isServer = false;
 
 	public SpriteBatch getSpriteBatch(){
 		return spriteBatch;
@@ -82,5 +83,13 @@ public class Application extends Game {
 
 	public void setServer(KittenServer server) {
 		this.server = server;
+	}
+
+	public boolean isServer() {
+		return isServer;
+	}
+
+	public void setServer(boolean server) {
+		isServer = server;
 	}
 }

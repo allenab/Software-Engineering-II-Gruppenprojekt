@@ -35,6 +35,7 @@ public abstract class AbstractScreen implements Screen {
 
     @Override
     public void show() {
+        stage.clear();
         load();
         Gdx.input.setInputProcessor(multiplexer);
     }

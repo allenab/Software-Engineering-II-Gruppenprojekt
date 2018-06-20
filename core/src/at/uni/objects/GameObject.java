@@ -16,6 +16,7 @@ public abstract class GameObject {
     protected Body body;
     protected Texture texture;
     protected float healthPoints;
+    protected String name;
 
     public abstract void load(World world);
     public abstract void handleInput(InputData data);
