@@ -9,6 +9,7 @@ import at.uni.net.packets.request.MessageRequest;
 import at.uni.net.packets.response.JoinResponse;
 import at.uni.net.packets.response.KittenResponse;
 import at.uni.net.packets.response.MessageResponse;
+import at.uni.objects.GameObject;
 import at.uni.objects.Player;
 
 public class ServerListener extends Listener {
@@ -42,12 +43,18 @@ public class ServerListener extends Listener {
             response.joined = false;
 
             if(!(numberOfPlayers >= 4)){
-                server.addGameObject(numberOfPlayers, null);
+                GameObject player = new Player(request.playerName);
+                server.addGameObject(numberOfPlayers, player);
                 response.joined = true;
                 response.id = numberOfPlayers;
             }
 
             connection.sendTCP(response);
+
+            KittenResponse r = new KittenResponse();
+            r.objects = server.getGameObjects();
+
+            server.getServer().sendToAllUDP(r);
 
 
         } else if(object instanceof KittenRequest) {

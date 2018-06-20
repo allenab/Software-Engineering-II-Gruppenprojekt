@@ -33,6 +33,10 @@ public class KittenServer {
         KryoUtil.registerPackets(server.getKryo());
     }
 
+    public Server getServer() {
+        return server;
+    }
+
     public int getNumberOfPlayers() {
         int count = 0;
         for(GameObject o : gameObjects.values()){
@@ -57,10 +61,22 @@ public class KittenServer {
         gameObjects.put(i, o);
     }
 
+    public GameObject[] getGameObjects() {
+        GameObject[] players = new GameObject[gameObjects.size()];
+        for(int i = 0; i < players.length; i++) {
+            players[i] = gameObjects.get(i);
+        }
+        return players;
+    }
+
     public void update(Integer i, Vector2 pos){
         GameObject o = gameObjects.get(i);
         o.setPosition(pos.x, pos.y);
         gameObjects.put(i, o);
+    }
+
+    public void close() {
+        server.close();
     }
 
     public GameObject getGameObject(Integer i) {

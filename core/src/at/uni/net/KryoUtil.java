@@ -1,5 +1,6 @@
 package at.uni.net;
 
+import com.badlogic.gdx.physics.box2d.World;
 import com.esotericsoftware.kryo.Kryo;
 
 import java.net.Inet4Address;
@@ -17,6 +18,9 @@ import at.uni.net.packets.request.MessageRequest;
 import at.uni.net.packets.response.JoinResponse;
 import at.uni.net.packets.response.KittenResponse;
 import at.uni.net.packets.response.MessageResponse;
+import at.uni.objects.Bomb;
+import at.uni.objects.GameObject;
+import at.uni.objects.Player;
 
 /**
  * Created by Dominik on 17.04.2018.
@@ -38,6 +42,11 @@ public class KryoUtil {
         kryo.register(MessageResponse.class);
         kryo.register(KittenResponse.class);
         kryo.register(JoinResponse.class);
+
+        kryo.register(GameObject[].class);
+        kryo.register(Player.class);
+        kryo.register(Bomb.class);
+        kryo.register(World.class);
     }
 
     public static List<String> getIPAddresses() {

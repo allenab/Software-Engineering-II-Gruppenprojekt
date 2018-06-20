@@ -12,16 +12,19 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import at.uni.Application;
 import at.uni.handlers.GameScreenManager;
+import at.uni.net.KittenClient;
 import at.uni.net.KittenServer;
 import at.uni.net.KryoUtil;
+import at.uni.objects.GameObject;
 
 public class LobbyScreen extends AbstractScreen {
 
     private OrthographicCamera camera;
-    private TextField txtIp;
+    private Label lblPlayers;
     private Label lblIp;
     private Label title;
 
@@ -31,8 +34,6 @@ public class LobbyScreen extends AbstractScreen {
         super(application);
 
         Application.bgLoop = Gdx.audio.newSound(Gdx.files.internal("sounds/yummie_shortBGloop.mp3"));
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
 
     }
 
@@ -43,8 +44,6 @@ public class LobbyScreen extends AbstractScreen {
 
         stage.clear();
 
-        application.getSpriteBatch().setProjectionMatrix(camera.combined);
-
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
         title = new Label("Lobby", skin);
@@ -52,13 +51,9 @@ public class LobbyScreen extends AbstractScreen {
         stage.addActor(title);
 
         if(!application.isServer()) {
-            lblIp = new Label("Server IP:", skin);
-            lblIp.setPosition(45, 330);
-            stage.addActor(lblIp);
-
-            txtIp = new TextField("", skin);
-            txtIp.setPosition(145, 330);
-            stage.addActor(txtIp);
+            lblPlayers = new Label("Players:", skin);
+            lblPlayers.setPosition(45, 300);
+            stage.addActor(lblPlayers);
 
             //creates the Connection button with the text, its position and the size
 
@@ -82,6 +77,10 @@ public class LobbyScreen extends AbstractScreen {
             try {
                 if(application.getServer() == null)
                 application.setServer(new KittenServer());
+
+                if(application.getClient() == null)
+                    application.setClient(new KittenClient("127.0.0.1"));
+                    application.getClient().join(UUID.randomUUID().toString());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -89,6 +88,10 @@ public class LobbyScreen extends AbstractScreen {
             lblIp = new Label("Server IP:", skin);
             lblIp.setPosition(45, 330);
             stage.addActor(lblIp);
+
+            lblPlayers = new Label("Players: ", skin);
+            lblPlayers.setPosition(45, 300);
+            stage.addActor(lblPlayers);
 
             List<String> ipAddresses = KryoUtil.getIPAddresses();
             if(ipAddresses.size() != 0){
@@ -135,6 +138,12 @@ public class LobbyScreen extends AbstractScreen {
     @Override
     public void unload() {
         Application.bgLoop.dispose();
+        if(application.getServer() != null) {
+            application.getServer().close();
+        }
+        if(application.getClient() != null) {
+            application.getClient().close();
+        }
     }
 
     @Override
@@ -144,7 +153,21 @@ public class LobbyScreen extends AbstractScreen {
 
     @Override
     public void update(float deltatime) {
-
+        if(application.isServer() && application.getServer() != null){
+            List<GameObject> players = application.getServer().getPlayers();
+            String lobby = "";
+            for(GameObject p : players) {
+                lobby += p.getName() + "\n";
+            }
+            lblPlayers.setText("Players:\n" + lobby);
+        } else if(!application.isServer() && application.getClient() != null) {
+            List<GameObject> players = application.getClient().getObjects();
+            String lobby = "";
+            for(GameObject p : players) {
+                lobby += p.getName() + "\n";
+            }
+            lblPlayers.setText("Players:\n" + lobby);
+        }
     }
 
     @Override

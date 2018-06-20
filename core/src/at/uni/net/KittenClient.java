@@ -3,6 +3,9 @@ package at.uni.net;
 import com.esotericsoftware.kryonet.Client;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import at.uni.net.packets.request.JoinRequest;
 import at.uni.net.packets.request.KittenRequest;
@@ -14,6 +17,7 @@ public class KittenClient {
     private Client client;
     private Integer playerId;
     private boolean connected;
+    private List<GameObject> objects;
 
     public KittenClient(String host) throws IOException {
 
@@ -25,6 +29,8 @@ public class KittenClient {
         client.start();
 
         client.connect(KryoUtil.TIMEOUT, host, KryoUtil.TCP_PORT, KryoUtil.UDP_PORT);
+
+        objects = new ArrayList<GameObject>();
 
         KryoUtil.registerPackets(client.getKryo());
     }
@@ -45,6 +51,14 @@ public class KittenClient {
         this.connected = true;
     }
 
+    public List<GameObject> getObjects() {
+        return objects;
+    }
+
+    public void setObjects(GameObject[] objects) {
+        this.objects = Arrays.asList(objects);
+    }
+
     /*public void updatePlayers(GameObject localPlayer){
         KittenRequest request = new KittenRequest();
         request.id = playerId;
@@ -58,4 +72,7 @@ public class KittenClient {
         client.sendTCP(request);
     }
 
+    public void close() {
+        client.close();
+    }
 }

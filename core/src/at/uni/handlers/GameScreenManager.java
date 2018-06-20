@@ -5,6 +5,7 @@ import java.util.Map;
 
 import at.uni.Application;
 import at.uni.screens.AbstractScreen;
+import at.uni.screens.ConnectScreen;
 import at.uni.screens.LobbyScreen;
 import at.uni.screens.MainGameScreen;
 import at.uni.screens.MainMenuScreen;
@@ -30,6 +31,7 @@ public class GameScreenManager {
         SETTINGS,
         LOBBY,
         NEWGAME,
+        CONNECT,
     }
 
     private void initGameManager(){
@@ -39,6 +41,7 @@ public class GameScreenManager {
         screens.put(STATE.SETTINGS, new SettingsScreen(application));
         screens.put(STATE.LOBBY, new LobbyScreen(application));
         screens.put(STATE.NEWGAME, new NewGameScreen(application));
+        screens.put(STATE.CONNECT, new ConnectScreen(application));
     }
 
     public Application getApplication(){

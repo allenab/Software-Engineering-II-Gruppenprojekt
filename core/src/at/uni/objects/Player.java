@@ -32,6 +32,25 @@ public class Player extends GameObject {
     private Bombs bombs;
     private boolean hasShield = false;
 
+    public Player() {
+        this.texture = null;
+        this.bounds = null;
+        this.bombs = null;
+        this.world = null;
+        this.health = 100;
+        this.name = null;
+    }
+
+    public Player(String name) {
+        this.texture = null;
+        this.bounds = null;
+        this.bombs = null;
+        this.world = null;
+        this.health = 100;
+
+        this.name = name;
+    }
+
     public Player(World world, String name, float x, float y, Bombs bombs){
         this.texture = new Texture(name);
         this.bounds = new Rectangle(x, y, texture.getWidth(), texture.getHeight());

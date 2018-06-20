@@ -50,6 +50,14 @@ public abstract class GameObject {
         return texture;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void damage(float d) {
         if(healthPoints < d) {
             healthPoints = 0;

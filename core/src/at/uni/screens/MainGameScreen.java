@@ -43,9 +43,6 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
     public MainGameScreen(Application application) {
         super(application);
 
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
-
         b2dCamera = new OrthographicCamera();
         b2dCamera.setToOrtho(false, Application.VIEWPORT_WIDTH / PPM, Application.VIEWPORT_HEIGHT / PPM);
 
@@ -63,8 +60,6 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
 
     @Override
     public void load() {
-        application.getSpriteBatch().setProjectionMatrix(camera.combined);
-
         this.players = new Player[4];
 
         // erzeugt einen Spieler

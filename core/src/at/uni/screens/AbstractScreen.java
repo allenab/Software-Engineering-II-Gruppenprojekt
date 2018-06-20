@@ -4,8 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 
 import at.uni.Application;
 import at.uni.handlers.GameInputProcessor;
@@ -15,6 +17,8 @@ public abstract class AbstractScreen implements Screen {
 
     protected Application application;
     protected Stage stage;
+    protected OrthographicCamera camera;
+    private FillViewport viewport;
 
     private GameInputProcessor gameInputProcessor;
     private InputMultiplexer multiplexer;
@@ -24,7 +28,9 @@ public abstract class AbstractScreen implements Screen {
         this.stage = new Stage();
         this.gameInputProcessor = new GameInputProcessor();
         this.multiplexer = new InputMultiplexer(stage, gameInputProcessor);
-
+        this.camera = new OrthographicCamera();
+        this.camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
+        this.viewport = new FillViewport(Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT, camera);
     }
 
     public abstract void handleInput();
@@ -36,6 +42,8 @@ public abstract class AbstractScreen implements Screen {
     @Override
     public void show() {
         stage.clear();
+        application.getSpriteBatch().setProjectionMatrix(camera.combined);
+        //viewport.apply();
         load();
         Gdx.input.setInputProcessor(multiplexer);
     }

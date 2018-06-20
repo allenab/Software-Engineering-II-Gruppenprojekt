@@ -23,16 +23,10 @@ public class SettingsScreen extends AbstractScreen {
 
     public SettingsScreen(Application application) {
         super(application);
-
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
-
     }
 
     @Override
     public void load() {
-        application.getSpriteBatch().setProjectionMatrix(camera.combined);
-
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
         title = new Label("Game Settings!!", skin);

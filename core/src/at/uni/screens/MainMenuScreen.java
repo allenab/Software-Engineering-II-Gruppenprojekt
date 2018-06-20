@@ -32,15 +32,10 @@ public class MainMenuScreen extends AbstractScreen {
         super(application);
 
         Application.bgLoop = Gdx.audio.newSound(Gdx.files.internal("sounds/yummie_shortBGloop.mp3"));
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
     }
 
     @Override
     public void load() {
-
-        application.getSpriteBatch().setProjectionMatrix(camera.combined);
-
         this.soundID = Application.bgLoop.loop();
 
         //application.getSpriteBatch().setProjectionMatrix(camera.combined);

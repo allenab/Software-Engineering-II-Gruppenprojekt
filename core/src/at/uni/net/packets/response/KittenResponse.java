@@ -6,9 +6,6 @@ import at.uni.objects.GameObject;
 
 public class KittenResponse {
 
-    public GameObject playerOne;
-    public GameObject playerTwo;
-    public GameObject playerThree;
-    public GameObject playerFour;
+    public GameObject[] objects;
 
 }

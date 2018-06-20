@@ -20,18 +20,12 @@ public class NewGameScreen extends AbstractScreen {
 
     public NewGameScreen(Application application) {
         super(application);
-
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
-
     }
 
     @Override
     public void load() {
 
         //creates the game start button with the text, its position and the size
-
-        application.getSpriteBatch().setProjectionMatrix(camera.combined);
         this.soundID = Application.bgLoop.loop();
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
@@ -62,7 +56,7 @@ public class NewGameScreen extends AbstractScreen {
                 super.touchUp(event, x, y, pointer, button);
                 //bgLoop.stop(soundID);
                 application.setServer(false);
-                application.getGameScreenManager().setScreen(GameScreenManager.STATE.LOBBY);
+                application.getGameScreenManager().setScreen(GameScreenManager.STATE.CONNECT);
             }
         });
 
