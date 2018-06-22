@@ -23,8 +23,8 @@ public class BombsTest {
 
     @After
     public void tearDown() throws Exception {
-        map = null;
-        bombs = null;
+        map.dispose();
+        bombs.dispose();
     }
 
     @Test
