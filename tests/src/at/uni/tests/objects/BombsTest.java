@@ -1,14 +1,10 @@
 package at.uni.tests.objects;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 
 import java.util.concurrent.TimeUnit;
 
@@ -36,29 +32,29 @@ public class BombsTest {
 
 	@Test
 	public void adding() {
-		Texture texture = new Texture("images/bomberman.png");
 		Assert.assertEquals(0, bombs.getBombs().size());
 
-		bombs.addBomb(50, 100);
-		bombs.addBomb(220, 100);
-		bombs.addBomb(500, 0);
+		bombs.addBomb(51, 100);
+		bombs.addBomb(221, 100);
+		bombs.addBomb(501, 0);
 
 		Assert.assertEquals(3, bombs.getBombs().size());
 
-		bombs.addBomb(300, 30);
-		bombs.addBomb(220, 100);
+		bombs.addBomb(301, 30);
+		bombs.addBomb(221, 100);
 
 		Assert.assertEquals(5, bombs.getBombs().size());
 	}
 
 	@Test
 	public void expiring() throws InterruptedException {
-		bombs.addBomb(0, 100);
-		bombs.addBomb(220, 100);
+		bombs.addBomb(100, 101);
+		bombs.addBomb(220, 101);
 
 		Assert.assertEquals(2, bombs.getBombs().size());
 
 		TimeUnit.SECONDS.sleep(5);
+		bombs.render(null);
 
 		Assert.assertEquals(0, bombs.getBombs().size());
 
@@ -66,6 +62,7 @@ public class BombsTest {
 		bombs.addBomb(220, 100);
 
 		TimeUnit.SECONDS.sleep(2);
+		bombs.render(null);
 
 		Assert.assertEquals(2, bombs.getBombs().size());
 
@@ -74,6 +71,7 @@ public class BombsTest {
 		Assert.assertEquals(3, bombs.getBombs().size());
 
 		TimeUnit.SECONDS.sleep(2);
+		bombs.render(null);
 
 		Assert.assertEquals(1, bombs.getBombs().size());
 	}
