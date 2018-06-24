@@ -25,20 +25,17 @@ import static at.uni.utils.Box2DHelper.PPM;
 
 public class Player extends GameObject {
 
-    private World world;
     private int facingDirection;
     private int maximumBombs = 3;
     private int health;
     private Bombs bombs;
     private boolean hasShield = false;
 
-    public Player(World world, String name, float x, float y, Bombs bombs){
+    public Player(String name, float x, float y, Bombs bombs){
         this.texture = new Texture(name);
         this.bounds = new Rectangle(x, y, texture.getWidth(), texture.getHeight());
-        this.world = world;
         this.bombs = bombs;
         setPosition(x - bounds.width / 2, y - bounds.height / 2);
-        load(world);
 
         this.health = 100;
 

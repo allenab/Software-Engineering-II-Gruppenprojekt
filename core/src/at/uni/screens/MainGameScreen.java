@@ -68,7 +68,8 @@ public class MainGameScreen extends AbstractScreen implements ContactListener {
         this.players = new Player[4];
 
         // erzeugt einen Spieler
-        this.player = new Player(world, "images/bomberman.png", 100 / PPM, 100 / PPM, bombs);
+        this.player = new Player("images/bomberman.png", 100 / PPM, 100 / PPM, bombs);
+        player.load(world);
 
         players[0] = player;
 
