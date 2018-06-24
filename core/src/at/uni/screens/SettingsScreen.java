@@ -1,7 +1,6 @@
 package at.uni.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import at.uni.Application;
-import at.uni.handlers.GameInputProcessor;
 import at.uni.handlers.GameScreenManager;
 
 
@@ -47,7 +45,7 @@ public class SettingsScreen extends AbstractScreen {
         TextButton btnSound = new TextButton("Sound", skin);
         btnSound.getLabel().setFontScale(2);
         btnSound.setSize(width / 6, height / 4);
-        btnSound.setPosition(10, height / 4);;
+        btnSound.setPosition(10, height / 4);
 
         btnSound.addListener(new ClickListener() {
             @Override

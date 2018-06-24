@@ -23,6 +23,7 @@ public class Map extends GameObject {
     private List<List<GameObject>> map;
     public Set<Body> toDestroy = new HashSet<Body>();
     public Set<Powerup> spawnedPowerups = new HashSet<Powerup>();
+    public Set<Explosion> explosions = new HashSet<Explosion>();
     private World world;
 
     public Map(){
@@ -158,6 +159,11 @@ public class Map extends GameObject {
             }
         }
         toDestroy.clear();
+
+        for(Explosion e : explosions)
+        {
+            e.update(deltatime);
+        }
     }
 
     public void render(SpriteBatch sb) {
@@ -169,6 +175,10 @@ public class Map extends GameObject {
         for(Powerup p : spawnedPowerups)
         {
             p.render(sb);
+        }
+        for(Explosion e : explosions)
+        {
+            e.render(sb);
         }
     }
 

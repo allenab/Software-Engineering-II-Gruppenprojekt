@@ -7,8 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
-import at.uni.utils.InputData;
-
 public abstract class GameObject {
 
     protected Vector2 position;
@@ -58,6 +56,14 @@ public abstract class GameObject {
 
     public float getHP() {
         return healthPoints;
+    }
+
+    public static float clamp(float val, float min, float max) {
+        return Math.max(min, Math.min(max, val));
+    }
+
+    public static int clamp(int val, int min, int max) {
+        return Math.max(min, Math.min(max, val));
     }
 
 }

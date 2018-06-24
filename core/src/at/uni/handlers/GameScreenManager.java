@@ -1,12 +1,9 @@
 package at.uni.handlers;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import at.uni.Application;
 import at.uni.screens.AbstractScreen;
-import at.uni.screens.ChatScreen;
-import at.uni.screens.ChatServerScreen;
 import at.uni.screens.ConnectionScreen;
 import at.uni.screens.MainGameScreen;
 import at.uni.screens.MainMenuScreen;
@@ -75,11 +72,6 @@ public class GameScreenManager {
     }
 
     public void dispose(){
-        for(AbstractScreen screen : screens.values()){
-            if(screen != null){
-                screen.dispose();
-            }
-        }
     }
 
 }

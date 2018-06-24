@@ -3,16 +3,12 @@ package at.uni.objects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import at.uni.utils.Box2DHelper;
 
 public class Bombs extends GameObject {
     private List<Bomb> bombs;
@@ -65,11 +61,13 @@ public class Bombs extends GameObject {
             } else {
                 expired.add(temp);
                 temp.update(0);
+                /*
                 ParticleEffect effect = new ParticleEffect();
                 effect.load(Gdx.files.internal("effects/splash.p"), Gdx.files.internal("effects"));
                 effect.setPosition(temp.getPosition().x, temp.getPosition().y);
                 effect.start();
                 this.explosions.add(effect);
+                */
             }
         }
         //remove bombs
@@ -91,7 +89,10 @@ public class Bombs extends GameObject {
         for (Bomb bomb: expired) {
             explosionSound.play();
             map.explosionCheck(bomb.position);
-            Body b = Box2DHelper.createExplosion(world, bomb.position.x, bomb.position.y, 105, 105, BodyDef.BodyType.DynamicBody, false, Box2DHelper.BIT_EXPLOSION, (short)(Box2DHelper.BIT_BRICK | Box2DHelper.BIT_PLAYER), Box2DHelper.BIT_WALL); }
+            //Body b = Box2DHelper.createExplosion(world, bomb.position.x, bomb.position.y, 105, 105, BodyDef.BodyType.DynamicBody, false, Box2DHelper.BIT_EXPLOSION, (short)(Box2DHelper.BIT_BRICK | Box2DHelper.BIT_PLAYER), Box2DHelper.BIT_WALL); }
+            Explosion explosion = new Explosion(world, map, bomb.getPosition().x, bomb.getPosition().y);
+            map.explosions.add(explosion);
+        }
     }
 
 //    private void explosionParticle(List<Bomb> expired){

@@ -1,7 +1,6 @@
 package at.uni.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import at.uni.Application;
-import at.uni.handlers.GameInputProcessor;
 import at.uni.handlers.GameScreenManager;
 
 public class ConnectionScreen extends AbstractScreen {
@@ -45,6 +43,8 @@ public class ConnectionScreen extends AbstractScreen {
         int width = Gdx.graphics.getWidth();
         int height = Gdx.graphics.getHeight();
 
+        final float buttonoffset = 10;
+
         //creates the game start button with the text, its position and the size
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
@@ -65,12 +65,14 @@ public class ConnectionScreen extends AbstractScreen {
 
         stage.addActor(btnGamestart);
 
-
+        float btnGameStartX = btnGamestart.getX();
+        float btnGameStartWidth = btnGamestart.getWidth();
+        float newPositionX = btnGameStartX + btnGameStartWidth + buttonoffset;
 
         TextButton btnConnection = new TextButton("Connection!", skin);
         btnConnection.getLabel().setFontScale(1);
         btnConnection.setSize(width / 6, height / 4);
-        btnConnection.setPosition(btnGamestart.getX()+btnGamestart.getWidth()+10, height/4);
+        btnConnection.setPosition(newPositionX, height/4);
 
         btnConnection.addListener(new ClickListener() {
             @Override
@@ -82,6 +84,9 @@ public class ConnectionScreen extends AbstractScreen {
 
         stage.addActor(btnConnection);
 
+        float btnConnectiontX = btnGamestart.getX();
+        float btnConnectionWidth = btnGamestart.getWidth();
+        newPositionX = btnConnectiontX + btnConnectionWidth + buttonoffset;
 
         //creates the Create Game button with the text, its position and the size
         //creates the exit button with the text, its position and the size
@@ -89,7 +94,7 @@ public class ConnectionScreen extends AbstractScreen {
         TextButton btnExit2 = new TextButton("Exit", skin);
         btnExit2.getLabel().setFontScale(1);
         btnExit2.setSize(width / 6, height / 4);
-        btnExit2.setPosition(btnConnection.getX()+btnConnection.getWidth()+10, height/4);
+        btnExit2.setPosition(newPositionX, height/4);
 
         btnExit2.addListener(new ClickListener() {
             @Override

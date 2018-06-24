@@ -13,7 +13,6 @@ public final class GameObjectUserData {
 
     public GameObjectUserData(GameObject object, EUserDataType type)
     {
-        assert(object != null && type != null);
         this.gameObject = object;
         this.userDataTypetype = type;
     }

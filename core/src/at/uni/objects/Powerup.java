@@ -18,10 +18,13 @@ import static at.uni.utils.Box2DHelper.PPM;
 
 public abstract class Powerup extends GameObject {
 
-    at.uni.objects.Powerup.EPowerUpType type = null;
+    EPowerUpType type = null;
     World world = null;
+
     enum EPowerUpType {
-        SHIELD
+        SHIELD,
+        MOREBOMBS,
+        SPEEDUP
     };
 
     public Powerup(World world, float x, float y)

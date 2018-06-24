@@ -2,7 +2,6 @@ package at.uni.screens;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,7 +17,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import at.uni.Application;
-import at.uni.handlers.GameInputProcessor;
 import at.uni.handlers.GameScreenManager;
 
 import static at.uni.utils.Box2DHelper.PPM;
@@ -67,10 +65,12 @@ public class MainMenuScreen extends AbstractScreen {
         int width = Gdx.graphics.getWidth();
         int height = Gdx.graphics.getHeight();
 
+        final float buttonoffset = 10;
+
         TextButton btnPlay = new TextButton("Play", skin);
         btnPlay.getLabel().setFontScale(2);
         btnPlay.setSize(width / 6, height / 4);
-        btnPlay.setPosition(10, height / 4);
+        btnPlay.setPosition(buttonoffset, height / 4);
 
         btnPlay.addListener(new ClickListener() {
             @Override
@@ -86,10 +86,16 @@ public class MainMenuScreen extends AbstractScreen {
 
         //creates the setting button with the text, its position and the size
 
+
+
+        float btnPlayX = btnPlay.getX();
+        float btnPlayWidth = btnPlay.getWidth();
+        float newPositionX = btnPlayX + btnPlayWidth + buttonoffset;
+
         TextButton btnSettings = new TextButton("Settings", skin);
         btnSettings.getLabel().setFontScale(2);
         btnSettings.setSize(width / 6, height / 4);
-        btnSettings.setPosition(btnPlay.getX()+btnPlay.getWidth()+10, height / 4);
+        btnSettings.setPosition(newPositionX, height / 4);
 
         btnSettings.addListener(new ClickListener() {
             @Override
@@ -104,10 +110,14 @@ public class MainMenuScreen extends AbstractScreen {
 
         //creates the exit button with the text, its position and the size
 
+        float btnSettingsX = btnSettings.getX();
+        float btnSettingsWidth = btnSettings.getWidth();
+        newPositionX = btnSettingsX + btnSettingsWidth + buttonoffset;
+
         TextButton btnExit = new TextButton("Exit", skin);
         btnExit.getLabel().setFontScale(2);
         btnExit.setSize(width / 6, height / 4);
-        btnExit.setPosition(btnSettings.getX()+btnSettings.getWidth()+10, height/4);
+        btnExit.setPosition(newPositionX, height/4);
 
         btnExit.addListener(new ClickListener() {
             @Override
@@ -160,7 +170,7 @@ public class MainMenuScreen extends AbstractScreen {
         sb.begin();
         sb.draw(this.backgroundTexture, 0, 0);
         sb.end();
-        }
+    }
 
     @Override
     public void dispose() {

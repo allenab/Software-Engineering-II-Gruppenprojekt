@@ -21,10 +21,12 @@ public class Player extends GameObject {
 
     private World world;
     private int facingDirection;
-    private int maximumBombs = 3;
+    private int maximumBombs = 1;
     private int health;
     private Bombs bombs;
     private int shieldCount = 0;
+
+    private float movementSpeed = 5;
 
     public Player(World world, String name, float x, float y, Bombs bombs){
         this.texture = new Texture(name);
@@ -58,7 +60,7 @@ public class Player extends GameObject {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.filter.categoryBits = Box2DHelper.BIT_PLAYER;
-        fixtureDef.filter.maskBits = Box2DHelper.BIT_WALL | Box2DHelper.BIT_POWERUP | Box2DHelper.BIT_EXPLOSION | Box2DHelper.BIT_BRICK;
+        fixtureDef.filter.maskBits = Box2DHelper.BIT_WALL + Box2DHelper.BIT_POWERUP + Box2DHelper.BIT_EXPLOSION + Box2DHelper.BIT_BRICK;
         Fixture fixture = body.createFixture(fixtureDef);
         fixture.setUserData(new GameObjectUserData(this, GameObjectUserData.EUserDataType.PLAYER));
 
@@ -71,19 +73,19 @@ public class Player extends GameObject {
 
         // Tastatur-Input Section - Markus
         if(data.isKeyDown(InputData.Key.Forward)){
-            body.applyLinearImpulse(new Vector2(0, 5), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(0, this.movementSpeed), body.getWorldCenter(), true);
             facingDirection = 0;
         }
         if(data.isKeyDown(InputData.Key.Backward)){
-            body.applyLinearImpulse(new Vector2(0, -5), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(0, -this.movementSpeed), body.getWorldCenter(), true);
             facingDirection = 1;
         }
         if(data.isKeyDown(InputData.Key.Left)){
-            body.applyLinearImpulse(new Vector2(-5, 0), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(-this.movementSpeed, 0), body.getWorldCenter(), true);
             facingDirection = 2;
         }
         if(data.isKeyDown(InputData.Key.Right)){
-            body.applyLinearImpulse(new Vector2(5, 0), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(this.movementSpeed, 0), body.getWorldCenter(), true);
             facingDirection = 3;
         }
 
@@ -134,13 +136,23 @@ public class Player extends GameObject {
 
     public boolean isProtectedByShield()
     {
-
-        return this.shieldCount > 0;
+        boolean isProtectedByShield = this.shieldCount > 0;
+        return isProtectedByShield;
     }
 
     public void activateShield()
     {
         System.out.println("Player is now protected by shield powerup");
         this.shieldCount++;
+    }
+
+    public void increaseMaxBombCount()
+    {
+        this.maximumBombs = clamp(this.maximumBombs + 1, 1, 10);
+    }
+
+    public void modifyMovementSpeed(float amount)
+    {
+        this.movementSpeed = clamp(this.movementSpeed + amount, 5, 10);
     }
 }
