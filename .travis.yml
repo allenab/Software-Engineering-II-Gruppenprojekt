@@ -46,6 +46,9 @@ android:
 before_install:
   - chmod +x gradlew
 
+install:
+  - git fetch --unshallow --tags
+
 script:
   - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
   - sonar-scanner
