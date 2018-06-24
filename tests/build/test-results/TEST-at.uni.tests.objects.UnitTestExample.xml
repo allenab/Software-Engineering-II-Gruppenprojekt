@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="at.uni.tests.objects.UnitTestExample" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-06-24T11:25:01" hostname="DSIMON-HP" time="0.0">
-  <properties/>
-  <testcase name="oneEqualsOne" classname="at.uni.tests.objects.UnitTestExample" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
