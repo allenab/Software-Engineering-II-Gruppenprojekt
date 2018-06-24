@@ -131,7 +131,6 @@ public class Player extends GameObject {
 
     public boolean isProtectedByShield()
     {
-
         return this.hasShield;
     }
 
