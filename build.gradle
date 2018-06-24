@@ -88,21 +88,8 @@ project(":core") {
 
 project(":tests") {
     apply plugin: "java"
-    apply plugin: "jacoco"
 
     sourceSets.test.java.srcDirs = ["src/"]
-
-    jacoco {
-        toolVersion = "0.8.1"
-    }
-
-    jacocoTestReport {
-        reports {
-            xml.enabled true
-            csv.enabled false
-            html.enabled true
-        }
-    }
 
     dependencies {
 
