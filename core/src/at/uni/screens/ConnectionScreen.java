@@ -25,7 +25,7 @@ public class ConnectionScreen extends AbstractScreen {
     public ConnectionScreen(Application application) {
         super(application);
 
-        Application.bgLoop = Gdx.audio.newSound(Gdx.files.internal("sounds/yummie_shortBGloop.mp3"));
+        Application.setBgLoop(Gdx.audio.newSound(Gdx.files.internal("sounds/yummie_shortBGloop.mp3")));
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
 
@@ -109,7 +109,7 @@ public class ConnectionScreen extends AbstractScreen {
         EnterConection.setPosition(145, 330);
         stage.addActor(EnterConection);
 
-        this.soundID = Application.bgLoop.loop();
+        this.soundID = Application.getBgLoop().loop();
     }
 
     @Override
@@ -134,6 +134,6 @@ public class ConnectionScreen extends AbstractScreen {
 
     @Override
     public void dispose() {
-        Application.bgLoop.dispose();
+        Application.getBgLoop().dispose();
     }
 }
