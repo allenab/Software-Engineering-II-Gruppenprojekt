@@ -74,26 +74,12 @@ public final class Box2DHelper {
         return body;
     }
 
-    public static Body createExplosion(Explosion explosion, final World world, float x, float y,  float w, float h, BodyDef.BodyType type, boolean canRotate, short cBits, short mBits, short gIndex){
+    public static Body createExplosion(Explosion explosion, final World world, float x, float y, float w, float h, boolean canRotate){
         BodyDef bodyDef = new BodyDef();
         bodyDef.fixedRotation = canRotate;
-        bodyDef.type = type;
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(x / PPM, y / PPM);
 
-//        Vector2[] vertices = new Vector2[12];
-//
-//        vertices[0] = new Vector2(-27f  , 0f  );
-//        vertices[1] = new Vector2(0f , -55f  );
-//        vertices[2] = new Vector2(27f , 0f);
-//        vertices[3] = new Vector2(0f , -27f);
-//        vertices[4] = new Vector2(55f , 0f);
-//        vertices[5] = new Vector2(0f , 27f);
-//        vertices[6] = new Vector2(27f  , 0f  );
-//        vertices[7] = new Vector2(0f , 55f  );
-//        vertices[8] = new Vector2(-27f , 0f);
-//        vertices[9] = new Vector2(0f , 27f);
-//        vertices[10] = new Vector2(-55f , 0f);
-//        vertices[11] = new Vector2(0f , -27f);
         PolygonShape shape1 = new PolygonShape();
         shape1.setAsBox(w / 2 / PPM / 2, h / PPM / 2);
 

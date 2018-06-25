@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import at.uni.utils.Box2DHelper;
 import at.uni.utils.InputData;
 
 import static at.uni.utils.Box2DHelper.PPM;

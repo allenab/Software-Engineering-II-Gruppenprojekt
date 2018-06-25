@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.World;
 
 import at.uni.screens.MainGameScreen;
+import at.uni.utils.InputData;
 
 public final class PowerupMoreBombs extends Powerup {
     public PowerupMoreBombs(World world, float x, float y) {
@@ -15,5 +16,10 @@ public final class PowerupMoreBombs extends Powerup {
     public void OnCollectedByPlayer(Player player, MainGameScreen screen){
         super.OnCollectedByPlayer(player, screen);
         player.increaseMaxBombCount();;
+    }
+
+    @Override
+    public void handleInput(InputData data) {
+
     }
 }

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import at.uni.utils.InputData;
+
 public class Bombs extends GameObject {
     private List<Bomb> bombs;
     private List<ParticleEffect> explosions;

@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.Random;
 
+import at.uni.utils.InputData;
+
 
 public class Map extends GameObject {
 

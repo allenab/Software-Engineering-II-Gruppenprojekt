@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.World;
 
 import at.uni.utils.Box2DHelper;
+import at.uni.utils.InputData;
 
 public final class Explosion extends GameObject {
 
@@ -29,6 +30,11 @@ public final class Explosion extends GameObject {
 
     @Override
     public void load(World world) {
+
+    }
+
+    @Override
+    public void handleInput(InputData data) {
 
     }
 

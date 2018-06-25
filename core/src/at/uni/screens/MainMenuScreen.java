@@ -151,7 +151,7 @@ public class MainMenuScreen extends AbstractScreen {
         title.setPosition(width / 2 - 100, height - 150);
         stage.addActor(title);
 
-        this.soundID = Application.bgLoop.loop();
+        this.soundID = Application.getBgLoop().loop();
     }
 
     @Override
