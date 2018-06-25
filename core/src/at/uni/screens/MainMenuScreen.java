@@ -31,7 +31,7 @@ public class MainMenuScreen extends AbstractScreen {
     public MainMenuScreen(Application application) {
         super(application);
 
-        Application.bgLoop = Gdx.audio.newSound(Gdx.files.internal("sounds/yummie_shortBGloop.mp3"));
+        Application.setBgLoop(Gdx.audio.newSound(Gdx.files.internal("sounds/yummie_shortBGloop.mp3")));
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
     }
@@ -133,7 +133,7 @@ public class MainMenuScreen extends AbstractScreen {
         EnterName.setPosition(145, 330);
         stage.addActor(EnterName);
 
-        this.soundID = Application.bgLoop.loop();
+        this.soundID = Application.getBgLoop().loop();
     }
 
     @Override
@@ -158,6 +158,6 @@ public class MainMenuScreen extends AbstractScreen {
 
     @Override
     public void dispose() {
-        Application.bgLoop.dispose();
+        Application.getBgLoop().dispose();
     }
 }

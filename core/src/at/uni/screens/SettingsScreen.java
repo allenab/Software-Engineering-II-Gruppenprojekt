@@ -49,11 +49,11 @@ public class SettingsScreen extends AbstractScreen {
                 Application.musicEnabled = !Application.musicEnabled;
                 if(Application.musicEnabled)
                 {
-                    Application.bgLoop.loop();
+                    Application.getBgLoop().loop();
                 }
                 else
                 {
-                    Application.bgLoop.stop();
+                    Application.getBgLoop().stop();
                 }
 
             }

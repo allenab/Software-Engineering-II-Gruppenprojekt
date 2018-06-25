@@ -73,7 +73,7 @@ public class PlayerTest {
         player.damageTaken();
         player.activateShield();
         player.damageTaken();
-        
+
         Assert.assertEquals(20, player.getHealth());
     }
 }
