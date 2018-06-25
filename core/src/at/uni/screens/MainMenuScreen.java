@@ -2,6 +2,7 @@ package at.uni.screens;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -27,6 +29,8 @@ public class MainMenuScreen extends AbstractScreen {
     private Viewport viewport;
     private OrthographicCamera camera;
     private OrthographicCamera b2dCamera;
+    private TextField EnterName;
+    private Label name;
     private Label title;
     private Box2DDebugRenderer b2dr;
     private World world;
@@ -37,8 +41,7 @@ public class MainMenuScreen extends AbstractScreen {
     public MainMenuScreen(Application application) {
         super(application);
 
-        Application.bgLoop = Gdx.audio.newSound(Gdx.files.internal("sounds/yummie_shortBGloop.mp3"));
-
+        Application.setBgLoop(Gdx.audio.newSound(Gdx.files.internal("sounds/yummie_shortBGloop.mp3")));
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Application.VIEWPORT_WIDTH, Application.VIEWPORT_HEIGHT);
 
@@ -57,6 +60,8 @@ public class MainMenuScreen extends AbstractScreen {
     public void show() {
 
         application.getSpriteBatch().setProjectionMatrix(camera.combined);
+
+        // creates the pack for the buttons, its skin, the font used on the buttons, and the stage(screen)
 
         //creates the play button with the text, its position and the size
 
@@ -174,7 +179,6 @@ public class MainMenuScreen extends AbstractScreen {
 
     @Override
     public void dispose() {
-        super.dispose();
-        Application.bgLoop.dispose();
+        Application.getBgLoop().dispose();
     }
 }

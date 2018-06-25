@@ -1,14 +1,17 @@
 package at.uni.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Timer;
 
 import at.uni.Application;
 import at.uni.handlers.GameScreenManager;
@@ -56,11 +59,11 @@ public class SettingsScreen extends AbstractScreen {
                 Application.musicEnabled = !Application.musicEnabled;
                 if(Application.musicEnabled)
                 {
-                    Application.bgLoop.resume();
+                    Application.getBgLoop().loop();
                 }
                 else
                 {
-                    Application.bgLoop.pause();
+                    Application.getBgLoop().stop();
                 }
 
             }

@@ -1,6 +1,9 @@
 package at.uni.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -8,9 +11,14 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-import at.uni.utils.Box2DHelper;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 import at.uni.utils.InputData;
 
 import static at.uni.utils.Box2DHelper.PPM;
@@ -19,22 +27,19 @@ import static at.uni.utils.Box2DHelper.PPM;
 
 public class Player extends GameObject {
 
-    private World world;
     private int facingDirection;
-    private int maximumBombs = 1;
+    private int maximumBombs = 3;
     private int health;
     private Bombs bombs;
     private int shieldCount = 0;
 
     private float movementSpeed = 5;
 
-    public Player(World world, String name, float x, float y, Bombs bombs){
+    public Player(String name, float x, float y, Bombs bombs){
         this.texture = new Texture(name);
         this.bounds = new Rectangle(x, y, texture.getWidth(), texture.getHeight());
-        this.world = world;
         this.bombs = bombs;
         setPosition(x - bounds.width / 2, y - bounds.height / 2);
-        load(world);
 
         this.health = 100;
 
@@ -73,19 +78,19 @@ public class Player extends GameObject {
 
         // Tastatur-Input Section - Markus
         if(data.isKeyDown(InputData.Key.Forward)){
-            body.applyLinearImpulse(new Vector2(0, this.movementSpeed), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(0, 5), body.getWorldCenter(), true);
             facingDirection = 0;
         }
         if(data.isKeyDown(InputData.Key.Backward)){
-            body.applyLinearImpulse(new Vector2(0, -this.movementSpeed), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(0, -5), body.getWorldCenter(), true);
             facingDirection = 1;
         }
         if(data.isKeyDown(InputData.Key.Left)){
-            body.applyLinearImpulse(new Vector2(-this.movementSpeed, 0), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(-5, 0), body.getWorldCenter(), true);
             facingDirection = 2;
         }
         if(data.isKeyDown(InputData.Key.Right)){
-            body.applyLinearImpulse(new Vector2(this.movementSpeed, 0), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(5, 0), body.getWorldCenter(), true);
             facingDirection = 3;
         }
 

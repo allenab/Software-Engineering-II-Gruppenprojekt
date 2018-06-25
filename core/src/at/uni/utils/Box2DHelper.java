@@ -1,5 +1,6 @@
 package at.uni.utils;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -73,10 +74,10 @@ public final class Box2DHelper {
         return body;
     }
 
-    public static Body createExplosion(Explosion explosion, final World world, float x, float y, float w, float h, boolean canRotate){
+    public static Body createExplosion(Explosion explosion, final World world, float x, float y,  float w, float h, BodyDef.BodyType type, boolean canRotate, short cBits, short mBits, short gIndex){
         BodyDef bodyDef = new BodyDef();
         bodyDef.fixedRotation = canRotate;
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.type = type;
         bodyDef.position.set(x / PPM, y / PPM);
 
 //        Vector2[] vertices = new Vector2[12];
@@ -94,7 +95,7 @@ public final class Box2DHelper {
 //        vertices[10] = new Vector2(-55f , 0f);
 //        vertices[11] = new Vector2(0f , -27f);
         PolygonShape shape1 = new PolygonShape();
-        shape1.setAsBox(w / 2 / PPM / 2, h / PPM);
+        shape1.setAsBox(w / 2 / PPM / 2, h / PPM / 2);
 
         FixtureDef fixtureDef1 = new FixtureDef();
         fixtureDef1.shape = shape1;
@@ -107,7 +108,7 @@ public final class Box2DHelper {
         fixtureDef1.isSensor = true;
 
         PolygonShape shape2 = new PolygonShape();
-        shape2.setAsBox(w / PPM , h / 2 / PPM / 2);
+        shape2.setAsBox(w / PPM / 2, h / 2 / PPM / 2);
 
         FixtureDef fixtureDef2 = new FixtureDef();
         fixtureDef2.shape = shape2;

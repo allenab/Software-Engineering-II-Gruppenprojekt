@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
+import at.uni.utils.InputData;
+
 public abstract class GameObject {
 
     protected Vector2 position;
@@ -16,6 +18,7 @@ public abstract class GameObject {
     protected float healthPoints;
 
     public abstract void load(World world);
+    public abstract void handleInput(InputData data);
     public abstract void update(float deltatime);
     public abstract void render(SpriteBatch sb);
     public abstract void dispose();

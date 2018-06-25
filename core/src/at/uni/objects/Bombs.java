@@ -36,12 +36,10 @@ public class Bombs extends GameObject {
         this.world = world;
     }
 
-    /*
     @Override
     public void handleInput(InputData data) {
 
     }
-    */
 
     @Override
     public void update(float deltatime) {
