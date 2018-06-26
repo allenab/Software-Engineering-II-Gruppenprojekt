@@ -57,9 +57,9 @@ public final class Box2DHelper {
 //        vertices[10] = new Vector2(-55f , 0f);
 //        vertices[11] = new Vector2(0f , -27f);
         PolygonShape shape1 = new PolygonShape();
-        shape1.setAsBox(w / 2 / PPM / 2, h / PPM / 2);
+        shape1.setAsBox(w / 2 / PPM / 4, h / PPM / 2);
         PolygonShape shape2 = new PolygonShape();
-        shape2.setAsBox(w / PPM / 2, h / 2 / PPM / 2);
+        shape2.setAsBox(w / PPM / 2, h / 2 / PPM / 4);
 
         Body b = world.createBody(bodyDef);
         b.createFixture(shape1, 1.0f);

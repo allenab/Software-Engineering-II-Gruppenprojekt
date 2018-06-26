@@ -51,7 +51,7 @@ public class Player extends GameObject {
         this.name = name;
     }
 
-    public Player(World world, String name, float x, float y, Bombs bombs){
+    public Player(String name, float x, float y, Bombs bombs){
         this.texture = new Texture(name);
         this.bounds = new Rectangle(x, y, texture.getWidth(), texture.getHeight());
         this.world = world;
