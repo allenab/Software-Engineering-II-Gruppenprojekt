@@ -21,7 +21,7 @@ public class Application extends Game {
 	public static final int FPS = 60;
 	public static boolean musicEnabled = true;
 
-	public static Sound bgLoop = null;
+	private static Sound bgLoop = null;
 
 	public static final float STEP = 1f / (float) FPS;
 
@@ -43,6 +43,14 @@ public class Application extends Game {
 	}
 
 	public GameScreenManager getGameScreenManager() { return gameScreenManager; }
+
+	public static void setBgLoop(Sound bgLoop) {
+		Application.bgLoop = bgLoop;
+	}
+
+	public static Sound getBgLoop() {
+		return bgLoop;
+	}
 
 	@Override
 	public void create() {

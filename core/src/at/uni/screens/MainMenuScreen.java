@@ -142,4 +142,8 @@ public class MainMenuScreen extends AbstractScreen {
 
     }
 
+    @Override
+    public void dispose() {
+        Application.bgLoop.dispose();
+    }
 }
