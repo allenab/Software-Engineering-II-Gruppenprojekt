@@ -31,12 +31,12 @@ public class MainMenuScreen extends AbstractScreen {
     public MainMenuScreen(Application application) {
         super(application);
 
-        Application.bgLoop = Gdx.audio.newSound(Gdx.files.internal("sounds/yummie_shortBGloop.mp3"));
+        Application.setBgLoop(Gdx.audio.newSound(Gdx.files.internal("sounds/yummie_shortBGloop.mp3")));
     }
 
     @Override
     public void load() {
-        this.soundID = Application.bgLoop.loop();
+        this.soundID = Application.getBgLoop().loop();
 
         //application.getSpriteBatch().setProjectionMatrix(camera.combined);
 
@@ -124,7 +124,7 @@ public class MainMenuScreen extends AbstractScreen {
 
     @Override
     public void unload() {
-        Application.bgLoop.dispose();
+        Application.getBgLoop().dispose();
     }
 
     @Override
@@ -140,10 +140,5 @@ public class MainMenuScreen extends AbstractScreen {
     @Override
     public void render(SpriteBatch sb) {
 
-    }
-
-    @Override
-    public void dispose() {
-        Application.bgLoop.dispose();
     }
 }

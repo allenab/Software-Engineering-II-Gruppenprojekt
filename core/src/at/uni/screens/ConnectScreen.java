@@ -32,14 +32,14 @@ public class ConnectScreen extends AbstractScreen {
     public ConnectScreen(Application application) {
         super(application);
 
-        Application.bgLoop = Gdx.audio.newSound(Gdx.files.internal("sounds/yummie_shortBGloop.mp3"));
+        Application.setBgLoop(Gdx.audio.newSound(Gdx.files.internal("sounds/yummie_shortBGloop.mp3")));
 
     }
 
     @Override
     public void load() {
 
-        this.soundID = Application.bgLoop.loop();
+        this.soundID = Application.getBgLoop().loop();
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
@@ -98,51 +98,11 @@ public class ConnectScreen extends AbstractScreen {
         });
 
         stage.addActor(btnExit);
-
-        //creates the Connection button with the text, its position and the size
-
-        TextButton btnConnection = new TextButton("Connection!", skin);
-        btnConnection.setSize(180,33);
-        btnConnection.setPosition(350, 330);
-
-        btnConnection.addListener(new ClickListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                super.touchUp(event, x, y, pointer, button);
-                System.out.println("Connection!!");
-            }
-        });
-
-        stage.addActor(btnConnection);
-
-        super.show();
-    }
-
-    @Override
-    public void load() {
-
-        //application.getSpriteBatch().setProjectionMatrix(camera.combined);
-
-        Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
-
-        title = new Label("Connection!!", skin);
-        title.setPosition(Application.VIEWPORT_WIDTH / 2 - 100, Application.VIEWPORT_HEIGHT - 10);
-        stage.addActor(title);
-
-        Connection = new Label("Connection:", skin);
-        Connection.setPosition(45, 330);
-        stage.addActor(Connection);
-
-        EnterConection = new TextField("", skin);
-        EnterConection.setPosition(145, 330);
-        stage.addActor(EnterConection);
-
-        this.soundID = Application.bgLoop.loop();
     }
 
     @Override
     public void unload() {
-        Application.bgLoop.dispose();
+        Application.getBgLoop().dispose();
     }
 
     @Override
@@ -160,8 +120,4 @@ public class ConnectScreen extends AbstractScreen {
 
     }
 
-    @Override
-    public void dispose() {
-        Application.bgLoop.dispose();
-    }
 }

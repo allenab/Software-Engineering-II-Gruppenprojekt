@@ -33,14 +33,14 @@ public class LobbyScreen extends AbstractScreen {
     public LobbyScreen(Application application) {
         super(application);
 
-        Application.bgLoop = Gdx.audio.newSound(Gdx.files.internal("sounds/yummie_shortBGloop.mp3"));
-
+        Application.setBgLoop(Gdx.audio.newSound(Gdx.files.internal("sounds/yummie_shortBGloop.mp3")));
+        
     }
 
     @Override
     public void load() {
 
-        this.soundID = Application.bgLoop.loop();
+        this.soundID = Application.getBgLoop().loop();
 
         stage.clear();
 
@@ -130,7 +130,7 @@ public class LobbyScreen extends AbstractScreen {
 
     @Override
     public void unload() {
-        Application.bgLoop.dispose();
+        Application.getBgLoop().dispose();
         if(!application.isServer()){
             if(application.getClient().isConnected()) {
                 application.getClient().leave();

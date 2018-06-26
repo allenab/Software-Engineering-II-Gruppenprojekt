@@ -57,7 +57,6 @@ public class Player extends GameObject {
         this.world = world;
         this.bombs = bombs;
         setPosition(x - bounds.width / 2, y - bounds.height / 2);
-        load(world);
 
         this.health = 100;
 
@@ -89,24 +88,24 @@ public class Player extends GameObject {
         body.setLinearVelocity(0, 0);
 
         // Tastatur-Input Section - Markus
-        if(data.isKeyDown(InputData.Key.Forward)){
+        if(InputData.isKeyDown(InputData.Key.Forward)){
             body.applyLinearImpulse(new Vector2(0, 5), body.getWorldCenter(), true);
             facingDirection = 0;
         }
-        if(data.isKeyDown(InputData.Key.Backward)){
+        if(InputData.isKeyDown(InputData.Key.Backward)){
             body.applyLinearImpulse(new Vector2(0, -5), body.getWorldCenter(), true);
             facingDirection = 1;
         }
-        if(data.isKeyDown(InputData.Key.Left)){
+        if(InputData.isKeyDown(InputData.Key.Left)){
             body.applyLinearImpulse(new Vector2(-5, 0), body.getWorldCenter(), true);
             facingDirection = 2;
         }
-        if(data.isKeyDown(InputData.Key.Right)){
+        if(InputData.isKeyDown(InputData.Key.Right)){
             body.applyLinearImpulse(new Vector2(5, 0), body.getWorldCenter(), true);
             facingDirection = 3;
         }
 
-        if(data.isKeyPressed(InputData.Key.Space)){
+        if(InputData.isKeyPressed(InputData.Key.Space)){
             System.out.println("Direction: " + facingDirection);
             if (bombs.getBombs().size() < maximumBombs){
                 bombs.addBomb(position.x, position.y);

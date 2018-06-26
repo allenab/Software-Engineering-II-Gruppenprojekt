@@ -26,7 +26,7 @@ public class NewGameScreen extends AbstractScreen {
     public void load() {
 
         //creates the game start button with the text, its position and the size
-        this.soundID = Application.bgLoop.loop();
+        this.soundID = Application.getBgLoop().loop();
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
@@ -82,7 +82,7 @@ public class NewGameScreen extends AbstractScreen {
 
     @Override
     public void unload() {
-
+        Application.getBgLoop().dispose();
     }
 
     @Override
