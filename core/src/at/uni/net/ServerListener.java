@@ -3,9 +3,11 @@ package at.uni.net;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
+import at.uni.net.packets.request.DisconnectRequest;
 import at.uni.net.packets.request.JoinRequest;
 import at.uni.net.packets.request.KittenRequest;
 import at.uni.net.packets.request.MessageRequest;
+import at.uni.net.packets.response.DisconnectResponse;
 import at.uni.net.packets.response.JoinResponse;
 import at.uni.net.packets.response.KittenResponse;
 import at.uni.net.packets.response.MessageResponse;
@@ -79,6 +81,18 @@ public class ServerListener extends Listener {
             connection.sendTCP(response);*/
         } else if(object instanceof MessageResponse) {
             System.out.println("[Server] Message successfully send!");
+        } else if(object instanceof DisconnectRequest) {
+            DisconnectRequest request = (DisconnectRequest) object;
+            server.removeGameObject(request.id);
+
+            DisconnectResponse response = new DisconnectResponse();
+            response.isDisconnected = true;
+            connection.sendUDP(response);
+
+            KittenResponse r = new KittenResponse();
+            r.objects = server.getGameObjects();
+
+            server.getServer().sendToAllUDP(r);
         }
     }
 }

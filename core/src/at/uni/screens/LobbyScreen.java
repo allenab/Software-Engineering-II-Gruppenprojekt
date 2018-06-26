@@ -54,22 +54,6 @@ public class LobbyScreen extends AbstractScreen {
             lblPlayers = new Label("Players:", skin);
             lblPlayers.setPosition(45, 300);
             stage.addActor(lblPlayers);
-
-            //creates the Connection button with the text, its position and the size
-
-            TextButton btnConnection = new TextButton("Connect", skin);
-            btnConnection.setSize(180,33);
-            btnConnection.setPosition(350, 330);
-
-            btnConnection.addListener(new ClickListener() {
-                @Override
-                public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                    super.touchUp(event, x, y, pointer, button);
-                    System.out.println("Connection!!");
-                }
-            });
-
-            stage.addActor(btnConnection);
         }
 
         //creates the game start button with the text, its position and the size
@@ -110,7 +94,9 @@ public class LobbyScreen extends AbstractScreen {
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                     super.touchUp(event, x, y, pointer, button);
-                    //bgLoop.stop(soundID);
+
+                    application.getServer().startGame();
+
                     application.getGameScreenManager().setScreen(GameScreenManager.STATE.PLAY);
                 }
             });
@@ -128,6 +114,13 @@ public class LobbyScreen extends AbstractScreen {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
+
+                if(!application.isServer()){
+                    if(application.getClient().isConnected()) {
+                        application.getClient().leave();
+                    }
+                }
+
                 application.getGameScreenManager().setScreen(GameScreenManager.STATE.MAIN_MENU);
             }
         });
@@ -138,6 +131,11 @@ public class LobbyScreen extends AbstractScreen {
     @Override
     public void unload() {
         Application.bgLoop.dispose();
+        if(!application.isServer()){
+            if(application.getClient().isConnected()) {
+                application.getClient().leave();
+            }
+        }
         if(application.getServer() != null) {
             application.getServer().close();
         }
@@ -167,6 +165,10 @@ public class LobbyScreen extends AbstractScreen {
                 lobby += p.getName() + "\n";
             }
             lblPlayers.setText("Players:\n" + lobby);
+
+            if(application.getClient().isGameStarted()) {
+                application.getGameScreenManager().setScreen(GameScreenManager.STATE.PLAY);
+            }
         }
     }
 

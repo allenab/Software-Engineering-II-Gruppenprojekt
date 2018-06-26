@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import at.uni.net.packets.request.MessageRequest;
+import at.uni.net.packets.request.StartRequest;
 import at.uni.objects.GameObject;
 import at.uni.objects.Player;
 
@@ -67,6 +68,15 @@ public class KittenServer {
             players[i] = gameObjects.get(i);
         }
         return players;
+    }
+
+    public void removeGameObject(Integer i) {
+        gameObjects.remove(i);
+    }
+
+    public void startGame() {
+        StartRequest request = new StartRequest();
+        server.sendToAllUDP(request);
     }
 
     public void update(Integer i, Vector2 pos){

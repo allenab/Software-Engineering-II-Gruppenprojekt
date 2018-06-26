@@ -12,19 +12,19 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
+import at.uni.net.packets.request.DisconnectRequest;
 import at.uni.net.packets.request.JoinRequest;
 import at.uni.net.packets.request.KittenRequest;
 import at.uni.net.packets.request.MessageRequest;
+import at.uni.net.packets.request.StartRequest;
+import at.uni.net.packets.response.DisconnectResponse;
 import at.uni.net.packets.response.JoinResponse;
 import at.uni.net.packets.response.KittenResponse;
 import at.uni.net.packets.response.MessageResponse;
+import at.uni.net.packets.response.StartResponse;
 import at.uni.objects.Bomb;
 import at.uni.objects.GameObject;
 import at.uni.objects.Player;
-
-/**
- * Created by Dominik on 17.04.2018.
- */
 
 public class KryoUtil {
 
@@ -38,10 +38,14 @@ public class KryoUtil {
         kryo.register(MessageRequest.class);
         kryo.register(KittenRequest.class);
         kryo.register(JoinRequest.class);
+        kryo.register(DisconnectRequest.class);
+        kryo.register(StartRequest.class);
 
         kryo.register(MessageResponse.class);
         kryo.register(KittenResponse.class);
         kryo.register(JoinResponse.class);
+        kryo.register(DisconnectResponse.class);
+        kryo.register(StartResponse.class);
 
         kryo.register(GameObject[].class);
         kryo.register(Player.class);

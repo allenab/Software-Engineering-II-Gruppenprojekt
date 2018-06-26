@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import at.uni.net.packets.request.DisconnectRequest;
 import at.uni.net.packets.request.JoinRequest;
 import at.uni.net.packets.request.KittenRequest;
 import at.uni.net.packets.request.MessageRequest;
@@ -17,12 +18,14 @@ public class KittenClient {
     private Client client;
     private Integer playerId;
     private boolean connected;
+    private boolean gameStart;
     private List<GameObject> objects;
 
     public KittenClient(String host) throws IOException {
 
         playerId = null;
         connected = false;
+        gameStart = false;
 
         client = new Client();
         client.addListener(new ClientListener(this));
@@ -47,8 +50,8 @@ public class KittenClient {
         return connected;
     }
 
-    public void setConnected(){
-        this.connected = true;
+    public void setConnected(boolean connected){
+        this.connected = connected;
     }
 
     public List<GameObject> getObjects() {
@@ -72,7 +75,21 @@ public class KittenClient {
         client.sendTCP(request);
     }
 
+    public void startGame(boolean b){
+        this.gameStart = b;
+    }
+
+    public boolean isGameStarted() {
+        return this.gameStart;
+    }
+
     public void close() {
         client.close();
+    }
+
+    public void leave() {
+        DisconnectRequest request = new DisconnectRequest();
+        request.id = playerId;
+        client.sendTCP(request);
     }
 }
